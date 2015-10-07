@@ -15,6 +15,7 @@ public class Nagusia {
 			e.printStackTrace();
 		}
 		new Login();
+		//push probatzen
 	}
 
 }
