@@ -1,15 +1,4 @@
 package isad.winteriscoming.backend;
-
-public class Konexioa {
-	// cb.setDebugEnabled(true)
-    //.setOAuthConsumerKey("zgxDQpdlpONlRDZHaUVyzAKE0")
-   // .setOAuthConsumerSecret("Vm4hoxq8D0DpU7ag540LCN36w8ZzmgmcKNpWjw1iJxVPb7UJog");
-
-}
-/*PROBA KODEA
-
-https://xmeng.wordpress.com/2011/07/10/how-to-handle-sign-in-with-twitter-using-twitter4j/
-
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -26,7 +15,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
  
-public final class loginTest {
+public class Konexioa {
+	// cb.setDebugEnabled(true)
+    //.setOAuthConsumerKey("zgxDQpdlpONlRDZHaUVyzAKE0")
+   // .setOAuthConsumerSecret("Vm4hoxq8D0DpU7ag540LCN36w8ZzmgmcKNpWjw1iJxVPb7UJog");
+
+
+
+
+//https://xmeng.wordpress.com/2011/07/10/how-to-handle-sign-in-with-twitter-using-twitter4j/
  
     public static void main(String[] args) {
         
@@ -37,8 +34,8 @@ public final class loginTest {
          
         //the following is set without accesstoken- desktop client
         cb.setDebugEnabled(true)
-      .setOAuthConsumerKey("YOUR_CONSUMER_KEY_HERE")
-      .setOAuthConsumerSecret("YOUR_CONSUMER_SECRET_HERE");
+      .setOAuthConsumerKey("zgxDQpdlpONlRDZHaUVyzAKE0")
+      .setOAuthConsumerSecret("Vm4hoxq8D0DpU7ag540LCN36w8ZzmgmcKNpWjw1iJxVPb7UJog");
    
         try {
             TwitterFactory tf = new TwitterFactory(cb.build());
@@ -112,4 +109,3 @@ public final class loginTest {
         }
     }
 }
-*/
