@@ -11,4 +11,7 @@ public class Menua extends JMenuBar {
 	private JMenuItem txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak, mezuak, txioakBilatu,
 			bertxioakBilatu, gustukoakBilatu, zerrendakBilatu, mezuakBilatu, excel;
 
+	public Menua(){
+		
+	}
 }

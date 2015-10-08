@@ -96,5 +96,4 @@ public class Login extends JFrame implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 	}
-
 }

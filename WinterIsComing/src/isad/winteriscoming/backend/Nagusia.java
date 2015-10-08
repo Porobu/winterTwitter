@@ -12,10 +12,8 @@ public class Nagusia {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
 		}
 		new Login();
-		//push probatzen
 	}
 
 }
