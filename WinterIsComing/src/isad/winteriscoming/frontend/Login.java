@@ -58,6 +58,8 @@ public class Login extends JFrame implements KeyListener {
 		this.add(this.ok, BorderLayout.SOUTH);
 		this.setMinimumSize(new Dimension(220, 140));
 		this.setLocationRelativeTo(null);
+		//FIXME ESTO AQUI NO PINTA NADA
+		this.setJMenuBar(new Menua());
 		this.setVisible(true);
 		this.setResizable(false);
 		Login.gureLogin = this;

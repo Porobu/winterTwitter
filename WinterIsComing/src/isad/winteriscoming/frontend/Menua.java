@@ -36,18 +36,41 @@ public class Menua extends JMenuBar {
 		this.jaitsi.add(this.jarraitzaileak);
 		this.jaitsi.add(this.zerrendak);
 		this.jaitsi.add(this.mezuak);
+		this.add(this.jaitsi);
 	}
 
 	private void bilatuMenua() {
-
+		//TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		this.bilatu = new JMenu("Bilatu");
+		this.txioakBilatu = new JMenuItem("Txioak");
+		this.bertxioakBilatu = new JMenuItem("Bertxioak");
+		this.gustukoakBilatu = new JMenuItem("Gustukoak");
+		this.zerrendakBilatu = new JMenuItem("Zerrendak");
+		this.mezuakBilatu = new JMenuItem("Mezuak");
+		this.bilatu.add(this.txioakBilatu);
+		this.bilatu.add(this.bertxioakBilatu);
+		this.bilatu.add(this.gustukoakBilatu);
+		this.bilatu.add(this.zerrendakBilatu);
+		this.bilatu.add(this.mezuakBilatu);
+		this.add(this.bilatu);
 	}
 
 	private void esportatuMenua() {
-
+		//TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		this.esportatu = new JMenu("Esportatu");
+		this.excel = new JMenuItem("Excel");
+		this.esportatu.add(this.excel);
+		this.add(this.esportatu);
 	}
 
 	private void segurtasunKopiaMenua() {
-
+		//TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
+		this.kopiaEgin = new JMenuItem("Kopia Egin");
+		this.kopiaKargatu= new JMenuItem("Kopia Kargatu");
+		this.segurtasunKopia.add(this.kopiaEgin);
+		this.segurtasunKopia.add(this.kopiaKargatu);
+		this.add(this.segurtasunKopia);
 	}
 
 }
