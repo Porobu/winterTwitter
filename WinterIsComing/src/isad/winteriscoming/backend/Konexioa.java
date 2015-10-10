@@ -33,14 +33,14 @@ public class Konexioa {
         cb.setDebugEnabled(true)
       .setOAuthConsumerKey("zgxDQpdlpONlRDZHaUVyzAKE0")
       .setOAuthConsumerSecret("Vm4hoxq8D0DpU7ag540LCN36w8ZzmgmcKNpWjw1iJxVPb7UJog")
-      .setOAuthAccessToken("karkar")
-      .setOAuthAccessTokenSecret("korkor");
+      .setOAuthAccessToken(null)
+      .setOAuthAccessTokenSecret(null);
         
         //ziurtatu acces token/secret behar den moduan dagoela
         //ziurtatu consumer key/secret behar den moduan daudela
         //ziurtatu sistemaren erlojua sinkronizatuta dagoela
         
-        //hemen zerbait dago: http://twitter4j.org/en/code-examples.html
+        //hemen zerbait dago: http://org/en/code-examples.html
         
    
         try {
@@ -48,12 +48,11 @@ public class Konexioa {
             Twitter twitter = tf.getInstance();
              
             try {
-                System.out.println("-----");
  
                 // get request token.
                 // this will throw IllegalStateException if access token is already available
                 // this is oob, desktop client version
-                RequestToken requestToken = twitter.getOAuthRequestToken(); 
+                RequestToken requestToken = twitter.getOAuthRequestToken();
  
                 System.out.println("Got request token.");
                 System.out.println("Request token: " + requestToken.getToken());
