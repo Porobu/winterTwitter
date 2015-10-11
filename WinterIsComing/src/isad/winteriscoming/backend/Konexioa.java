@@ -10,10 +10,14 @@ import twitter4j.conf.Configuration;
 import twitter4j.media.ImageUpload;
 import twitter4j.media.ImageUploadFactory;
 import twitter4j.media.MediaProvider;
- 
+
+import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
  
 public class Konexioa {
 	// cb.setDebugEnabled(true)
@@ -67,9 +71,16 @@ public class Konexioa {
                 while (null == accessToken) {
                     System.out.println("Open the following URL and grant access to your account:");
                     System.out.println(requestToken.getAuthorizationURL());
+                    try {
+                        Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
+                    } catch (UnsupportedOperationException ignore) {
+                    } catch (IOException ignore) {
+                    } catch (URISyntaxException e) {
+                        throw new AssertionError(e);
+                    }
                     System.out.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
                     String pin = br.readLine();
-                
+                    //konparatu 
                     try {
                         if (pin.length() > 0) {
                             accessToken = twitter.getOAuthAccessToken(requestToken, pin);
@@ -87,7 +98,12 @@ public class Konexioa {
                 System.out.println("Got access token.");
                 System.out.println("Access token: " + accessToken.getToken());
                 System.out.println("Access token secret: " + accessToken.getTokenSecret());
-                 
+                //
+                cb.setOAuthAccessToken(accessToken.getToken());
+                cb.setOAuthAccessTokenSecret(accessToken.getTokenSecret());
+                System.out.println("Successfully stored access token to configuration Builder.");
+                System.exit(0);
+                //
             } catch (IllegalStateException ie) {
                 // access token is already available, or consumer key/secret is not set.
                 if (!twitter.getAuthorization().isEnabled()) {
@@ -95,10 +111,11 @@ public class Konexioa {
                     System.exit(-1);
                 }
             }
-             
-           Status status = twitter.updateStatus(testStatus);
- 
-           System.out.println("Successfully updated the status to [" + status.getText() + "].");
+           // beheko lerro biak komentatuta daude READ ONLY baimenekin 
+           // ezin delako twiterreko egoera eguneratu (WRITE)
+            
+           //Status status = twitter.updateStatus(testStatus);
+           //System.out.println("Successfully updated the status to [" + status.getText() + "].");
  
            System.out.println("ready exit");
              
