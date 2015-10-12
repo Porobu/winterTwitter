@@ -27,8 +27,6 @@ public class Konexioa {
 //https://xmeng.wordpress.com/2011/07/10/how-to-handle-sign-in-with-twitter-using-twitter4j/
  
     public static void main(String[] args) {
-        
-        String testStatus="Hello from twitter4j";
  
         ConfigurationBuilder cb = new ConfigurationBuilder();
          
