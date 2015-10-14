@@ -20,42 +20,35 @@ import isad.winteriscoming.externals.SpringUtilities;
 public class Login extends JFrame implements KeyListener {
 
 	private static final long serialVersionUID = -5514346274613273871L;
-	private JLabel erabiltzailea, pasahitza;
-	private JTextField erabiltzaileaField;
-	private JPasswordField pasahitzaField;
+	private JLabel pin;
+	private JTextField pinField;
 	private JPanel gurePanela;
 	private JButton ok;
 	private JCheckBox gorde;
 	private static Login gureLogin;
 	private boolean datuakgorde;
-	private String erabiltzaileaString, pasahitzaString;
+	private String pinString;
 
 	public Login() {
 		this.setLayout(new BorderLayout());
 		this.gurePanela = new JPanel(new SpringLayout());
 		this.setTitle("Login");
-		String[] izenak = { "Erabiltzailea:", "Pasahitza:" };
-		this.erabiltzailea = new JLabel(izenak[0], SwingConstants.TRAILING);
-		this.gurePanela.add(erabiltzailea);
-		this.erabiltzaileaField = new JTextField(15);
-		this.erabiltzailea.setLabelFor(erabiltzaileaField);
-		this.gurePanela.add(erabiltzaileaField);
-		this.pasahitza = new JLabel(izenak[1], SwingConstants.TRAILING);
-		this.gurePanela.add(pasahitza);
-		this.pasahitzaField = new JPasswordField(15);
-		this.pasahitza.setLabelFor(pasahitzaField);
-		this.gurePanela.add(pasahitzaField);
-		this.gorde = new JCheckBox("Erabiltzailea gorde");
-		SpringUtilities.makeCompactGrid(this.gurePanela, 2, 2, 6, 6, 6, 6);
+		pinString = "PIN: ";
+		this.pin = new JLabel(pinString, SwingConstants.TRAILING);
+		this.gurePanela.add(pin);
+		this.pinField = new JTextField(7);
+		this.pin.setLabelFor(pinField);
+		this.gurePanela.add(pinField);
+		this.gorde = new JCheckBox("PINa gorde");
+		SpringUtilities.makeCompactGrid(this.gurePanela, 1, 2, 6, 6, 6, 6);
 		this.add(this.gurePanela, BorderLayout.NORTH);
 		this.add(this.gorde, BorderLayout.CENTER);
 		this.ok = new JButton("Sartu");
 		this.ok.addActionListener(gureAE -> this.datuakGorde());
 		this.ok.addKeyListener(this);
-		this.pasahitzaField.addKeyListener(this);
-		this.erabiltzaileaField.addKeyListener(this);
+		this.pinField.addKeyListener(this);
 		this.add(this.ok, BorderLayout.SOUTH);
-		this.setMinimumSize(new Dimension(220, 140));
+		this.setMinimumSize(new Dimension(220, 100));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setResizable(false);
@@ -66,17 +59,13 @@ public class Login extends JFrame implements KeyListener {
 		return Login.gureLogin;
 	}
 
-	public String getErabiltzailea() {
-		return this.erabiltzaileaString;
+	public String getPIN() {
+		return this.pinString;
 	}
 
-	public String getPasahitza() {
-		return this.pasahitzaString;
-	}
 
 	private void datuakGorde() {
-		this.erabiltzaileaString = this.erabiltzaileaField.getText();
-		this.pasahitzaString = new String(this.pasahitzaField.getPassword());
+		this.pinString = new String(this.pinField.getText());
 		this.dispose();
 	}
 
