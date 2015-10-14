@@ -48,7 +48,7 @@ public class Login extends JFrame implements KeyListener {
 		this.ok.addKeyListener(this);
 		this.pinField.addKeyListener(this);
 		this.add(this.ok, BorderLayout.SOUTH);
-		this.setMinimumSize(new Dimension(220, 100));
+		this.setMinimumSize(new Dimension(200, 100));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setResizable(false);
