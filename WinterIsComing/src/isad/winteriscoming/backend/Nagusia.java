@@ -13,7 +13,7 @@ public class Nagusia {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 		}
-		new Login();
+		Konexioa.logeatu();
 	}
 
 }
