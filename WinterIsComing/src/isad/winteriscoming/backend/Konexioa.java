@@ -18,6 +18,7 @@ import java.net.URISyntaxException;
 import java.util.Properties;
 
 import isad.winteriscoming.frontend.Login;
+import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 
 public class Konexioa {
 	private Login gureLogin;
@@ -45,7 +46,7 @@ public class Konexioa {
 		return gureKonexioa != null ? gureKonexioa : (gureKonexioa = new Konexioa());
 	}
 
-	public void logeatu() throws TwitterException {
+	public void logeatu() {
 		prop = new Properties();
 
 		try {
@@ -58,8 +59,7 @@ public class Konexioa {
 			os = new FileOutputStream("WinterIsComing.properties");
 			prop.store(os, "WinterIsComing.properties");
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			System.exit(-1);
+			throw new SentitzenNaizException("Ezin da fitxategia erabili");
 		} finally {
 			if (is != null) {
 				try {
@@ -76,14 +76,18 @@ public class Konexioa {
 		}
 		twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthAccessToken(null);
-		requestToken = twitter.getOAuthRequestToken();
+		try {
+			requestToken = twitter.getOAuthRequestToken();
+		} catch (TwitterException e1) {
+			throw new SentitzenNaizException("Ez da token-a lortu");
+		}
 		accessToken = null;
 		try {
 			Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
 		} catch (UnsupportedOperationException ignore) {
 		} catch (IOException ignore) {
 		} catch (URISyntaxException e) {
-			throw new AssertionError(e);
+			throw new SentitzenNaizException("Ezin da web gunea ireki");
 		}
 		gureLogin = new Login();
 	}
@@ -98,9 +102,9 @@ public class Konexioa {
 			}
 		} catch (TwitterException te) {
 			if (401 == te.getStatusCode()) {
-				System.out.println("Unable to get the access token.");
+				throw new SentitzenNaizException("Ezin da token-a lortu (401 errorea)");
 			} else {
-				te.printStackTrace();
+				throw new SentitzenNaizException("Ezin da token-a lortu");
 			}
 		}
 		try {
@@ -110,11 +114,8 @@ public class Konexioa {
 			prop.store(os, "twitter4j.properties");
 			os.close();
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			System.exit(-1);
-		} finally
-
-		{
+			throw new SentitzenNaizException("Ezin da fitxategia aldatu");
+		} finally {
 			if (os != null) {
 				try {
 					os.close();

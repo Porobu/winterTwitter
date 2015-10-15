@@ -19,7 +19,7 @@ public class Menua extends JMenuBar {
 	}
 
 	private void jaitsiMenua() {
-		//TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.jaitsi = new JMenu("Jaitsi");
 		this.txioak = new JMenuItem("Txioak");
 		this.bertxioak = new JMenuItem("Bertxioak");
@@ -40,7 +40,7 @@ public class Menua extends JMenuBar {
 	}
 
 	private void bilatuMenua() {
-		//TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.bilatu = new JMenu("Bilatu");
 		this.txioakBilatu = new JMenuItem("Txioak");
 		this.bertxioakBilatu = new JMenuItem("Bertxioak");
@@ -56,7 +56,7 @@ public class Menua extends JMenuBar {
 	}
 
 	private void esportatuMenua() {
-		//TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.esportatu = new JMenu("Esportatu");
 		this.excel = new JMenuItem("Excel");
 		this.esportatu.add(this.excel);
@@ -64,10 +64,10 @@ public class Menua extends JMenuBar {
 	}
 
 	private void segurtasunKopiaMenua() {
-		//TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
 		this.kopiaEgin = new JMenuItem("Kopia Egin");
-		this.kopiaKargatu= new JMenuItem("Kopia Kargatu");
+		this.kopiaKargatu = new JMenuItem("Kopia Kargatu");
 		this.segurtasunKopia.add(this.kopiaEgin);
 		this.segurtasunKopia.add(this.kopiaKargatu);
 		this.add(this.segurtasunKopia);
