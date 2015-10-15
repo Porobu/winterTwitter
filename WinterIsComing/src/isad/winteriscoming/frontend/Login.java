@@ -26,7 +26,7 @@ public class Login extends JFrame implements KeyListener {
 	private JButton ok;
 	private JCheckBox gorde;
 	private static Login gureLogin;
-	// private boolean datuakgorde;
+	private boolean tokenakGorde;
 	private String pinString;
 
 	public Login() {
