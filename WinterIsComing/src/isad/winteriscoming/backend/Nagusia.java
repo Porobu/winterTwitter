@@ -3,7 +3,6 @@ package isad.winteriscoming.backend;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import isad.winteriscoming.frontend.Login;
 import twitter4j.TwitterException;
 
 public class Nagusia {
@@ -14,7 +13,7 @@ public class Nagusia {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 		}
-		Konexioa.logeatu();
+		Konexioa.getKonexioa().logeatu();
 	}
 
 }

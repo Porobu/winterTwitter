@@ -1,25 +1,17 @@
 package isad.winteriscoming.backend;
 
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-import twitter4j.conf.ConfigurationBuilder;
-import twitter4j.conf.Configuration;
-import twitter4j.media.ImageUpload;
-import twitter4j.media.ImageUploadFactory;
-import twitter4j.media.MediaProvider;
 
 import java.awt.Desktop;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,17 +20,32 @@ import java.util.Properties;
 import isad.winteriscoming.frontend.Login;
 
 public class Konexioa {
-	static Login gureLogin;
-	static AccessToken accessToken;
-	static Twitter twitter;
-	static RequestToken requestToken;
-	static Properties prop;
-	static InputStream is = null;
-	static OutputStream os = null;
-	static File file = new File("WinterIsComing.properties");
+	private Login gureLogin;
+	private AccessToken accessToken;
+	private Twitter twitter;
+	private RequestToken requestToken;
+	private Properties prop;
+	private InputStream is = null;
+	private OutputStream os = null;
+	private File file = new File("WinterIsComing.properties");
+	private static Konexioa gureKonexioa;
 
-	public static void logeatu() throws TwitterException {
+	private Konexioa() {
+		gureLogin = null;
+		accessToken = null;
+		twitter = null;
+		requestToken = null;
+		prop = null;
+		is = null;
+		os = null;
+		file = new File("WinterIsComing.properties");
+	}
 
+	public static Konexioa getKonexioa() {
+		return gureKonexioa != null ? gureKonexioa : (gureKonexioa = new Konexioa());
+	}
+
+	public void logeatu() throws TwitterException {
 		prop = new Properties();
 
 		try {
@@ -67,48 +74,22 @@ public class Konexioa {
 				}
 			}
 		}
-
 		twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthAccessToken(null);
 		requestToken = twitter.getOAuthRequestToken();
-		// System.out.println("Got request token.");
-		// System.out.println("Request token: " + requestToken.getToken());
-		// System.out.println("Request token secret: " +
-		// requestToken.getTokenSecret());
 		accessToken = null;
-
-		
-			// System.out.println("Open the following URL and grant access
-			// to your account:");
-			// System.out.println(requestToken.getAuthorizationURL());
-			try {
-				Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
-			} catch (UnsupportedOperationException ignore) {
-			} catch (IOException ignore) {
-			} catch (URISyntaxException e) {
-				throw new AssertionError(e);
-			}
-
-			// unai zuretzat:
-
-			// programie hemetik pasetan danien leiho bat zabalduko da (login)
-			// hor erabiltzailiek PIN-e sartu biher deu ta OK emon,
-			// zuk lortu biher dozune da erabiltzailiek OK-ri emoten dotzonien
-			// PIN-e hartzie da ta hemen beien segitzen dan kodigoan sartzie,
-			// hor beien dauen "String pin" variable moduen
-
-			// hori loru ta gero twitterrera bidan moduen konektatu dala
-			// probatu biher dogu, "test" antzeko bat ein biher dogu, txikitxue
-
-			// horrekaz bi gauzakaz sprint-e finikiteta egongo zan
-
-			gureLogin = new Login();
-		
+		try {
+			Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
+		} catch (UnsupportedOperationException ignore) {
+		} catch (IOException ignore) {
+		} catch (URISyntaxException e) {
+			throw new AssertionError(e);
+		}
+		gureLogin = new Login();
 	}
 
-	public static void metodoBerria() {
+	public void tokenaLortu() {
 		String pin = gureLogin.getPIN();
-		// hau finikitatu
 		try {
 			if (pin.length() > 0) {
 				accessToken = twitter.getOAuthAccessToken(requestToken, pin);
@@ -122,21 +103,13 @@ public class Konexioa {
 				te.printStackTrace();
 			}
 		}
-
-		// hemetik segidu
-		try
-
-		{
+		try {
 			prop.setProperty("oauth.accessToken", accessToken.getToken());
 			prop.setProperty("oauth.accessTokenSecret", accessToken.getTokenSecret());
 			os = new FileOutputStream(file);
 			prop.store(os, "twitter4j.properties");
 			os.close();
-		} catch (
-
-		IOException ioe)
-
-		{
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			System.exit(-1);
 		} finally
@@ -149,7 +122,5 @@ public class Konexioa {
 				}
 			}
 		}
-		
-		//System.exit(0);
 	}
 }

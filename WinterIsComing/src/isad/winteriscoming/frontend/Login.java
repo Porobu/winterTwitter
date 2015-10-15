@@ -10,7 +10,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -27,7 +26,7 @@ public class Login extends JFrame implements KeyListener {
 	private JButton ok;
 	private JCheckBox gorde;
 	private static Login gureLogin;
-	private boolean datuakgorde;
+	// private boolean datuakgorde;
 	private String pinString;
 
 	public Login() {
@@ -67,7 +66,7 @@ public class Login extends JFrame implements KeyListener {
 	private void datuakGorde() {
 		this.pinString = new String(this.pinField.getText());
 		this.setVisible(false);
-		Konexioa.metodoBerria();
+		Konexioa.getKonexioa().tokenaLortu();
 	}
 
 	@Override
