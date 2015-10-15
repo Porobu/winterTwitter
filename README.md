@@ -1,13 +1,13 @@
 # winterTwitter
 Winter is Coming - ISAD 15 - 16
 
-GARRANTZITSUA!!!  Next step:
-login-ean interfazean sartzen diren datuak oauth-era pasatu.
+2. Sprint-a amaituta
 
-bukatzeko sprint 1:
 
-login-ean interfazean sartzen diren datuak oauth-era pasatu. EGINDA
+3. Sprint-a, datorren ostegunerako:
 
-oauth (twitter-era sartu). EGINDA
+- Datu-Basearen diseinua egin (3 p.)   Unai
 
-twitter-era konektatu dela konprobatu(test bat).
+- Aplikazioaren interfaze grafiko basikoa (4 p.) SS
+
+- Aplikazioaren funtzionalitate guztien inplementazio basikoa (3 p.) SP
