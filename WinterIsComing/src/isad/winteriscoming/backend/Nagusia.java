@@ -4,16 +4,17 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import isad.winteriscoming.frontend.Login;
+import twitter4j.TwitterException;
 
 public class Nagusia {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws TwitterException {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 		}
-		new Login();
+		Konexioa.logeatu();
 	}
 
 }

@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import isad.winteriscoming.backend.Konexioa;
 import isad.winteriscoming.externals.SpringUtilities;
 
 public class Login extends JFrame implements KeyListener {
@@ -63,10 +64,10 @@ public class Login extends JFrame implements KeyListener {
 		return this.pinString;
 	}
 
-
 	private void datuakGorde() {
 		this.pinString = new String(this.pinField.getText());
-		this.dispose();
+		this.setVisible(false);
+		Konexioa.metodoBerria();
 	}
 
 	@Override
