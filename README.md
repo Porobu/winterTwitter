@@ -6,8 +6,8 @@ login-ean interfazean sartzen diren datuak oauth-era pasatu.
 
 bukatzeko sprint 1:
 
-login-ean interfazean sartzen diren datuak oauth-era pasatu.
+login-ean interfazean sartzen diren datuak oauth-era pasatu. EGINDA
 
-oauth (twitter-era sartu). 1/2 eginda
+oauth (twitter-era sartu). EGINDA
 
 twitter-era konektatu dela konprobatu(test bat).
