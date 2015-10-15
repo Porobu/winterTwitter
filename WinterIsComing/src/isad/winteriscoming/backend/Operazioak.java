@@ -12,6 +12,7 @@ public class Operazioak {
 	public static void timelineErakutsi() {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
+			// aqui peta
 			User user = twitter.verifyCredentials();
 			List<Status> statuses = twitter.getHomeTimeline();
 			System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");

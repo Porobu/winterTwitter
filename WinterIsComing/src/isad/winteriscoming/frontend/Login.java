@@ -15,6 +15,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import isad.winteriscoming.backend.Konexioa;
+import isad.winteriscoming.backend.Operazioak;
 import isad.winteriscoming.externals.SpringUtilities;
 
 public class Login extends JFrame implements KeyListener {
@@ -67,6 +68,7 @@ public class Login extends JFrame implements KeyListener {
 		this.pinString = new String(this.pinField.getText());
 		this.setVisible(false);
 		Konexioa.getKonexioa().tokenaLortu();
+		Operazioak.timelineErakutsi();
 	}
 
 	@Override

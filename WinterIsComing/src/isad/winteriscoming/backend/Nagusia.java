@@ -12,6 +12,5 @@ public class Nagusia {
 				| UnsupportedLookAndFeelException e) {
 		}
 		Konexioa.getKonexioa().logeatu();
-		Operazioak.timelineErakutsi();
 	}
 }
