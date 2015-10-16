@@ -1,5 +1,20 @@
 package isad.winteriscoming.backend;
 
+import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.swing.JFrame;
+
+import isad.winteriscoming.frontend.Login;
+import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -7,27 +22,6 @@ import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
-
-import java.awt.BorderLayout;
-import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Properties;
-
-import javax.swing.JFrame;
-
-import isad.winteriscoming.frontend.Login;
-import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 
 public class Konexioa {
 	private Login gureLogin;
