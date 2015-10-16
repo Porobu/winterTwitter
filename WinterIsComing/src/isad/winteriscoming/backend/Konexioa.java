@@ -34,10 +34,6 @@ public class Konexioa {
 	private AccessToken accessToken;
 	private Twitter twitter;
 	private RequestToken requestToken;
-	private Properties prop;
-	private InputStream is = null;
-	private OutputStream os = null;
-	// private File file = new File("WinterIsComing.properties");
 	private static Konexioa gureKonexioa;
 
 	private Konexioa() {
@@ -49,13 +45,7 @@ public class Konexioa {
 		Configuration configuration = cb.build();
 		TwitterFactory factory = new TwitterFactory(configuration);
 		twitter = factory.getInstance();
-		//twitter = TwitterFactory.getSingleton();
-		//twitter.setOAuthConsumer(null, null);
-		//twitter.setOAuthConsumer("zgxDQpdlpONlRDZHaUVyzAKE0", "Vm4hoxq8D0DpU7ag540LCN36w8ZzmgmcKNpWjw1iJxVPb7UJog");
 		requestToken = null;
-		prop = null;
-		is = null;
-		os = null;
 	}
 
 	public static Konexioa getKonexioa() {
@@ -144,9 +134,5 @@ public class Konexioa {
 
 	public Twitter getTwitter() {
 		return twitter;
-	}
-
-	private static void storeAccessToken() {
-
 	}
 }
