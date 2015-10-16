@@ -13,5 +13,10 @@
 	<classpathentry kind="lib" path="Twitter4J/twitter4j-stream-4.0.4.jar"/>
 	<classpathentry kind="lib" path="commons-lang3-3.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="hsqldb.jar"/>
+	<classpathentry kind="lib" path="jackcess-2.1.2.jar"/>
+	<classpathentry kind="lib" path="ucanaccess-3.0.1.jar"/>
+	<classpathentry kind="lib" path="commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
