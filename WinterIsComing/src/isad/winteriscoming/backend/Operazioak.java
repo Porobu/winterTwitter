@@ -89,11 +89,11 @@ public class Operazioak {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
-			List<Status> retweets = twitter.getMentionsTimeline();
+			List<Status> mentions = twitter.getMentionsTimeline();
 			System.out.println("Showing @" + user.getScreenName() + "'s mentions.");
-			for (Status retweet : retweets) {
-				if (retweet.getText().startsWith("RT @"))
-				System.out.println("@" + retweet.getUser().getScreenName() + " - " + retweet.getText());
+			for (Status mention : mentions) {
+				if (mention.getText().startsWith("RT @"))
+				System.out.println("@" + mention.getUser().getScreenName() + " - " + mention.getText());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
