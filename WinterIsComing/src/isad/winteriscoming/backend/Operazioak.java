@@ -2,12 +2,15 @@ package isad.winteriscoming.backend;
 
 import java.util.List;
 
+import twitter4j.DirectMessage;
 import twitter4j.IDs;
+import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.UserList;
 
 public class Operazioak {
 	
@@ -103,18 +106,17 @@ public class Operazioak {
 	}
 	
 	public static void jarraitzaileakErakutsi() {
-		//TODO ID-ak izenagaitik aldatu
+		//eginda eta badabil
 		try {
-            Twitter twitter = new TwitterFactory().getInstance();
+			Twitter twitter = Konexioa.getKonexioa().getTwitter();
+            User us = twitter.verifyCredentials();
             long cursor = -1;
-            IDs ids;
-            System.out.println("Listing followers's ids.");
-            do {
-                ids = twitter.getFollowersIDs(cursor);
-                for (long id : ids.getIDs()) {
-                    System.out.println(id);
-                }
-            } while ((cursor = ids.getNextCursor()) != 0);
+            List<User> userList;
+            System.out.println("Listing followers:");
+            userList= twitter.getFollowersList(us.getId(), cursor);
+            for (User user : userList) {
+                System.out.println(twitter.showUser(user.getId()).getName());
+            }
             System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();
@@ -124,18 +126,17 @@ public class Operazioak {
 	}
 	
 	public static void jarraituakErakutsi() {
-		//TODO ID-ak izenagaitik aldatu
+		//eginda eta badabil
 		try {
-            Twitter twitter = new TwitterFactory().getInstance();
+			Twitter twitter = Konexioa.getKonexioa().getTwitter();
+            User us = twitter.verifyCredentials();
             long cursor = -1;
-            IDs ids;
-            System.out.println("Listing followers's ids.");
-            do {
-                ids = twitter.getFriendsIDs(cursor);
-                for (long id : ids.getIDs()) {
-                    System.out.println(id);
-                }
-            } while ((cursor = ids.getNextCursor()) != 0);
+            List<User> userList;
+            System.out.println("Listing followers:");
+            userList= twitter.getFriendsList(us.getId(), cursor);
+            for (User user : userList) {
+                System.out.println(twitter.showUser(user.getId()).getName());
+            }
             System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();
@@ -145,15 +146,14 @@ public class Operazioak {
 	}
 	
 	public static void zerrendakErakutsi() {
-		//TODO hau igual
+		//TODO hau amaitzeke
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
-			List<Status> statuses = twitter.getHomeTimeline();
-			System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");
-			for (Status status : statuses) {
-				System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-			}
+			UserList list = twitter.showUserList(user.getId());
+			System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
+                    + list.getDescription() + ", slug:" + list.getSlug() + "");
+			System.exit(0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
@@ -162,24 +162,30 @@ public class Operazioak {
 	}
 	
 	public static void mezuakErakutsi() {
-		//TODO hau =
-		try {
-			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User user = twitter.verifyCredentials();
-			List<Status> statuses = twitter.getHomeTimeline();
-			System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");
-			for (Status status : statuses) {
-				System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-			}
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to get timeline: " + te.getMessage());
-			System.exit(-1);
-		}
+		//TODO hau amaitzeke
+		Twitter twitter = Konexioa.getKonexioa().getTwitter();
+        try {
+            Paging paging = new Paging(1);
+            List<DirectMessage> messages;
+            do {
+                messages = twitter.getDirectMessages(paging);
+                for (DirectMessage message : messages) {
+                    System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
+                            + message.getText());
+                }
+                paging.setPage(paging.getPage() + 1);
+            } while (messages.size() > 0 && paging.getPage() < 10);
+            System.out.println("done.");
+            System.exit(0);
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to get messages: " + te.getMessage());
+            System.exit(-1);
+        }
 	}
 	
 	public static void bilatuTxioetan(String st) {
-		//TODO hau ondo begiratu
+		//TODO hau ondo begiratu, azkenerako utzi, zailena da
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();

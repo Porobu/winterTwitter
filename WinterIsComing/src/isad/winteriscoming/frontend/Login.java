@@ -73,9 +73,9 @@ public class Login extends JFrame implements KeyListener {
 		//Operazioak.tweetakErakutsi();
 		//Operazioak.retweetakErakutsi();
 		//Operazioak.mentzioakErakutsi();
-		Operazioak.jarraitzaileakErakutsi();
-		//Operazioak.jarraituakErakutsi();;
-		//Operazioak.zerrendakErakutsi();
+		//Operazioak.jarraitzaileakErakutsi();
+		//Operazioak.jarraituakErakutsi();
+		Operazioak.zerrendakErakutsi();
 		//Operazioak.mezuakErakutsi();
 		//Operazioak.bilatuTxioetan("egiteke");
 	}
