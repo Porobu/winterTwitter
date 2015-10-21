@@ -1,5 +1,20 @@
 package isad.winteriscoming.backend;
 
+import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.swing.JFrame;
+
+import isad.winteriscoming.frontend.Login;
+import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -8,36 +23,11 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-import java.awt.BorderLayout;
-import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Properties;
-
-import javax.swing.JFrame;
-
-import isad.winteriscoming.frontend.Login;
-import isad.winteriscoming.salbuespenak.SentitzenNaizException;
-
 public class Konexioa {
 	private Login gureLogin;
 	private AccessToken accessToken;
 	private Twitter twitter;
 	private RequestToken requestToken;
-	private Properties prop;
-	private InputStream is = null;
-	private OutputStream os = null;
-	// private File file = new File("WinterIsComing.properties");
 	private static Konexioa gureKonexioa;
 
 	private Konexioa() {
@@ -50,9 +40,6 @@ public class Konexioa {
 		TwitterFactory factory = new TwitterFactory(configuration);
 		twitter = factory.getInstance();
 		requestToken = null;
-		prop = null;
-		is = null;
-		os = null;
 	}
 
 	public static Konexioa getKonexioa() {
@@ -138,9 +125,5 @@ public class Konexioa {
 
 	public Twitter getTwitter() {
 		return twitter;
-	}
-
-	private static void storeAccessToken() {
-
 	}
 }
