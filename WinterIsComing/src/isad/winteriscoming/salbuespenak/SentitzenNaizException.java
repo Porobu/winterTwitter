@@ -23,9 +23,15 @@ public class SentitzenNaizException extends RuntimeException {
 			gurePW.close();
 		} catch (FileNotFoundException sentitzenNaiz) {
 		}
-		JOptionPane.showMessageDialog(null,
-				gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
-						+ "\nStack trace " + System.getProperty("user.home") + "/SentitzenNaiz.txt" + " gorde da.",
-				"SENTITZEN NAIZ BAINA ERROREA!!!!!", JOptionPane.ERROR_MESSAGE);
-	}
+		String gureString = System.getProperty("os.name");
+		if (gureString.contains("win") || gureString.contains("Win"))
+			JOptionPane.showMessageDialog(null,
+					gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
+							+ "\nStack trace " + System.getProperty("user.home") + "\\SentitzenNaiz.txt" + " gorde da.",
+					"SENTITZEN NAIZ BAINA ERROREA!!!!!", JOptionPane.ERROR_MESSAGE);
+		else
+			JOptionPane.showMessageDialog(null,
+					gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
+							+ "\nStack trace " + System.getProperty("user.home") + "/SentitzenNaiz.txt" + " gorde da.",
+					"SENTITZEN NAIZ BAINA ERROREA!!!!!", JOptionPane.ERROR_MESSAGE);	}
 }
