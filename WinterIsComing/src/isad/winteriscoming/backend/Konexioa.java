@@ -49,9 +49,6 @@ public class Konexioa {
 		Configuration configuration = cb.build();
 		TwitterFactory factory = new TwitterFactory(configuration);
 		twitter = factory.getInstance();
-		//twitter = TwitterFactory.getSingleton();
-		//twitter.setOAuthConsumer(null, null);
-		//twitter.setOAuthConsumer("zgxDQpdlpONlRDZHaUVyzAKE0", "Vm4hoxq8D0DpU7ag540LCN36w8ZzmgmcKNpWjw1iJxVPb7UJog");
 		requestToken = null;
 		prop = null;
 		is = null;
@@ -130,9 +127,6 @@ public class Konexioa {
 				accessToken = twitter.getOAuthAccessToken(requestToken);
 			}
 			twitter.setOAuthAccessToken(accessToken);
-			JFrame bentanita = new JFrame();
-			bentanita.setLayout(new BorderLayout());
-			bentanita.setTitle("Honarte badabil");
 		} catch (TwitterException te) {
 			if (401 == te.getStatusCode()) {
 				throw new SentitzenNaizException("Ezin da token-a lortu (401 errorea)");

@@ -68,7 +68,16 @@ public class Login extends JFrame implements KeyListener {
 		this.pinString = new String(this.pinField.getText());
 		this.setVisible(false);
 		Konexioa.getKonexioa().tokenaLortu();
-		Operazioak.timelineErakutsi();
+		//Operazioak.timelineErakutsi();
+		//Operazioak.gustokoakErakutsi();
+		//Operazioak.tweetakErakutsi();
+		//Operazioak.retweetakErakutsi();
+		//Operazioak.mentzioakErakutsi();
+		Operazioak.jarraitzaileakErakutsi();
+		//Operazioak.jarraituakErakutsi();;
+		//Operazioak.zerrendakErakutsi();
+		//Operazioak.mezuakErakutsi();
+		//Operazioak.bilatuTxioetan("egiteke");
 	}
 
 	@Override
