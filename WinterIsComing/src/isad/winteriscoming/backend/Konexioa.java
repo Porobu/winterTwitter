@@ -1,6 +1,5 @@
 package isad.winteriscoming.backend;
 
-import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,8 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import javax.swing.JFrame;
 
 import isad.winteriscoming.frontend.Login;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
