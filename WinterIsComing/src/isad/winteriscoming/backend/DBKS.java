@@ -45,7 +45,6 @@ public class DBKS {
 			throw new SentitzenNaizException("Driverra ez da aurkitu");
 		}
 		try {
-
 			String konexioaString = UcanaccessDriver.URL_PREFIX + path;
 			this.konexioa = DriverManager.getConnection(konexioaString + ";Openexclusive=true", "", "");
 		} catch (SQLException gureSalbuespena) {
@@ -53,29 +52,27 @@ public class DBKS {
 		}
 
 	}
-	
-/*
-	public void gehituBezeroa(String izena, int id, String helbidea, int telefonoa) {
-		try {
-			Statement st = this.konexioa.createStatement();
-			st.execute("INSERT INTO Bezeroa (Id,Izena,Helbidea,Telefonoa) VALUES( " + id + ",'" + izena + "','"
-					+ helbidea + "'," + telefonoa + ")");
-			st.close();
-		} catch (Exception salbuespena) {
-			throw new SentitzenNaizException(izena + " bezeroa " + id + " id-arekin datu basearen barruan dago jada.");
-		}
-	}
 
-	public void gehituPelikula(String izenburua, int id, int urtea, String deskribapena) {
-		try {
-			Statement st = this.konexioa.createStatement();
-			st.execute("INSERT INTO Pelikula (Id,Izenburua,KaleratzeUrtea,Deskribapena) VALUES( " + id + ",'"
-					+ izenburua + "'," + urtea + ",'" + deskribapena + "')");
-			st.close();
-		} catch (Exception salbuespena) {
-			throw new SentitzenNaizException(
-					izenburua + " pelikula " + id + " id-arekin datu basearen barruan dago jada.");
-		}
+	public void datuBaseaEraiki() {
+		// DriverManager.getConnection("jdbc:ucanaccess://"+
+		// database.getAbsolutePath()+";newdatabaseversion=V2010");
 	}
-	*/
+	/*
+	 * public void gehituBezeroa(String izena, int id, String helbidea, int
+	 * telefonoa) { try { Statement st = this.konexioa.createStatement();
+	 * st.execute("INSERT INTO Bezeroa (Id,Izena,Helbidea,Telefonoa) VALUES( " +
+	 * id + ",'" + izena + "','" + helbidea + "'," + telefonoa + ")");
+	 * st.close(); } catch (Exception salbuespena) { throw new
+	 * SentitzenNaizException(izena + " bezeroa " + id +
+	 * " id-arekin datu basearen barruan dago jada."); } }
+	 * 
+	 * public void gehituPelikula(String izenburua, int id, int urtea, String
+	 * deskribapena) { try { Statement st = this.konexioa.createStatement();
+	 * st.execute(
+	 * "INSERT INTO Pelikula (Id,Izenburua,KaleratzeUrtea,Deskribapena) VALUES( "
+	 * + id + ",'" + izenburua + "'," + urtea + ",'" + deskribapena + "')");
+	 * st.close(); } catch (Exception salbuespena) { throw new
+	 * SentitzenNaizException( izenburua + " pelikula " + id +
+	 * " id-arekin datu basearen barruan dago jada."); } }
+	 */
 }
