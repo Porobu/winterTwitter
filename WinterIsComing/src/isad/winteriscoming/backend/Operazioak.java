@@ -165,16 +165,14 @@ public class Operazioak {
 		//TODO hau amaitzeke
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
         try {
-            Paging paging = new Paging(1);
             List<DirectMessage> messages;
             do {
-                messages = twitter.getDirectMessages(paging);
+                messages = twitter.getDirectMessages();
                 for (DirectMessage message : messages) {
                     System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
                             + message.getText());
                 }
-                paging.setPage(paging.getPage() + 1);
-            } while (messages.size() > 0 && paging.getPage() < 10);
+            } while (messages.size() > 0);
             System.out.println("done.");
             System.exit(0);
         } catch (TwitterException te) {
@@ -183,6 +181,32 @@ public class Operazioak {
             System.exit(-1);
         }
 	}
+	
+	public static void bidalitakoMezuakErakutsi() {
+		//TODO hau amaitzeke
+		Twitter twitter = Konexioa.getKonexioa().getTwitter();
+		try {
+            Paging page = new Paging(1);
+            List<DirectMessage> directMessages;
+            do {
+                directMessages = twitter.getSentDirectMessages(page);
+                for (DirectMessage message : directMessages) {
+                    System.out.println("To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
+                            + message.getText());
+                }
+                page.setPage(page.getPage() + 1);
+            } while (directMessages.size() > 0 && page.getPage() < 10);
+            System.out.println("done.");
+            System.exit(0);
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to get sent messages: " + te.getMessage());
+            System.exit(-1);
+        }
+	}
+	
+	//datu-basearekin zerikusia duten metodoak
+	//TODO
 	
 	public static void bilatuTxioetan(String st) {
 		//TODO hau ondo begiratu, azkenerako utzi, zailena da
@@ -200,7 +224,4 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
-	//datu-basearekin zerikusia duten metodoak
-	//TODO
 }
