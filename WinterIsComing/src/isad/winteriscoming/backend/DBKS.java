@@ -54,7 +54,7 @@ public class DBKS {
 
 	}
 
-	public void datuBaseaEraiki() {
+	public String datuBaseaGordetzekoPath() {
 		String path;
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
@@ -67,6 +67,10 @@ public class DBKS {
 		} catch (Exception salbuespena) {
 			throw new SentitzenNaizException("Fitxategiak ez du balio!!!!!");
 		}
+		return path;
+	}
+
+	public void datuBaseaEraiki(String path) {
 		try {
 			this.konexioa = DriverManager
 					.getConnection(UcanaccessDriver.URL_PREFIX + path + ";newdatabaseversion=V2010");
