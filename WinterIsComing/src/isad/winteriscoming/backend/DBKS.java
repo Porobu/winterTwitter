@@ -27,7 +27,7 @@ public class DBKS {
 		String path;
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
-		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access DatuBaseak", "accdb"));
+		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
 		int gureZenbakia = gureFileChooser.showOpenDialog(null);
 		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
 			System.exit(0);
@@ -58,7 +58,7 @@ public class DBKS {
 		String path;
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
-		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access DatuBaseak", "accdb"));
+		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
 		int gureZenbakia = gureFileChooser.showSaveDialog(null);
 		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
 			System.exit(0);
@@ -73,10 +73,10 @@ public class DBKS {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// this.konektatu(path);
 		Statement st;
 		try {
 			st = this.konexioa.createStatement();
+			// TODO
 			st.execute(
 					"CREATE TABLE example1 (id  COUNTER PRIMARY KEY,descr text(400), number numeric(12,3), date0 datetime)");
 			st.close();
@@ -85,30 +85,12 @@ public class DBKS {
 		}
 	}
 
-	/*
-	 * public void gehituBezeroa(String izena, int id, String helbidea, int
-	 * telefonoa) { try { Statement st = this.konexioa.createStatement();
-	 * st.execute("INSERT INTO Bezeroa (Id,Izena,Helbidea,Telefonoa) VALUES( " +
-	 * id + ",'" + izena + "','" + helbidea + "'," + telefonoa + ")");
-	 * st.close(); } catch (Exception salbuespena) { throw new
-	 * SentitzenNaizException(izena + " bezeroa " + id +
-	 * " id-arekin datu basearen barruan dago jada."); } }
-	 * 
-	 * public void gehituPelikula(String izenburua, int id, int urtea, String
-	 * deskribapena) { try { Statement st = this.konexioa.createStatement();
-	 * st.execute(
-	 * "INSERT INTO Pelikula (Id,Izenburua,KaleratzeUrtea,Deskribapena) VALUES( "
-	 * + id + ",'" + izenburua + "'," + urtea + ",'" + deskribapena + "')");
-	 * st.close(); } catch (Exception salbuespena) { throw new
-	 * SentitzenNaizException( izenburua + " pelikula " + id +
-	 * " id-arekin datu basearen barruan dago jada."); } }
-	 */
 	public void konexioaItxi() {
 		if (this.konexioa != null)
 			try {
 				this.konexioa.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+
 			}
 	}
 }

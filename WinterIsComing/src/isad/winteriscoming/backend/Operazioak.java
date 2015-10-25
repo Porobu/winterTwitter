@@ -10,13 +10,13 @@ import twitter4j.TwitterFactory;
 import twitter4j.User;
 
 public class Operazioak {
-	
-	//bigarren metodotik aurrera oraindik amaitzeke/probatzeke daude metodoak
-	
-	//textua erakusteko metodoak
+
+	// bigarren metodotik aurrera oraindik amaitzeke/probatzeke daude metodoak
+
+	// textua erakusteko metodoak
 
 	public static void timelineErakutsi() {
-		//eginda eta badabil
+		// eginda eta badabil
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -31,9 +31,9 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void gustokoakErakutsi() {
-		//eginda eta badabil
+		// eginda eta badabil
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -48,9 +48,9 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void tweetakErakutsi() {
-		//eginda eta badabil
+		// eginda eta badabil
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -65,9 +65,9 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void retweetakErakutsi() {
-		//eginda eta badabil
+		// eginda eta badabil
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -75,7 +75,7 @@ public class Operazioak {
 			System.out.println("Showing @" + user.getScreenName() + "'s retweets.");
 			for (Status retweet : retweets) {
 				if (retweet.getText().startsWith("RT @"))
-				System.out.println("@" + retweet.getUser().getScreenName() + " - " + retweet.getText());
+					System.out.println("@" + retweet.getUser().getScreenName() + " - " + retweet.getText());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -83,9 +83,9 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void mentzioakErakutsi() {
-		//eginda eta badabil
+		// eginda eta badabil
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -93,7 +93,7 @@ public class Operazioak {
 			System.out.println("Showing @" + user.getScreenName() + "'s mentions.");
 			for (Status mention : mentions) {
 				if (mention.getText().startsWith("RT @"))
-				System.out.println("@" + mention.getUser().getScreenName() + " - " + mention.getText());
+					System.out.println("@" + mention.getUser().getScreenName() + " - " + mention.getText());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -101,51 +101,51 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void jarraitzaileakErakutsi() {
-		//TODO ID-ak izenagaitik aldatu
+		// TODO ID-ak izenagaitik aldatu
 		try {
-            Twitter twitter = new TwitterFactory().getInstance();
-            long cursor = -1;
-            IDs ids;
-            System.out.println("Listing followers's ids.");
-            do {
-                ids = twitter.getFollowersIDs(cursor);
-                for (long id : ids.getIDs()) {
-                    System.out.println(id);
-                }
-            } while ((cursor = ids.getNextCursor()) != 0);
-            System.exit(0);
-        } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to get followers' ids: " + te.getMessage());
-            System.exit(-1);
-        }
+			Twitter twitter = new TwitterFactory().getInstance();
+			long cursor = -1;
+			IDs ids;
+			System.out.println("Listing followers's ids.");
+			do {
+				ids = twitter.getFollowersIDs(cursor);
+				for (long id : ids.getIDs()) {
+					System.out.println(id);
+				}
+			} while ((cursor = ids.getNextCursor()) != 0);
+			System.exit(0);
+		} catch (TwitterException te) {
+			te.printStackTrace();
+			System.out.println("Failed to get followers' ids: " + te.getMessage());
+			System.exit(-1);
+		}
 	}
-	
+
 	public static void jarraituakErakutsi() {
-		//TODO ID-ak izenagaitik aldatu
+		// TODO ID-ak izenagaitik aldatu
 		try {
-            Twitter twitter = new TwitterFactory().getInstance();
-            long cursor = -1;
-            IDs ids;
-            System.out.println("Listing followers's ids.");
-            do {
-                ids = twitter.getFriendsIDs(cursor);
-                for (long id : ids.getIDs()) {
-                    System.out.println(id);
-                }
-            } while ((cursor = ids.getNextCursor()) != 0);
-            System.exit(0);
-        } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to get followers' ids: " + te.getMessage());
-            System.exit(-1);
-        }
+			Twitter twitter = new TwitterFactory().getInstance();
+			long cursor = -1;
+			IDs ids;
+			System.out.println("Listing followers's ids.");
+			do {
+				ids = twitter.getFriendsIDs(cursor);
+				for (long id : ids.getIDs()) {
+					System.out.println(id);
+				}
+			} while ((cursor = ids.getNextCursor()) != 0);
+			System.exit(0);
+		} catch (TwitterException te) {
+			te.printStackTrace();
+			System.out.println("Failed to get followers' ids: " + te.getMessage());
+			System.exit(-1);
+		}
 	}
-	
+
 	public static void zerrendakErakutsi() {
-		//TODO hau igual
+		// TODO hau igual
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -160,9 +160,9 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void mezuakErakutsi() {
-		//TODO hau =
+		// TODO hau =
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -177,9 +177,9 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void bilatuTxioetan(String st) {
-		//TODO hau ondo begiratu
+		// TODO hau ondo begiratu
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -194,7 +194,7 @@ public class Operazioak {
 			System.exit(-1);
 		}
 	}
-	
-	//datu-basearekin zerikusia duten metodoak
-	//TODO
+
+	// datu-basearekin zerikusia duten metodoak
+	// TODO
 }

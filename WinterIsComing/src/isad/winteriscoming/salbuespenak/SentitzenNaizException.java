@@ -35,5 +35,6 @@ public class SentitzenNaizException extends RuntimeException {
 			JOptionPane.showMessageDialog(null,
 					gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
 							+ "\nStack trace " + System.getProperty("user.home") + "/SentitzenNaiz.txt" + " gorde da.",
-					"SENTITZEN NAIZ BAINA ERROREA!!!!!", JOptionPane.ERROR_MESSAGE);	}
+					"SENTITZEN NAIZ BAINA ERROREA!!!!!", JOptionPane.ERROR_MESSAGE);
+	}
 }
