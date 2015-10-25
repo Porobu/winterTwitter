@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import net.ucanaccess.jdbc.UcanaccessDriver;
 
-public class DBKS {
+public final class DBKS {
 	private static DBKS gureDBKS;
 	private Connection konexioa;
 
@@ -71,6 +72,15 @@ public class DBKS {
 	}
 
 	public void datuBaseaEraiki(String path) {
+		int aukera = JOptionPane.YES_OPTION;
+		File fitxategia = new File(path);
+		if (fitxategia.exists())
+			aukera = JOptionPane.showConfirmDialog(null,
+					"Datu basea existitzen da izen horrekin, jarraitzen baduzu ezabatu egingo da.",
+					"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.YES_NO_OPTION);
+		if (aukera == JOptionPane.NO_OPTION || aukera == JOptionPane.CLOSED_OPTION)
+			System.exit(1);
+		fitxategia.delete();
 		try {
 			this.konexioa = DriverManager
 					.getConnection(UcanaccessDriver.URL_PREFIX + path + ";newdatabaseversion=V2010");
@@ -92,6 +102,7 @@ public class DBKS {
 	public void konexioaItxi() {
 		if (this.konexioa != null)
 			try {
+				this.konexioa.commit();
 				this.konexioa.close();
 			} catch (SQLException e) {
 
