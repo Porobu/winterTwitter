@@ -13,6 +13,7 @@ public class Nagusia {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 		}
+
 		int aukera = JOptionPane.showConfirmDialog(null, "Datu Basea ireki edo eraiki nahi duzu?", "WinterTwitter",
 				JOptionPane.YES_NO_CANCEL_OPTION);
 		switch (aukera) {
@@ -25,7 +26,6 @@ public class Nagusia {
 			System.exit(0);
 			break;
 		}
-		// new WinterTwitter();
 		Konexioa.getKonexioa().logeatu();
 		DBKS.getDBKS().konexioaItxi();
 	}

@@ -35,7 +35,7 @@ public class Login extends JFrame implements KeyListener {
 		this.setLayout(new BorderLayout());
 		this.setTitle("Login");
 		this.gurePanela = new JPanel(new SpringLayout());
-		pinString = "PIN: ";
+		pinString = "PIN:";
 		this.pin = new JLabel(pinString, SwingConstants.TRAILING);
 		this.gurePanela.add(pin);
 		this.pinField = new JTextField(7);
