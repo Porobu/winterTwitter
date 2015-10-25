@@ -1,9 +1,8 @@
 package isad.winteriscoming.backend;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
 	public static float BERTSIOA = 0.2F;
@@ -14,8 +13,20 @@ public class Nagusia {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 		}
-		new WinterTwitter();
-		DBKS.getDBKS().konektatu(DBKS.getDBKS().getPath());
+		int aukera = JOptionPane.showConfirmDialog(null, "Datu Basea ireki edo eraiki nahi duzu?", "WinterTwitter",
+				JOptionPane.YES_NO_CANCEL_OPTION);
+		switch (aukera) {
+		case JOptionPane.YES_OPTION:
+			DBKS.getDBKS().konektatu(DBKS.getDBKS().getPath());
+			break;
+		case JOptionPane.NO_OPTION:
+			DBKS.getDBKS().datuBaseaEraiki();
+		default:
+			System.exit(0);
+			break;
+		}
+		// new WinterTwitter();
 		Konexioa.getKonexioa().logeatu();
+		DBKS.getDBKS().konexioaItxi();
 	}
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -54,9 +55,36 @@ public class DBKS {
 	}
 
 	public void datuBaseaEraiki() {
-		// DriverManager.getConnection("jdbc:ucanaccess://"+
-		// database.getAbsolutePath()+";newdatabaseversion=V2010");
+		String path;
+		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
+		gureFileChooser.setAcceptAllFileFilterUsed(false);
+		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access DatuBaseak", "accdb"));
+		int gureZenbakia = gureFileChooser.showSaveDialog(null);
+		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
+			System.exit(0);
+		try {
+			path = gureFileChooser.getSelectedFile().getAbsolutePath() + ".accdb";
+		} catch (Exception salbuespena) {
+			throw new SentitzenNaizException("Fitxategiak ez du balio!!!!!");
+		}
+		try {
+			this.konexioa = DriverManager
+					.getConnection(UcanaccessDriver.URL_PREFIX + path + ";newdatabaseversion=V2010");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// this.konektatu(path);
+		Statement st;
+		try {
+			st = this.konexioa.createStatement();
+			st.execute(
+					"CREATE TABLE example1 (id  COUNTER PRIMARY KEY,descr text(400), number numeric(12,3), date0 datetime)");
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+
 	/*
 	 * public void gehituBezeroa(String izena, int id, String helbidea, int
 	 * telefonoa) { try { Statement st = this.konexioa.createStatement();
@@ -75,4 +103,12 @@ public class DBKS {
 	 * SentitzenNaizException( izenburua + " pelikula " + id +
 	 * " id-arekin datu basearen barruan dago jada."); } }
 	 */
+	public void konexioaItxi() {
+		if (this.konexioa != null)
+			try {
+				this.konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
 }
