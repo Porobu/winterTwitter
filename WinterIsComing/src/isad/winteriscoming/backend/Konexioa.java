@@ -1,17 +1,9 @@
 package isad.winteriscoming.backend;
 
-import java.awt.BorderLayout;
 import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import javax.swing.JFrame;
 
 import isad.winteriscoming.frontend.Login;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
@@ -67,42 +59,10 @@ public class Konexioa {
 	private AccessToken kredentzialakKargatu() {
 		String token = null;
 		String tokenSecret = null;
-
-		try {
-			BufferedReader gureBufferedReader = new BufferedReader(
-					new FileReader(System.getProperty("user.home") + "/.winterTwitter.txt"));
-			token = gureBufferedReader.readLine();
-			tokenSecret = gureBufferedReader.readLine();
-			gureBufferedReader.close();
-		} catch (IOException salbuespena) {
-		}
+		// TODO Datu basetik hartu behar dira, eta ez badira existitzen
+		// twittereko web gunea ireki. Baita ere mezu bat jarri esaten ea beste
+		// kontu batekkin egin nahi duzu login
 		return new AccessToken(token, tokenSecret);
-	}
-
-	public void textuaIdatzi() {
-		PrintWriter gurePW = null;
-		try {
-			gurePW = new PrintWriter(System.getProperty("user.home") + "/.winterTwitter.txt");
-		} catch (FileNotFoundException salbuespena) {
-			File gureArtxiboa = new File(System.getProperty("user.home") + "/.winterTwitter.txt");
-			gureArtxiboa.delete();
-			this.textuaIdatzi();
-		}
-		if (gurePW != null) {
-			gurePW.println(accessToken.getToken());
-			gurePW.println(accessToken.getTokenSecret());
-			gurePW.flush();
-			gurePW.close();
-		}
-		String gureString = System.getProperty("os.name");
-		gureString.toLowerCase();
-		if (gureString.contains("win") || gureString.contains("Win")) {
-			try {
-				Runtime.getRuntime().exec("attrib +H " + System.getProperty("user.home") + "/.Sudokula.txt");
-			} catch (IOException gureSalbuespena) {
-				throw new SentitzenNaizException("Fitxategia ezin da gorde!!!!!");
-			}
-		}
 	}
 
 	public void tokenaLortu() {
