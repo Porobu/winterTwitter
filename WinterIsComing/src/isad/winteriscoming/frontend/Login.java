@@ -31,18 +31,17 @@ public class Login extends JFrame implements KeyListener {
 	private String pinString;
 
 	public Login() {
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		this.setTitle("Login");
 		this.gurePanela = new JPanel(new SpringLayout());
-		pinString = "PIN:";
+		this.setTitle("Login");
+		pinString = "PIN: ";
 		this.pin = new JLabel(pinString, SwingConstants.TRAILING);
 		this.gurePanela.add(pin);
 		this.pinField = new JTextField(7);
 		this.pin.setLabelFor(pinField);
 		this.gurePanela.add(pinField);
 		this.gorde = new JCheckBox("PINa gorde");
-		SpringUtilities.makeCompactGrid(this.gurePanela, 1, 2, 8, 8, 8, 8);
+		SpringUtilities.makeCompactGrid(this.gurePanela, 1, 2, 6, 6, 6, 6);
 		this.add(this.gurePanela, BorderLayout.NORTH);
 		this.add(this.gorde, BorderLayout.CENTER);
 		this.ok = new JButton("Sartu");
@@ -50,7 +49,7 @@ public class Login extends JFrame implements KeyListener {
 		this.ok.addKeyListener(this);
 		this.pinField.addKeyListener(this);
 		this.add(this.ok, BorderLayout.SOUTH);
-		this.setMinimumSize(new Dimension(210, 110));
+		this.setMinimumSize(new Dimension(200, 100));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setResizable(false);
@@ -69,16 +68,16 @@ public class Login extends JFrame implements KeyListener {
 		this.pinString = new String(this.pinField.getText());
 		this.setVisible(false);
 		Konexioa.getKonexioa().tokenaLortu();
-		// Operazioak.timelineErakutsi();
-		// Operazioak.gustokoakErakutsi();
-		// Operazioak.tweetakErakutsi();
-		// Operazioak.retweetakErakutsi();
-		// Operazioak.mentzioakErakutsi();
-		Operazioak.jarraitzaileakErakutsi();
-		// Operazioak.jarraituakErakutsi();;
-		// Operazioak.zerrendakErakutsi();
-		// Operazioak.mezuakErakutsi();
-		// Operazioak.bilatuTxioetan("egiteke");
+		//Operazioak.timelineErakutsi();
+		//Operazioak.gustokoakErakutsi();
+		//Operazioak.tweetakErakutsi();
+		//Operazioak.retweetakErakutsi();
+		//Operazioak.mentzioakErakutsi();
+		//Operazioak.jarraitzaileakErakutsi();
+		//Operazioak.jarraituakErakutsi();
+		//Operazioak.zerrendakErakutsi();
+		Operazioak.mezuakErakutsi();
+		//Operazioak.bilatuTxioetan("egiteke");
 	}
 
 	@Override
