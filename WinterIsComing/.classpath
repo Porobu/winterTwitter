@@ -8,7 +8,6 @@
 	<classpathentry kind="lib" path="libs/jackcess-2.1.2.jar"/>
 	<classpathentry kind="lib" path="libs/twitter4j-async-4.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/twitter4j-core-4.0.4.jar"/>
-	<classpathentry kind="lib" path="libs/twitter4j-examples-4.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/twitter4j-media-support-4.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/twitter4j-stream-4.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/ucanaccess-3.0.2.jar"/>
