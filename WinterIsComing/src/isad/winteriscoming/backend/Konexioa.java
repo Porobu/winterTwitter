@@ -59,6 +59,9 @@ public class Konexioa {
 	private AccessToken kredentzialakKargatu() {
 		String token = null;
 		String tokenSecret = null;
+		// TODO Datu basetik hartu behar dira, eta ez badira existitzen
+		// twittereko web gunea ireki. Baita ere mezu bat jarri esaten ea beste
+		// kontu batekkin egin nahi duzu login
 		return new AccessToken(token, tokenSecret);
 	}
 

@@ -14,6 +14,8 @@ import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import net.ucanaccess.jdbc.UcanaccessDriver;
 
 public final class DBKS {
+	// FIXME Nahiz eta datu basera ondo konektatu, baliozkoa den ikusi behar
+	// dugu, SQL aginduen bitartez
 	private static DBKS gureDBKS;
 	private Connection konexioa;
 
@@ -52,7 +54,6 @@ public final class DBKS {
 		} catch (SQLException gureSalbuespena) {
 			throw new SentitzenNaizException("Ezin da datu basera konektatu");
 		}
-
 	}
 
 	public String datuBaseaGordetzekoPath() {
@@ -64,7 +65,10 @@ public final class DBKS {
 		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
 			System.exit(0);
 		try {
-			path = gureFileChooser.getSelectedFile().getAbsolutePath() + ".accdb";
+			path = gureFileChooser.getSelectedFile().getAbsolutePath();
+			if (!path.contains(".accdb")) {
+				path = path + ".accdb";
+			}
 		} catch (Exception salbuespena) {
 			throw new SentitzenNaizException("Fitxategiak ez du balio!!!!!");
 		}
@@ -90,7 +94,7 @@ public final class DBKS {
 		Statement st;
 		try {
 			st = this.konexioa.createStatement();
-			// TODO
+			// TODO Aginduak jarri
 			st.execute(
 					"CREATE TABLE example1 (id  COUNTER PRIMARY KEY,descr text(400), number numeric(12,3), date0 datetime)");
 			st.close();

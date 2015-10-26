@@ -13,8 +13,8 @@ public class Nagusia {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 		}
-		int aukera = JOptionPane.showConfirmDialog(null, "Datu Basea ireki edo eraiki nahi duzu?", "WinterTwitter " + BERTSIOA ,
-				JOptionPane.YES_NO_CANCEL_OPTION);
+		int aukera = JOptionPane.showConfirmDialog(null, "Datu Basea ireki edo eraiki nahi duzu?",
+				"WinterTwitter " + BERTSIOA, JOptionPane.YES_NO_CANCEL_OPTION);
 		switch (aukera) {
 		case JOptionPane.YES_OPTION:
 			DBKS.getDBKS().konektatu(DBKS.getDBKS().getPath());
