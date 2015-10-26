@@ -31,6 +31,7 @@ public class Login extends JFrame implements KeyListener {
 	private String pinString;
 
 	public Login() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.gurePanela = new JPanel(new SpringLayout());
 		this.setTitle("Login");
@@ -49,7 +50,7 @@ public class Login extends JFrame implements KeyListener {
 		this.ok.addKeyListener(this);
 		this.pinField.addKeyListener(this);
 		this.add(this.ok, BorderLayout.SOUTH);
-		this.setMinimumSize(new Dimension(200, 100));
+		this.setMinimumSize(new Dimension(210, 110));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setResizable(false);
