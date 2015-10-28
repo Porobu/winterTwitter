@@ -1,5 +1,6 @@
 package isad.winteriscoming.backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.DirectMessage;
@@ -20,6 +21,7 @@ public class Operazioak {
 
 	public static void timelineErakutsi() {
 		//eginda eta badabil
+		//gorde behar da?
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -37,13 +39,19 @@ public class Operazioak {
 	
 	public static void gustokoakErakutsi() {
 		//eginda eta badabil
+		//gustoko tweet bakoitzaren igorlea "norenak" parametroan dago
+		//gustoko tweet denak "tweetak" parametroan daude
 		try {
+			ArrayList<String> norenak = new ArrayList<String>();
+			ArrayList<String> tweetak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> favs = twitter.getFavorites();
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			for (Status fav : favs) {
 				System.out.println("@" + fav.getUser().getScreenName() + " - " + fav.getText());
+				norenak.add(fav.getUser().getScreenName());
+				tweetak.add(fav.getText());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -211,7 +219,7 @@ public class Operazioak {
 	//TODO
 	
 	public static void bilatuTxioetan(String st) {
-		//TODO hau ondo begiratu, azkenerako utzi, zailena da
+		//TODO datu basearekin komunikazioa lortu ondoren inplementatu
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
