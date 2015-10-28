@@ -1,5 +1,6 @@
 package isad.winteriscoming.backend;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -15,8 +16,8 @@ public class Nagusia {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 		}
-		int aukera = JOptionPane.showConfirmDialog(null, "Datu Basea ireki edo eraiki nahi duzu?",
-				"WinterTwitter " + BERTSIOA, JOptionPane.YES_NO_CANCEL_OPTION);
+		String[] aukerak = { "Ireki", "Eraiki", "Itxi" };
+		int aukera = JOptionPane.showOptionDialog(null, "Datu Basea ireki edo eraiki nahi duzu?", "WinterTwitter " + BERTSIOA, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
 		switch (aukera) {
 		case JOptionPane.YES_OPTION:
 			DBKS.getDBKS().konektatu(DBKS.getDBKS().getPath());
