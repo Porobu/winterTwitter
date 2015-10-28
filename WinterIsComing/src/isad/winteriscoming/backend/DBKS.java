@@ -2,22 +2,12 @@ package isad.winteriscoming.backend;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.stream.Stream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -103,68 +93,23 @@ public final class DBKS {
 		} catch (Exception e) {
 			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}
-//		  URI uri;
-//		try {
-//			uri = DBKS.class.getResource("/isad/winteriscoming").toURI();
-//			 Path myPath;
-//			    if (uri.getScheme().equals("jar")) {
-//			        FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
-//			        myPath = fileSystem.getPath("/isad/winteriscoming");
-//			    } else {
-//			        myPath = Paths.get(uri);
-//			    }
-//			    Stream<Path> walk = Files.walk(myPath, 1);
-//			    for (Iterator<Path> it = walk.iterator(); it.hasNext();){
-//			       JOptionPane.showMessageDialog(null, it.next());
-//			    }
-//			    walk.close();
-//		} catch (URISyntaxException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		   
+		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.");
 	}
 
-	/**
-	 * Export a resource embedded into a Jar file to the local file path.
-	 *
-	 * @param resourceName
-	 *            ie.: "/SmartLibrary.dll"
-	 * @return The path to the exported resource
-	 * @throws Exception
-	 */
 	static public String exportResource(String resourceName, String path) throws Exception {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
 		String jarFolder;
 		try {
-			stream = DBKS.class.getResourceAsStream(resourceName);// note that
-																	// each / is
-																	// a
-																	// directory
-																	// down in
-																	// the "jar
-																	// tree"
-																	// been the
-																	// jar the
-																	// root of
-																	// the tree
+			stream = DBKS.class.getResourceAsStream(resourceName);
 			if (stream == null) {
-				throw new SentitzenNaizException("Cannot get resource \"" + resourceName + "\" from Jar file.");
+				throw new SentitzenNaizException("Ez da datu basea aurkitu .jar fitxategian");
 			}
 
 			int readBytes;
 			byte[] buffer = new byte[4096];
-			//jarFolder = new File(DBKS.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
-			//	.getParentFile().getPath().replace('\\', '/');
-			//JOptionPane.showMessageDialog(null, jarFolder);
-			File f;
-			f = new File(ClassLoader.getSystemClassLoader().getResource(".").toURI());
+			File f = new File(ClassLoader.getSystemClassLoader().getResource(".").toURI());
 			jarFolder = f.toString();
-			JOptionPane.showMessageDialog(null, f.toString());
 			resStreamOut = new FileOutputStream(path);
 			while ((readBytes = stream.read(buffer)) > 0) {
 				resStreamOut.write(buffer, 0, readBytes);
