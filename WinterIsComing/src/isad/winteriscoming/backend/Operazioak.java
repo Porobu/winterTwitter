@@ -195,7 +195,11 @@ public class Operazioak {
 	
 	public static void mezuakErakutsi() {
 		//eginda eta badabil
+		//mezu bakoitzaren igorlea "norenak" parametroan dago
+		//mezu denak "mezuak" parametroan daude
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
+		ArrayList<String> norenak = new ArrayList<String>();
+		ArrayList<String> mezuak = new ArrayList<String>();
 		try {
             Paging paging = new Paging(1);
             List<DirectMessage> messages;
@@ -204,6 +208,8 @@ public class Operazioak {
                 for (DirectMessage message : messages) {
                     System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
                             + message.getText());
+                    norenak.add(message.getSenderScreenName());
+    				mezuak.add(message.getText());
                 }
                 paging.setPage(paging.getPage() + 1);
             } while (messages.size() > 0 && paging.getPage() < 10);
@@ -218,7 +224,11 @@ public class Operazioak {
 	
 	public static void bidalitakoMezuakErakutsi() {
 		//eginda eta badabil
+		//mezu bakoitzaren hartzailea "norentzat" parametroan dago
+		//mezu denak "mezuak" parametroan daude
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
+		ArrayList<String> norentzat = new ArrayList<String>();
+		ArrayList<String> mezuak = new ArrayList<String>();
 		try {
             Paging page = new Paging(1);
             List<DirectMessage> directMessages;
@@ -227,6 +237,8 @@ public class Operazioak {
                 for (DirectMessage message : directMessages) {
                     System.out.println("To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
                             + message.getText());
+                    norentzat.add(message.getSenderScreenName());
+    				mezuak.add(message.getText());
                 }
                 page.setPage(page.getPage() + 1);
             } while (directMessages.size() > 0 && page.getPage() < 10);
