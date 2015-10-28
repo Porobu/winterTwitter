@@ -62,13 +62,17 @@ public class Operazioak {
 	
 	public static void tweetakErakutsi() {
 		//eginda eta badabil
+		//gustoko tweet denak "gustokoak" parametroan daude
 		try {
+			ArrayList<String> gustokoak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> tweets = twitter.getUserTimeline();
 			System.out.println("Showing @" + user.getScreenName() + "'s tweets.");
 			for (Status tweet : tweets) {
+				//if (tweet.getUser().getScreenName()==uneko erabiltzaileare izena)  //retweetak kentzeko
 				System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+				gustokoak.add(tweet.getText());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -79,14 +83,21 @@ public class Operazioak {
 	
 	public static void retweetakErakutsi() {
 		//eginda eta badabil
+		//retweet bakoitzaren igorlea "norenak" parametroan dago
+		//retweet denak "retweetak" parametroan daude
 		try {
+			ArrayList<String> norenak = new ArrayList<String>();
+			ArrayList<String> retweetak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> retweets = twitter.getUserTimeline();
 			System.out.println("Showing @" + user.getScreenName() + "'s retweets.");
 			for (Status retweet : retweets) {
-				if (retweet.getText().startsWith("RT @"))
+				if (retweet.getText().startsWith("RT @")) {
 				System.out.println("@" + retweet.getUser().getScreenName() + " - " + retweet.getText());
+				norenak.add(retweet.getUser().getScreenName());
+				retweetak.add(retweet.getText());
+				}
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -97,14 +108,21 @@ public class Operazioak {
 	
 	public static void mentzioakErakutsi() {
 		//eginda eta badabil
+		//mentzio bakoitzaren igorlea "norenak" parametroan dago
+		//mentzio denak "mentzioak" parametroan daude
 		try {
+			ArrayList<String> norenak = new ArrayList<String>();
+			ArrayList<String> mentzioak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> mentions = twitter.getMentionsTimeline();
 			System.out.println("Showing @" + user.getScreenName() + "'s mentions.");
 			for (Status mention : mentions) {
-				if (mention.getText().startsWith("RT @"))
+				if (mention.getText().startsWith("RT @")) {
 				System.out.println("@" + mention.getUser().getScreenName() + " - " + mention.getText());
+				norenak.add(mention.getUser().getScreenName());
+				mentzioak.add(mention.getText());
+				}
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -115,7 +133,9 @@ public class Operazioak {
 	
 	public static void jarraitzaileakErakutsi() {
 		//eginda eta badabil
+		//jarraitzaile guztien izena "jarraitzaileak" parametroan daude
 		try {
+			ArrayList<String> jarraitzaileak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
             User us = twitter.verifyCredentials();
             long cursor = -1;
@@ -124,6 +144,7 @@ public class Operazioak {
             userList= twitter.getFollowersList(us.getId(), cursor);
             for (User user : userList) {
                 System.out.println(twitter.showUser(user.getId()).getName());
+                jarraitzaileak.add(twitter.showUser(user.getId()).getName());
             }
             System.exit(0);
         } catch (TwitterException te) {
@@ -135,7 +156,9 @@ public class Operazioak {
 	
 	public static void jarraituakErakutsi() {
 		//eginda eta badabil
+		//jarraitzaile guztien izena "jarraituak" parametroan daude
 		try {
+			ArrayList<String> jarraituak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
             User us = twitter.verifyCredentials();
             long cursor = -1;
@@ -144,6 +167,7 @@ public class Operazioak {
             userList= twitter.getFriendsList(us.getId(), cursor);
             for (User user : userList) {
                 System.out.println(twitter.showUser(user.getId()).getName());
+                jarraituak.add(twitter.showUser(user.getId()).getName());
             }
             System.exit(0);
         } catch (TwitterException te) {
