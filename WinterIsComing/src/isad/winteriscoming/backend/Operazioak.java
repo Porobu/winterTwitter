@@ -6,6 +6,7 @@ import java.util.List;
 import twitter4j.DirectMessage;
 import twitter4j.IDs;
 import twitter4j.Paging;
+import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -178,19 +179,42 @@ public class Operazioak {
 	}
 	
 	public static void zerrendakErakutsi() {
-		//TODO hau amaitzeke
+		//eginda eta badabil
+		//zerrenda guztien id-a "zerrendak" parametroan daude
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User user = twitter.verifyCredentials();
-			UserList list = twitter.showUserList(user.getId());
-			System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
+			ArrayList<String> zerrendak = new ArrayList<String>();
+            ResponseList<UserList> lists = twitter.getUserLists(twitter.getScreenName());
+            for (UserList list : lists) {
+                System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
+                        + list.getDescription() + ", slug:" + list.getSlug() + "");
+                zerrendak.add(Long.toString(list.getId()));
+            }
+            System.exit(0);
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to list the lists: " + te.getMessage());
+            System.exit(-1);
+        }
+	}
+	
+	public static ArrayList<String> getZerrendakoak(String idZerrenda) {
+		//eginda eta badabil
+		//zerrendako erabiltzaileen izena "izenak" parametroan daude
+		ArrayList<String> izenak = new ArrayList<String>();
+		try {
+			Twitter twitter = Konexioa.getKonexioa().getTwitter();
+			UserList list = twitter.showUserList(Long.parseLong(idZerrenda));
+            System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
                     + list.getDescription() + ", slug:" + list.getSlug() + "");
-			System.exit(0);
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to get timeline: " + te.getMessage());
-			System.exit(-1);
-		}
+            //zerrendakoak "izenak" parametroan sartu
+            System.exit(0);
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to show the list: " + te.getMessage());
+            System.exit(-1);
+        }
+		return izenak;
 	}
 	
 	public static void mezuakErakutsi() {
