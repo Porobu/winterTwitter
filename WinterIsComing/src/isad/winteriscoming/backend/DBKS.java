@@ -2,7 +2,7 @@ package isad.winteriscoming.backend;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
@@ -96,7 +96,7 @@ public final class DBKS {
 		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.");
 	}
 
-	static public String exportResource(String resourceName, String path) throws Exception {
+	public String exportResource(String resourceName, String path) {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
 		String jarFolder;
@@ -105,7 +105,6 @@ public final class DBKS {
 			if (stream == null) {
 				throw new SentitzenNaizException("Ez da datu basea aurkitu .jar fitxategian");
 			}
-
 			int readBytes;
 			byte[] buffer = new byte[4096];
 			File f = new File(ClassLoader.getSystemClassLoader().getResource(".").toURI());
@@ -117,10 +116,14 @@ public final class DBKS {
 		} catch (Exception ex) {
 			throw new SentitzenNaizException("Ezin da fitxategia kopiatu");
 		} finally {
-			stream.close();
-			resStreamOut.close();
-		}
+			try {
+				stream.close();
+				resStreamOut.close();
+			} catch (IOException e) {
+				
+			}
 
+		}
 		return jarFolder + resourceName;
 	}
 
