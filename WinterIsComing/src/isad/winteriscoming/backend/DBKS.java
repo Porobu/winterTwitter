@@ -99,34 +99,33 @@ public final class DBKS {
 			System.exit(1);
 		fitxategia.delete();
 		try {
-			//String s = ExportResource("/isad/winteriscoming/datubasea.accdb", path);
-			//System.out.println(s);
+			exportResource("/isad/winteriscoming/datubasea.accdb", path);
 		} catch (Exception e) {
-			e.printStackTrace();
+			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}
-		  URI uri;
-		try {
-			uri = DBKS.class.getResource("/isad/winteriscoming").toURI();
-			 Path myPath;
-			    if (uri.getScheme().equals("jar")) {
-			        FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
-			        myPath = fileSystem.getPath("/isad/winteriscoming");
-			    } else {
-			        myPath = Paths.get(uri);
-			    }
-			    Stream<Path> walk = Files.walk(myPath, 1);
-			    for (Iterator<Path> it = walk.iterator(); it.hasNext();){
-			       JOptionPane.showMessageDialog(null, it.next());
-			    }
-			    walk.close();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		   
+//		  URI uri;
+//		try {
+//			uri = DBKS.class.getResource("/isad/winteriscoming").toURI();
+//			 Path myPath;
+//			    if (uri.getScheme().equals("jar")) {
+//			        FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
+//			        myPath = fileSystem.getPath("/isad/winteriscoming");
+//			    } else {
+//			        myPath = Paths.get(uri);
+//			    }
+//			    Stream<Path> walk = Files.walk(myPath, 1);
+//			    for (Iterator<Path> it = walk.iterator(); it.hasNext();){
+//			       JOptionPane.showMessageDialog(null, it.next());
+//			    }
+//			    walk.close();
+//		} catch (URISyntaxException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		   
 	}
 
 	/**
@@ -137,7 +136,7 @@ public final class DBKS {
 	 * @return The path to the exported resource
 	 * @throws Exception
 	 */
-	static public String ExportResource(String resourceName, String path) throws Exception {
+	static public String exportResource(String resourceName, String path) throws Exception {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
 		String jarFolder;
@@ -159,8 +158,13 @@ public final class DBKS {
 
 			int readBytes;
 			byte[] buffer = new byte[4096];
-			jarFolder = new File(DBKS.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
-					.getParentFile().getPath().replace('\\', '/');
+			//jarFolder = new File(DBKS.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
+			//	.getParentFile().getPath().replace('\\', '/');
+			//JOptionPane.showMessageDialog(null, jarFolder);
+			File f;
+			f = new File(ClassLoader.getSystemClassLoader().getResource(".").toURI());
+			jarFolder = f.toString();
+			JOptionPane.showMessageDialog(null, f.toString());
 			resStreamOut = new FileOutputStream(path);
 			while ((readBytes = stream.read(buffer)) > 0) {
 				resStreamOut.write(buffer, 0, readBytes);
