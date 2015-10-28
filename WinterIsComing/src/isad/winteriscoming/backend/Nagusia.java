@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import isad.winteriscoming.frontend.WinterTwitter;
+
 public class Nagusia {
 	public static float BERTSIOA = 0.21F;
 
@@ -26,7 +28,6 @@ public class Nagusia {
 			System.exit(0);
 			break;
 		}
-		Konexioa.getKonexioa().logeatu();
-		DBKS.getDBKS().konexioaItxi();
+		new WinterTwitter();
 	}
 }

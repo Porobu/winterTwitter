@@ -122,7 +122,6 @@ public final class DBKS {
 			} catch (IOException e) {
 				
 			}
-
 		}
 		return jarFolder + resourceName;
 	}

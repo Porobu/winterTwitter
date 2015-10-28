@@ -4,18 +4,32 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import isad.winteriscoming.backend.Konexioa;
+
 public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
-	private JMenu jaitsi, bilatu, esportatu, segurtasunKopia;
-	private JMenuItem txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak, mezuak, txioakBilatu,
-			bertxioakBilatu, gustukoakBilatu, zerrendakBilatu, mezuakBilatu, excel, kopiaEgin, kopiaKargatu;
+	private JMenu konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
+	private JMenuItem konektatu, deskonektatu, txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak,
+			mezuak, txioakBilatu, bertxioakBilatu, gustukoakBilatu, zerrendakBilatu, mezuakBilatu, excel, kopiaEgin,
+			kopiaKargatu;
 
 	public Menua() {
+		this.konexioaMenua();
 		this.jaitsiMenua();
 		this.bilatuMenua();
 		this.esportatuMenua();
 		this.segurtasunKopiaMenua();
+	}
+
+	private void konexioaMenua() {
+		konexioa = new JMenu("Konexioa");
+		konektatu = new JMenuItem("Konektatu");
+		deskonektatu = new JMenuItem("Deskonektatu");
+		konektatu.addActionListener(gureAE -> Konexioa.getKonexioa().logeatu());
+		konexioa.add(konektatu);
+		konexioa.add(deskonektatu);
+		this.add(konexioa);
 	}
 
 	private void jaitsiMenua() {
