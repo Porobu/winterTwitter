@@ -3,10 +3,12 @@ package isad.winteriscoming.backend;
 import java.util.List;
 
 import twitter4j.DirectMessage;
+import twitter4j.IDs;
 import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.UserList;
 
@@ -160,17 +162,19 @@ public class Operazioak {
 	}
 	
 	public static void mezuakErakutsi() {
-		//TODO hau amaitzeke
+		//eginda eta badabil
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
-        try {
+		try {
+            Paging paging = new Paging(1);
             List<DirectMessage> messages;
             do {
-                messages = twitter.getDirectMessages();
+                messages = twitter.getDirectMessages(paging);
                 for (DirectMessage message : messages) {
                     System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
                             + message.getText());
                 }
-            } while (messages.size() > 0);
+                paging.setPage(paging.getPage() + 1);
+            } while (messages.size() > 0 && paging.getPage() < 10);
             System.out.println("done.");
             System.exit(0);
         } catch (TwitterException te) {
@@ -181,7 +185,7 @@ public class Operazioak {
 	}
 	
 	public static void bidalitakoMezuakErakutsi() {
-		//TODO hau amaitzeke
+		//eginda eta badabil
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
 		try {
             Paging page = new Paging(1);
