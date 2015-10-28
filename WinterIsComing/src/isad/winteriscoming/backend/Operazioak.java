@@ -5,6 +5,7 @@ import java.util.List;
 
 import twitter4j.DirectMessage;
 import twitter4j.IDs;
+import twitter4j.PagableResponseList;
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
@@ -204,18 +205,23 @@ public class Operazioak {
 		ArrayList<String> izenak = new ArrayList<String>();
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			UserList list = twitter.showUserList(Long.parseLong(idZerrenda));
-            System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
-                    + list.getDescription() + ", slug:" + list.getSlug() + "");
-            //zerrendakoak "izenak" parametroan sartu
+            long cursor = -1;
+            PagableResponseList<User> usres;
+            do {
+                usres = twitter.getUserListMembers(Long.parseLong(idZerrenda), cursor);
+                for (User list : usres) {
+                    System.out.println("@" + list.getScreenName());
+                    izenak.add(list.getScreenName());
+                }
+            } while ((cursor = usres.getNextCursor()) != 0);
             System.exit(0);
         } catch (TwitterException te) {
             te.printStackTrace();
-            System.out.println("Failed to show the list: " + te.getMessage());
+            System.out.println("Failed to get list members: " + te.getMessage());
             System.exit(-1);
         }
 		return izenak;
-	}
+    }
 	
 	public static void mezuakErakutsi() {
 		//eginda eta badabil
