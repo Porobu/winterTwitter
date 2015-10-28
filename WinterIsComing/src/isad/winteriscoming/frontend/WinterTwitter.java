@@ -23,6 +23,7 @@ public class WinterTwitter extends JFrame {
 		this.setMinimumSize(new Dimension(300, 200));
 		this.add(informazioa, BorderLayout.NORTH);
 		this.add(txioak, BorderLayout.CENTER);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 

@@ -93,7 +93,8 @@ public final class DBKS {
 		} catch (Exception e) {
 			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}
-		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.");
+	//	JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.");
+		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", "GORDE NAGO!!!!!", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public String exportResource(String resourceName, String path) {
