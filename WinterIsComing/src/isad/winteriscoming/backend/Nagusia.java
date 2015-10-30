@@ -8,6 +8,7 @@ import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
 	public static float BERTSIOA = 0.25F;
+	private static String path;
 
 	public static void main(String[] args) {
 		try {
@@ -21,10 +22,11 @@ public class Nagusia {
 				aukerak, aukerak[0]);
 		switch (aukera) {
 		case JOptionPane.YES_OPTION:
-			DBKS.getDBKS().konektatu(DBKS.getDBKS().getPath());
+			path = DBKS.getDBKS().getPath();
+			DBKS.getDBKS().konektatu(path);
 			break;
 		case JOptionPane.NO_OPTION:
-			String path = DBKS.getDBKS().datuBaseaGordetzekoPath();
+			path = DBKS.getDBKS().datuBaseaGordetzekoPath();
 			DBKS.getDBKS().datuBaseaEraiki(path);
 			DBKS.getDBKS().konektatu(path);
 			break;
@@ -33,5 +35,9 @@ public class Nagusia {
 			break;
 		}
 		new WinterTwitter();
+	}
+
+	public static String getPath() {
+		return path;
 	}
 }

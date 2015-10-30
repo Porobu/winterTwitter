@@ -5,6 +5,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import isad.winteriscoming.backend.Konexioa;
+import isad.winteriscoming.backend.OperazioakOnline;
 
 public class Menua extends JMenuBar {
 
@@ -44,6 +45,7 @@ public class Menua extends JMenuBar {
 		this.mezuak = new JMenuItem("Mezuak");
 		this.jaitsi.add(this.jaitsi);
 		this.jaitsi.add(this.txioak);
+		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().tweetakErakutsi());
 		this.jaitsi.add(this.bertxioak);
 		this.jaitsi.add(this.gustokoak);
 		this.jaitsi.add(this.jarraituak);

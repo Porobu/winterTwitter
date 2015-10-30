@@ -15,7 +15,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import isad.winteriscoming.backend.Konexioa;
-import isad.winteriscoming.backend.Operazioak;
 import isad.winteriscoming.externals.SpringUtilities;
 
 public class Login extends JFrame implements KeyListener {
@@ -31,7 +30,7 @@ public class Login extends JFrame implements KeyListener {
 	private String pinString;
 
 	public Login() {
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.gurePanela = new JPanel(new SpringLayout());
 		this.setTitle("Login");

@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -93,8 +95,20 @@ public final class DBKS {
 		} catch (Exception e) {
 			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}
-	//	JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.");
-		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", "GORDE NAGO!!!!!", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", "GORDE NAGO!!!!!",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public ResultSet aginduaExekutatu(String agindua) {
+		ResultSet emaitza = null;
+		try {
+			Statement st = this.konexioa.createStatement();
+			emaitza = st.executeQuery(agindua);
+			st.close();
+		} catch (Exception salbuespena) {
+			throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+		}
+		return emaitza;
 	}
 
 	public String exportResource(String resourceName, String path) {
@@ -121,7 +135,7 @@ public final class DBKS {
 				stream.close();
 				resStreamOut.close();
 			} catch (IOException e) {
-				
+
 			}
 		}
 		return jarFolder + resourceName;

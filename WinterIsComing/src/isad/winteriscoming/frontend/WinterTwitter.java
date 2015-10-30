@@ -16,11 +16,11 @@ public class WinterTwitter extends JFrame {
 	public WinterTwitter() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		this.setTitle("WinterTwitter " + Nagusia.BERTSIOA);
+		this.setTitle("WinterTwitter " + Nagusia.BERTSIOA + " " + Nagusia.getPath());
 		this.setJMenuBar(new Menua());
 		this.informazioaEraiki();
 		this.txioakEraiki();
-		this.setMinimumSize(new Dimension(300, 200));
+		this.setMinimumSize(new Dimension(500, 300));
 		this.add(informazioa, BorderLayout.NORTH);
 		this.add(txioak, BorderLayout.CENTER);
 		this.setLocationRelativeTo(null);
