@@ -108,13 +108,13 @@ public class Operazioak {
 		}
 	}
 	
-	public static void mentzioakErakutsi() {
+	public static void aipamenakErakutsi() {
 		//eginda eta badabil
 		//mentzio bakoitzaren igorlea "norenak" parametroan dago
 		//mentzio denak "mentzioak" parametroan daude
 		try {
 			ArrayList<String> norenak = new ArrayList<String>();
-			ArrayList<String> mentzioak = new ArrayList<String>();
+			ArrayList<String> aipamenak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> mentions = twitter.getMentionsTimeline();
@@ -123,7 +123,7 @@ public class Operazioak {
 				if (mention.getText().startsWith("RT @")) {
 				System.out.println("@" + mention.getUser().getScreenName() + " - " + mention.getText());
 				norenak.add(mention.getUser().getScreenName());
-				mentzioak.add(mention.getText());
+				aipamenak.add(mention.getText());
 				}
 			}
 		} catch (TwitterException te) {
