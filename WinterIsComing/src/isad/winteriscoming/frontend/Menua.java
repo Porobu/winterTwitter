@@ -10,17 +10,25 @@ import isad.winteriscoming.backend.OperazioakOnline;
 public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
-	private JMenu konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
+	private JMenu fitxategia, konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
 	private JMenuItem konektatu, deskonektatu, txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak,
 			mezuak, txioakBilatu, bertxioakBilatu, gustukoakBilatu, zerrendakBilatu, mezuakBilatu, excel, kopiaEgin,
 			kopiaKargatu;
 
 	public Menua() {
+		this.fitxategiaMenua();
 		this.konexioaMenua();
 		this.jaitsiMenua();
 		this.bilatuMenua();
 		this.esportatuMenua();
 		this.segurtasunKopiaMenua();
+	}
+	
+	private void fitxategiaMenua()
+	{
+		this.fitxategia = new JMenu("Fitxategia");
+		//TODO MAS COSAS AQUI
+		this.add(fitxategia);
 	}
 
 	private void konexioaMenua() {
@@ -84,6 +92,8 @@ public class Menua extends JMenuBar {
 		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
 		this.kopiaEgin = new JMenuItem("Kopia Egin");
+		SegurtasunKopia gureSK = new SegurtasunKopia();
+		this.kopiaEgin.addActionListener(gureAE -> gureSK.kopiaEgin());
 		this.kopiaKargatu = new JMenuItem("Kopia Kargatu");
 		this.segurtasunKopia.add(this.kopiaEgin);
 		this.segurtasunKopia.add(this.kopiaKargatu);
