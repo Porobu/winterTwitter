@@ -51,6 +51,7 @@ public class Menua extends JMenuBar {
 		this.jaitsi.add(this.jarraituak);
 		this.jaitsi.add(this.jarraitzaileak);
 		this.jaitsi.add(this.zerrendak);
+		this.zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakErakutsi());
 		this.jaitsi.add(this.mezuak);
 		this.add(this.jaitsi);
 	}

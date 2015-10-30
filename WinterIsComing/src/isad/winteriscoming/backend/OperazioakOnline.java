@@ -193,10 +193,19 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			ArrayList<String> zerrendak = new ArrayList<String>();
+			ArrayList<String> zerrendakoak = new ArrayList<String>();
+			long cursor = -1;
+			PagableResponseList<User> users;
 			ResponseList<UserList> lists = twitter.getUserLists(twitter.getScreenName());
 			for (UserList list : lists) {
-				System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
-						+ list.getDescription() + ", slug:" + list.getSlug() + "");
+				users = twitter.getUserListMembers((list.getId()), cursor);
+				System.out.println("id:" + list.getId() + ", Izena:" + list.getName() + ", Deskribapena:"
+						+ list.getDescription() + " Jarraituak:");
+				for (User user : users) {
+					System.out.println("@" + user.getScreenName());
+					zerrendakoak.add(user.getScreenName());
+				}
+				//hemen inprimatu jarraitutakoak
 				zerrendak.add(Long.toString(list.getId()));
 			}
 			System.exit(0);
@@ -214,14 +223,14 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			long cursor = -1;
-			PagableResponseList<User> usres;
+			PagableResponseList<User> users;
 			do {
-				usres = twitter.getUserListMembers(Long.parseLong(idZerrenda), cursor);
-				for (User list : usres) {
+				users = twitter.getUserListMembers(Long.parseLong(idZerrenda), cursor);
+				for (User list : users) {
 					System.out.println("@" + list.getScreenName());
 					izenak.add(list.getScreenName());
 				}
-			} while ((cursor = usres.getNextCursor()) != 0);
+			} while ((cursor = users.getNextCursor()) != 0);
 			System.exit(0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
