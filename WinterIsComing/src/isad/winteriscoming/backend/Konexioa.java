@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.swing.JOptionPane;
+
 import isad.winteriscoming.frontend.Login;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import twitter4j.Twitter;
@@ -81,6 +83,12 @@ public class Konexioa {
 				throw new SentitzenNaizException("Ezin da token-a lortu");
 			}
 		}
+	}
+
+	public void deskonektatu() {
+		gureKonexioa = new Konexioa();
+		JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", "WinterTwitter " + Nagusia.BERTSIOA,
+				JOptionPane.WARNING_MESSAGE);
 	}
 
 	public Twitter getTwitter() {

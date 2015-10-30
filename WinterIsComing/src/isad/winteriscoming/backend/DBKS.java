@@ -91,7 +91,7 @@ public final class DBKS {
 			System.exit(1);
 		fitxategia.delete();
 		try {
-			exportResource("/isad/winteriscoming/datubasea.accdb", path);
+			exportResource("/isad/winteriscoming/DatuBasea.accdb", path);
 		} catch (Exception e) {
 			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}

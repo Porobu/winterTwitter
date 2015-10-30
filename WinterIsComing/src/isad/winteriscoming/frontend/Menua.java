@@ -36,6 +36,7 @@ public class Menua extends JMenuBar {
 		konektatu = new JMenuItem("Konektatu");
 		deskonektatu = new JMenuItem("Deskonektatu");
 		konektatu.addActionListener(gureAE -> Konexioa.getKonexioa().logeatu());
+		deskonektatu.addActionListener(gureAE -> Konexioa.getKonexioa().deskonektatu());
 		konexioa.add(konektatu);
 		konexioa.add(deskonektatu);
 		this.add(konexioa);
