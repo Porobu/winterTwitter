@@ -42,7 +42,7 @@ public final class OperazioakOnline {
 			System.exit(-1);
 		}
 	}
-	
+
 	public void ezabatuSnails() {
 		// eginda eta badabil
 		try {
@@ -59,11 +59,12 @@ public final class OperazioakOnline {
 			System.exit(-1);
 		}
 	}
-	
+
 	public void ezabatuSnails2() {
-		for (int i = 0; i<16 ; i++)
+		for (int i = 0; i < 16; i++)
 			ezabatuSnails();
 	}
+
 	public void gustokoakDeskargatu() {
 		// eginda eta badabil
 		// gustoko tweet bakoitzaren igorlea "norenak" parametroan dago
@@ -83,10 +84,20 @@ public final class OperazioakOnline {
 				tweetak.add(fav.getText());
 				datak.add(fav.getCreatedAt());
 			}
+			gustokoakDBraSartu(norenak, tweetak, datak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 			System.exit(-1);
+		}
+	}
+
+	public void gustokoakDBraSartu(ArrayList<String> norenak, ArrayList<String> tweetak, ArrayList<Date> datak) {
+		String agindua = "";
+		for (int i = 0; i < norenak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ norenak.get(i) + "norenak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -106,10 +117,20 @@ public final class OperazioakOnline {
 				txioak.add(tweet.getText());
 				datak.add(tweet.getCreatedAt());
 			}
+			txioakDBraSartu(txioak, datak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 			System.exit(-1);
+		}
+	}
+	
+	public void txioakDBraSartu(ArrayList<String> txioak, ArrayList<Date> datak) {
+		String agindua = "";
+		for (int i = 0; i < txioak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ txioak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -225,8 +246,8 @@ public final class OperazioakOnline {
 			ResponseList<UserList> lists = twitter.getUserLists(twitter.getScreenName());
 			for (UserList list : lists) {
 				users = twitter.getUserListMembers((list.getId()), cursor);
-				System.out.println("Izena:" + list.getName() + " / Deskribapena: "
-						+ list.getDescription() + " / Jarraituak:");
+				System.out.println(
+						"Izena:" + list.getName() + " / Deskribapena: " + list.getDescription() + " / Jarraituak:");
 				for (User user : users) {
 					System.out.println("@" + user.getScreenName());
 					zerrendakoak.add(user.getScreenName());
@@ -307,7 +328,7 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
-			//egiteke
+			// egiteke
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
