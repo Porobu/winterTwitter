@@ -1,6 +1,7 @@
 package isad.winteriscoming.backend;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import twitter4j.DirectMessage;
@@ -44,7 +45,6 @@ public final class OperazioakOnline {
 	
 	public void ezabatuSnails() {
 		// eginda eta badabil
-		// gorde behar da?
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -68,9 +68,11 @@ public final class OperazioakOnline {
 		// eginda eta badabil
 		// gustoko tweet bakoitzaren igorlea "norenak" parametroan dago
 		// gustoko tweet denak "tweetak" parametroan daude
+		// gustoko tweet bakoitzaren sorrera data "datak" parametroan dago
 		try {
 			ArrayList<String> norenak = new ArrayList<String>();
 			ArrayList<String> tweetak = new ArrayList<String>();
+			ArrayList<Date> datak = new ArrayList<Date>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> favs = twitter.getFavorites();
@@ -79,6 +81,7 @@ public final class OperazioakOnline {
 				System.out.println("@" + fav.getUser().getScreenName() + " - " + fav.getText());
 				norenak.add(fav.getUser().getScreenName());
 				tweetak.add(fav.getText());
+				datak.add(fav.getCreatedAt());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -89,18 +92,19 @@ public final class OperazioakOnline {
 
 	public void tweetakDeskargatu() {
 		// eginda eta badabil
-		// gustoko tweet denak "gustokoak" parametroan daude
+		// tweet denak "tweetak" parametroan daude
+		// tweet bakoitzaren sorrera data "datak" parametroan dago
 		try {
-			ArrayList<String> gustokoak = new ArrayList<String>();
+			ArrayList<String> txioak = new ArrayList<String>();
+			ArrayList<Date> datak = new ArrayList<Date>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> tweets = twitter.getUserTimeline();
 			System.out.println("Showing @" + user.getScreenName() + "'s tweets.");
 			for (Status tweet : tweets) {
-				// if (tweet.getUser().getScreenName()==uneko erabiltzaileare
-				// izena) //retweetak kentzeko
 				System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-				gustokoak.add(tweet.getText());
+				txioak.add(tweet.getText());
+				datak.add(tweet.getCreatedAt());
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -113,9 +117,11 @@ public final class OperazioakOnline {
 		// eginda eta badabil
 		// retweet bakoitzaren igorlea "norenak" parametroan dago
 		// retweet denak "retweetak" parametroan daude
+		// retweet bakoitzaren sorrera data "datak" parametroan dago
 		try {
 			ArrayList<String> norenak = new ArrayList<String>();
 			ArrayList<String> retweetak = new ArrayList<String>();
+			ArrayList<Date> datak = new ArrayList<Date>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> retweets = twitter.getUserTimeline();
@@ -125,6 +131,7 @@ public final class OperazioakOnline {
 					System.out.println("@" + retweet.getUser().getScreenName() + " - " + retweet.getText());
 					norenak.add(retweet.getUser().getScreenName());
 					retweetak.add(retweet.getText());
+					datak.add(retweet.getCreatedAt());
 				}
 			}
 		} catch (TwitterException te) {
@@ -136,11 +143,13 @@ public final class OperazioakOnline {
 
 	public void aipamenakDeskargatu() {
 		// eginda eta badabil
-		// mentzio bakoitzaren igorlea "norenak" parametroan dago
-		// mentzio denak "mentzioak" parametroan daude
+		// aiamen bakoitzaren igorlea "norenak" parametroan dago
+		// aipamen denak "mentzioak" parametroan daude
+		// aipamen bakoitzaren sorrera data "datak" parametroan dago
 		try {
 			ArrayList<String> norenak = new ArrayList<String>();
 			ArrayList<String> aipamenak = new ArrayList<String>();
+			ArrayList<Date> datak = new ArrayList<Date>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> mentions = twitter.getMentionsTimeline();
@@ -150,6 +159,7 @@ public final class OperazioakOnline {
 					System.out.println("@" + mention.getUser().getScreenName() + " - " + mention.getText());
 					norenak.add(mention.getUser().getScreenName());
 					aipamenak.add(mention.getText());
+					datak.add(mention.getCreatedAt());
 				}
 			}
 		} catch (TwitterException te) {
@@ -234,9 +244,11 @@ public final class OperazioakOnline {
 		// eginda eta badabil
 		// mezu bakoitzaren igorlea "norenak" parametroan dago
 		// mezu denak "mezuak" parametroan daude
+		// mezu bakoitzaren sorrera data "datak" parametroan dago
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
 		ArrayList<String> norenak = new ArrayList<String>();
 		ArrayList<String> mezuak = new ArrayList<String>();
+		ArrayList<Date> datak = new ArrayList<Date>();
 		try {
 			Paging paging = new Paging(1);
 			List<DirectMessage> messages;
@@ -247,6 +259,7 @@ public final class OperazioakOnline {
 							+ message.getText());
 					norenak.add(message.getSenderScreenName());
 					mezuak.add(message.getText());
+					datak.add(message.getCreatedAt());
 				}
 				paging.setPage(paging.getPage() + 1);
 			} while (messages.size() > 0 && paging.getPage() < 10);
@@ -262,9 +275,11 @@ public final class OperazioakOnline {
 		// eginda eta badabil
 		// mezu bakoitzaren hartzailea "norentzat" parametroan dago
 		// mezu denak "mezuak" parametroan daude
+		// mezu bakoitzaren sorrera data "datak" parametroan dago
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
 		ArrayList<String> norentzat = new ArrayList<String>();
 		ArrayList<String> mezuak = new ArrayList<String>();
+		ArrayList<Date> datak = new ArrayList<Date>();
 		try {
 			Paging page = new Paging(1);
 			List<DirectMessage> directMessages;
@@ -275,6 +290,7 @@ public final class OperazioakOnline {
 							+ message.getText());
 					norentzat.add(message.getSenderScreenName());
 					mezuak.add(message.getText());
+					datak.add(message.getCreatedAt());
 				}
 				page.setPage(page.getPage() + 1);
 			} while (directMessages.size() > 0 && page.getPage() < 10);
