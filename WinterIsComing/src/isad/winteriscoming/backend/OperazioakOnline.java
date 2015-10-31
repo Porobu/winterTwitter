@@ -24,10 +24,6 @@ public final class OperazioakOnline {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
 	}
 
-	// bigarren metodotik aurrera oraindik amaitzeke/probatzeke daude metodoak
-
-	// textua erakusteko metodoak
-
 	public void timelineDeskargatu() {
 		// eginda eta badabil
 		// gorde behar da?
@@ -45,7 +41,29 @@ public final class OperazioakOnline {
 			System.exit(-1);
 		}
 	}
-
+	
+	public void ezabatuSnails() {
+		// eginda eta badabil
+		// gorde behar da?
+		try {
+			Twitter twitter = Konexioa.getKonexioa().getTwitter();
+			User user = twitter.verifyCredentials();
+			List<Status> statuses = twitter.getUserTimeline();
+			for (Status status : statuses) {
+				if (status.getText().contains("Snail!"))
+					twitter.destroyStatus(status.getId());
+			}
+		} catch (TwitterException te) {
+			te.printStackTrace();
+			System.out.println("Failed to get timeline: " + te.getMessage());
+			System.exit(-1);
+		}
+	}
+	
+	public void ezabatuSnails2() {
+		for (int i = 0; i<16 ; i++)
+			ezabatuSnails();
+	}
 	public void gustokoakDeskargatu() {
 		// eginda eta badabil
 		// gustoko tweet bakoitzaren igorlea "norenak" parametroan dago
