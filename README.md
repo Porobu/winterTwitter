@@ -1,10 +1,10 @@
 # winterTwitter
 Winter is Coming - ISAD 15 - 16
 
-4. Sprint-a amaituta
+ 4. Sprint-a amaituta
 
 
-5. Sprint-a, datorren ostegunerako:
+ 5. Sprint-a, datorren ostegunerako:
 
     -   Guk inplementatutako egitura duen datu-basea kargatzea, eta horrela ez bada, programak berri bat sortzea eta             horretara   konektatu. (3 p) Unai
     
