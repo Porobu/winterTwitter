@@ -28,7 +28,7 @@ public final class OperazioakOnline {
 
 	// textua erakusteko metodoak
 
-	public void timelineErakutsi() {
+	public void timelineDeskargatu() {
 		// eginda eta badabil
 		// gorde behar da?
 		try {
@@ -46,7 +46,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void gustokoakErakutsi() {
+	public void gustokoakDeskargatu() {
 		// eginda eta badabil
 		// gustoko tweet bakoitzaren igorlea "norenak" parametroan dago
 		// gustoko tweet denak "tweetak" parametroan daude
@@ -69,7 +69,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void tweetakErakutsi() {
+	public void tweetakDeskargatu() {
 		// eginda eta badabil
 		// gustoko tweet denak "gustokoak" parametroan daude
 		try {
@@ -91,7 +91,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void retweetakErakutsi() {
+	public void retweetakDeskargatu() {
 		// eginda eta badabil
 		// retweet bakoitzaren igorlea "norenak" parametroan dago
 		// retweet denak "retweetak" parametroan daude
@@ -116,7 +116,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void aipamenakErakutsi() {
+	public void aipamenakDeskargatu() {
 		// eginda eta badabil
 		// mentzio bakoitzaren igorlea "norenak" parametroan dago
 		// mentzio denak "mentzioak" parametroan daude
@@ -141,7 +141,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void jarraitzaileakErakutsi() {
+	public void jarraitzaileakDeskargatu() {
 		// eginda eta badabil
 		// jarraitzaile guztien izena "jarraitzaileak" parametroan daude
 		try {
@@ -156,7 +156,6 @@ public final class OperazioakOnline {
 				System.out.println(twitter.showUser(user.getId()).getName());
 				jarraitzaileak.add(twitter.showUser(user.getId()).getName());
 			}
-			System.exit(0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get followers' ids: " + te.getMessage());
@@ -164,7 +163,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void jarraituakErakutsi() {
+	public void jarraituakDeskargatu() {
 		// eginda eta badabil
 		// jarraitzaile guztien izena "jarraituak" parametroan daude
 		try {
@@ -179,7 +178,6 @@ public final class OperazioakOnline {
 				System.out.println(twitter.showUser(user.getId()).getName());
 				jarraituak.add(twitter.showUser(user.getId()).getName());
 			}
-			System.exit(0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get followers' ids: " + te.getMessage());
@@ -187,7 +185,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void zerrendakErakutsi() {
+	public void zerrendakDeskargatu() {
 		// eginda eta badabil
 		// zerrenda guztien id-a "zerrendak" parametroan daude
 		try {
@@ -207,7 +205,6 @@ public final class OperazioakOnline {
 				}
 				zerrendak.add(Long.toString(list.getId()));
 			}
-			System.exit(0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to list the lists: " + te.getMessage());
@@ -215,7 +212,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void mezuakErakutsi() {
+	public void jasotakoMezuakDeskargatu() {
 		// eginda eta badabil
 		// mezu bakoitzaren igorlea "norenak" parametroan dago
 		// mezu denak "mezuak" parametroan daude
@@ -236,7 +233,6 @@ public final class OperazioakOnline {
 				paging.setPage(paging.getPage() + 1);
 			} while (messages.size() > 0 && paging.getPage() < 10);
 			System.out.println("done.");
-			System.exit(0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get messages: " + te.getMessage());
@@ -244,7 +240,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void bidalitakoMezuakErakutsi() {
+	public void bidalitakoMezuakDeskargatu() {
 		// eginda eta badabil
 		// mezu bakoitzaren hartzailea "norentzat" parametroan dago
 		// mezu denak "mezuak" parametroan daude
@@ -265,7 +261,6 @@ public final class OperazioakOnline {
 				page.setPage(page.getPage() + 1);
 			} while (directMessages.size() > 0 && page.getPage() < 10);
 			System.out.println("done.");
-			System.exit(0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get sent messages: " + te.getMessage());
@@ -278,11 +273,7 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
-			List<Status> statuses = twitter.getHomeTimeline();
-			System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");
-			for (Status status : statuses) {
-				System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
-			}
+			//egiteke
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());

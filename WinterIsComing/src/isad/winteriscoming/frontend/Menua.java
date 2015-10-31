@@ -12,8 +12,8 @@ public class Menua extends JMenuBar {
 	private static final long serialVersionUID = 5223706927915502156L;
 	private JMenu fitxategia, konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
 	private JMenuItem konektatu, deskonektatu, txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak,
-			mezuak, txioakBilatu, bertxioakBilatu, gustukoakBilatu, zerrendakBilatu, mezuakBilatu, excel, kopiaEgin,
-			kopiaKargatu;
+			jasotakoMezuak, bidalitakoMezuak, txioakBilatu, bertxioakBilatu, gustukoakBilatu, zerrendakBilatu,
+			mezuakBilatu, excel, kopiaEgin, kopiaKargatu;
 
 	public Menua() {
 		this.fitxategiaMenua();
@@ -23,11 +23,10 @@ public class Menua extends JMenuBar {
 		this.esportatuMenua();
 		this.segurtasunKopiaMenua();
 	}
-	
-	private void fitxategiaMenua()
-	{
+
+	private void fitxategiaMenua() {
 		this.fitxategia = new JMenu("Fitxategia");
-		//TODO MAS COSAS AQUI
+		// TODO MAS COSAS AQUI
 		this.add(fitxategia);
 	}
 
@@ -51,17 +50,25 @@ public class Menua extends JMenuBar {
 		this.jarraituak = new JMenuItem("Jarraituak");
 		this.jarraitzaileak = new JMenuItem("Jarraitzaileak");
 		this.zerrendak = new JMenuItem("Zerrendak");
-		this.mezuak = new JMenuItem("Mezuak");
+		this.jasotakoMezuak = new JMenuItem("Jasotako Mezuak");
+		this.bidalitakoMezuak = new JMenuItem("Bidalitako Mezuak");
 		this.jaitsi.add(this.jaitsi);
 		this.jaitsi.add(this.txioak);
-		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().tweetakErakutsi());
+		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().tweetakDeskargatu());
 		this.jaitsi.add(this.bertxioak);
+		this.bertxioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().retweetakDeskargatu());
 		this.jaitsi.add(this.gustokoak);
+		this.gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakDeskargatu());
 		this.jaitsi.add(this.jarraituak);
+		this.jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakDeskargatu());
 		this.jaitsi.add(this.jarraitzaileak);
+		this.jarraitzaileak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraitzaileakDeskargatu());
 		this.jaitsi.add(this.zerrendak);
-		this.zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakErakutsi());
-		this.jaitsi.add(this.mezuak);
+		this.zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakDeskargatu());
+		this.jaitsi.add(this.jasotakoMezuak);
+		this.jasotakoMezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jasotakoMezuakDeskargatu());
+		this.jaitsi.add(this.bidalitakoMezuak);
+		this.bidalitakoMezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().bidalitakoMezuakDeskargatu());
 		this.add(this.jaitsi);
 	}
 
