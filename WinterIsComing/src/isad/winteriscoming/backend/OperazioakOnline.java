@@ -155,10 +155,20 @@ public final class OperazioakOnline {
 					datak.add(retweet.getCreatedAt());
 				}
 			}
+			bertxioakDBraSartu(norenak, retweetak, datak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 			System.exit(-1);
+		}
+	}
+	
+	public void bertxioakDBraSartu(ArrayList<String> norenak, ArrayList<String> bertxioak, ArrayList<Date> datak) {
+		String agindua = "";
+		for (int i = 0; i < bertxioak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ bertxioak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -183,10 +193,20 @@ public final class OperazioakOnline {
 					datak.add(mention.getCreatedAt());
 				}
 			}
+			aipamenakDBraSartu(norenak, aipamenak, datak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 			System.exit(-1);
+		}
+	}
+	
+	public void aipamenakDBraSartu(ArrayList<String> norenak, ArrayList<String> aipamenak, ArrayList<Date> datak) {
+		String agindua = "";
+		for (int i = 0; i < aipamenak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ aipamenak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -205,10 +225,20 @@ public final class OperazioakOnline {
 				System.out.println(twitter.showUser(user.getId()).getName());
 				jarraitzaileak.add(twitter.showUser(user.getId()).getName());
 			}
+			jarraitzaileakDBraSartu(jarraitzaileak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get followers' ids: " + te.getMessage());
 			System.exit(-1);
+		}
+	}
+	
+	public void jarraitzaileakDBraSartu(ArrayList<String> jarraitzaleak) {
+		String agindua = "";
+		for (int i = 0; i < jarraitzaleak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ jarraitzaleak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -227,37 +257,60 @@ public final class OperazioakOnline {
 				System.out.println(twitter.showUser(user.getId()).getName());
 				jarraituak.add(twitter.showUser(user.getId()).getName());
 			}
+			jarraituakDBraSartu(jarraituak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get followers' ids: " + te.getMessage());
 			System.exit(-1);
 		}
 	}
+	
+	public void jarraituakDBraSartu(ArrayList<String> jarraituak) {
+		String agindua = "";
+		for (int i = 0; i < jarraituak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ jarraituak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
+		}
+	}
 
 	public void zerrendakDeskargatu() {
 		// eginda eta badabil
-		// zerrenda guztien id-a "zerrendak" parametroan daude
+		// zerrenda guztiak eta bertan dauden jarraituak "zerrendak" parametroan gordetzen dira
+		// zerrenda bakoitzak hasieran "." bat izango du
+		// hurrengo izen guztiak zerrenda horretako jarraituak izango dira, "."-dun bat aurkitu arte
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			ArrayList<String> zerrendak = new ArrayList<String>();
-			ArrayList<String> zerrendakoak = new ArrayList<String>();
 			long cursor = -1;
 			PagableResponseList<User> users;
 			ResponseList<UserList> lists = twitter.getUserLists(twitter.getScreenName());
 			for (UserList list : lists) {
 				users = twitter.getUserListMembers((list.getId()), cursor);
+				zerrendak.add("." + (list.getName()));
 				System.out.println(
 						"Izena:" + list.getName() + " / Deskribapena: " + list.getDescription() + " / Jarraituak:");
 				for (User user : users) {
 					System.out.println("@" + user.getScreenName());
-					zerrendakoak.add(user.getScreenName());
+					zerrendak.add(user.getScreenName());
 				}
-				zerrendak.add(Long.toString(list.getId()));
 			}
+			zerrendakDBraSartu(zerrendak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to list the lists: " + te.getMessage());
 			System.exit(-1);
+		}
+	}
+	
+	public void zerrendakDBraSartu(ArrayList<String> zerrendak) {
+		//zerrenda bakoitzeko for bat egin
+		//zerrendaren izena eta jarraituak banatu if startsWith(".") batekin
+		String agindua = "";
+		for (int i = 0; i < zerrendak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ zerrendak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -284,11 +337,20 @@ public final class OperazioakOnline {
 				}
 				paging.setPage(paging.getPage() + 1);
 			} while (messages.size() > 0 && paging.getPage() < 10);
-			System.out.println("done.");
+			jasotakoMezuakDBraSartu(norenak, mezuak, datak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get messages: " + te.getMessage());
 			System.exit(-1);
+		}
+	}
+	
+	public void jasotakoMezuakDBraSartu(ArrayList<String> norenak, ArrayList<String> mezuak, ArrayList<Date> datak) {
+		String agindua = "";
+		for (int i = 0; i < mezuak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ mezuak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -315,24 +377,20 @@ public final class OperazioakOnline {
 				}
 				page.setPage(page.getPage() + 1);
 			} while (directMessages.size() > 0 && page.getPage() < 10);
-			System.out.println("done.");
+			bidalitakoMezuakDBraSartu(norentzat, mezuak, datak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get sent messages: " + te.getMessage());
 			System.exit(-1);
 		}
 	}
-
-	public void bilatuTxioetan(String st) {
-		// TODO datu basearekin komunikazioa lortu ondoren inplementatu
-		try {
-			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User user = twitter.verifyCredentials();
-			// egiteke
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to get timeline: " + te.getMessage());
-			System.exit(-1);
+	
+	public void bidalitakoMezuakDBraSartu(ArrayList<String> norentzat, ArrayList<String> mezuak, ArrayList<Date> datak) {
+		String agindua = "";
+		for (int i = 0; i < mezuak.size(); i++) {
+			//beheko agindu hau egin modu egokian
+			agindua = "INSERT INTO etc"+ mezuak.get(i) + "datak";
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 }
