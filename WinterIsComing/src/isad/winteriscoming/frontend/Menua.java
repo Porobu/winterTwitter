@@ -54,7 +54,7 @@ public class Menua extends JMenuBar {
 		this.bidalitakoMezuak = new JMenuItem("Bidalitako Mezuak");
 		this.jaitsi.add(this.jaitsi);
 		this.jaitsi.add(this.txioak);
-		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().ezabatuSnails2());
+		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().tweetakDeskargatu());
 		this.jaitsi.add(this.bertxioak);
 		this.bertxioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().retweetakDeskargatu());
 		this.jaitsi.add(this.gustokoak);
