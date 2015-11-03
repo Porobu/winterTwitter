@@ -92,16 +92,15 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void gustokoakDBraSartu(ArrayList<String> norenak, ArrayList<String> tweetak, ArrayList<Date> datak) {
+	public void gustokoakDBraSartu(ArrayList<String> norenak, ArrayList<String> txioak, ArrayList<Date> datak) {
 		String agindua = "";
 		for (int i = 0; i < norenak.size(); i++) {
 			//beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO etc"+ norenak.get(i) + "norenak";
+			agindua = "INSERT INTO TXIOA " + "VALUES ('" + norenak + "', '" + txioak + "', '" + datak + "')";
 			DBKS.getDBKS().aginduaExekutatu(agindua);
-		}
-	}
+		}	}
 
-	public void tweetakDeskargatu() {
+	public void txioakDeskargatu() {
 		// eginda eta badabil
 		// tweet denak "tweetak" parametroan daude
 		// tweet bakoitzaren sorrera data "datak" parametroan dago
@@ -134,7 +133,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void retweetakDeskargatu() {
+	public void bertxioakDeskargatu() {
 		// eginda eta badabil
 		// retweet bakoitzaren igorlea "norenak" parametroan dago
 		// retweet denak "retweetak" parametroan daude
@@ -167,7 +166,7 @@ public final class OperazioakOnline {
 		String agindua = "";
 		for (int i = 0; i < bertxioak.size(); i++) {
 			//beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO etc"+ bertxioak.get(i) + "datak";
+			agindua = "INSERT INTO TXIOA " + "VALUES ('" + norenak + "', '" + bertxioak + "', '" + datak + "')";
 			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
@@ -205,7 +204,7 @@ public final class OperazioakOnline {
 		String agindua = "";
 		for (int i = 0; i < aipamenak.size(); i++) {
 			//beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO etc"+ aipamenak.get(i) + "datak";
+			agindua = "INSERT INT TXIOA " + "VALUES ('" + norenak + "', '" + aipamenak + "', '" + datak + "')";
 			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
@@ -233,11 +232,11 @@ public final class OperazioakOnline {
 		}
 	}
 	
-	public void jarraitzaileakDBraSartu(ArrayList<String> jarraitzaleak) {
+	public void jarraitzaileakDBraSartu(ArrayList<String> jarraitzaileak) {
 		String agindua = "";
-		for (int i = 0; i < jarraitzaleak.size(); i++) {
+		for (int i = 0; i < jarraitzaileak.size(); i++) {
 			//beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO etc"+ jarraitzaleak.get(i) + "datak";
+			agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + jarraitzaileak + "')";
 			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
@@ -269,7 +268,7 @@ public final class OperazioakOnline {
 		String agindua = "";
 		for (int i = 0; i < jarraituak.size(); i++) {
 			//beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO etc"+ jarraituak.get(i) + "datak";
+			agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + jarraituak + "')";
 			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
@@ -309,7 +308,7 @@ public final class OperazioakOnline {
 		String agindua = "";
 		for (int i = 0; i < zerrendak.size(); i++) {
 			//beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO etc"+ zerrendak.get(i) + "datak";
+			agindua = "INSERT INTO ZERRENDAK " + "VALUES ('" + zerrendak + "')";
 			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
