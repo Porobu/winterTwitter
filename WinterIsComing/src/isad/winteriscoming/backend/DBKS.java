@@ -59,6 +59,7 @@ public final class DBKS {
 		} catch (SQLException gureSalbuespena) {
 			throw new SentitzenNaizException("Ezin da datu basera konektatu");
 		}
+		this.datubaseaKonprobatu();
 	}
 
 	public String datuBaseaGordetzekoPath() {
@@ -146,8 +147,28 @@ public final class DBKS {
 			try {
 				this.konexioa.commit();
 				this.konexioa.close();
+				this.gureDBKS = new DBKS();
 			} catch (SQLException e) {
 
 			}
+	}
+
+	private boolean datubaseaKonprobatu() {
+		Statement st;
+		try {
+			st = konexioa.createStatement();
+			st.executeQuery("SELECT TXIOID, ERABID, DATA FROM BARNE");
+			st.executeQuery("SELECT ID, IZENA, MOTA, IDERABILTZAILEA, NICK FROM BESTEERABILTZAILEAK");
+			st.executeQuery("SELECT ERABID, ZERRENID FROM DITU");
+			st.executeQuery("SELECT NICK, IZENA, EMAIL, ID FROM ERABILTZAILEA");
+			st.executeQuery("SELECT ID, EDUKIA, DATA, MOTA FROM TXIOA");
+			st.executeQuery("SELECT ID, IZENA FROM ZERRENDA");
+			st.close();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa", "WinterTwitter " + Nagusia.BERTSIOA,
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		return true;
 	}
 }
