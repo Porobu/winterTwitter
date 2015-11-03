@@ -386,7 +386,7 @@ public final class OperazioakOnline {
 	
 	public void bidalitakoMezuakDBraSartu(ArrayList<String> norentzat, ArrayList<String> mezuak, ArrayList<Date> datak) {
 		String agindua = "";
-		for (int i = 0; i < mezuak.size(); i++) {
+		for(int i = 0; i < mezuak.size(); i++) {
 			//beheko agindu hau egin modu egokian
 			agindua = "INSERT INTO etc"+ mezuak.get(i) + "datak";
 			DBKS.getDBKS().aginduaExekutatu(agindua);
