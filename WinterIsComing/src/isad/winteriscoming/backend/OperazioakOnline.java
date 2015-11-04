@@ -1,5 +1,6 @@
 package isad.winteriscoming.backend;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,8 +73,10 @@ public final class OperazioakOnline {
 			List<Status> favs = twitter.getFavorites();
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			for (Status fav : favs) {
-				System.out.println("@" + fav.getUser().getScreenName() + " - " + fav.getText());
-				DBKS.getDBKS().aginduaExekutatu("INSERT INTO TXIOA VALUES ('" + fav.getUser().getScreenName() + "', '" + fav.getText() + "', '" + fav.getCreatedAt() + "'");
+				System.out.println("@" + fav.getId() + " - " + fav.getText());
+				String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
+						+ "04/11/2015" + ", gustokoa')";
+				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -193,19 +196,17 @@ public final class OperazioakOnline {
 		try {
 			String agindua = "";
 			String jarraitzailea = "jarraitzailea";
-			ArrayList<String> jarraitzaileak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User us = twitter.verifyCredentials();
+			User erabiltzailea = twitter.verifyCredentials();
 			long cursor = -1;
 			List<User> userList;
 			System.out.println("Listing followers:");
-			userList = twitter.getFollowersList(us.getId(), cursor);
-			for (User user : userList) {
-
-				System.out.println(twitter.showUser(user.getId()).getName());
-				jarraitzaileak.add(twitter.showUser(user.getId()).getName());
-				agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + us.getId() + "', '" + us.getName() + "', '"
-						+ jarraitzailea + "','" + user.getId() + "','" + us.getScreenName() + "')";
+			userList = twitter.getFollowersList(erabiltzailea.getId(), cursor);
+			for (User jarraitzaile : userList) {
+				agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
+						+ jarraitzaile.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitzaile.getName())
+						+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','" + jarraitzaile.getScreenName()
+						+ "')";
 				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
 
@@ -221,33 +222,22 @@ public final class OperazioakOnline {
 		try {
 			String agindua = "";
 			String jarraitua = "jarraitua";
-			ArrayList<String> jarraituak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User us = twitter.verifyCredentials();
+			User erabiltzailea = twitter.verifyCredentials();
 			long cursor = -1;
 			List<User> userList;
 			System.out.println("Listing followers:");
-			userList = twitter.getFriendsList(us.getId(), cursor);
-			for (User user : userList) {
-				System.out.println(twitter.showUser(user.getId()).getName());
-				jarraituak.add(twitter.showUser(user.getId()).getName());
-				agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + us.getId() + "', '" + us.getName() + "', '"
-						+ jarraitua + "','" + user.getId() + "','" + us.getScreenName() + "')";
+			userList = twitter.getFriendsList(erabiltzailea.getId(), cursor);
+			for (User jarraitu : userList) {
+				agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
+						+ String.valueOf(jarraitu.getId()) + "', '" + jarraitu.getName() + "', '" + jarraitua + "','"
+						+ String.valueOf(erabiltzailea.getId()) + "','" + jarraitu.getScreenName() + "')";
 				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
-			jarraituakDBraSartu(jarraituak);
+
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get followers' ids: " + te.getMessage());
-		}
-	}
-
-	public void jarraituakDBraSartu(ArrayList<String> jarraituak) {
-		String agindua = "";
-		for (int i = 0; i < jarraituak.size(); i++) {
-			// beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + jarraituak + "')";
-			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
