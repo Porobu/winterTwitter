@@ -213,6 +213,8 @@ public final class OperazioakOnline {
 		// eginda eta badabil
 		// jarraitzaile guztien izena "jarraitzaileak" parametroan daude
 		try {
+			String agindua = "";
+			String jarraitzailea="jarraitzailea";
 			ArrayList<String> jarraitzaileak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User us = twitter.verifyCredentials();
@@ -221,10 +223,13 @@ public final class OperazioakOnline {
 			System.out.println("Listing followers:");
 			userList = twitter.getFollowersList(us.getId(), cursor);
 			for (User user : userList) {
+				
 				System.out.println(twitter.showUser(user.getId()).getName());
 				jarraitzaileak.add(twitter.showUser(user.getId()).getName());
+				agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + us.getId() + "', '" + us.getName() + "', '" + jarraitzailea + "','" + user.getId() + "')";
+				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
-			jarraitzaileakDBraSartu(jarraitzaileak);
+						
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get followers' ids: " + te.getMessage());
