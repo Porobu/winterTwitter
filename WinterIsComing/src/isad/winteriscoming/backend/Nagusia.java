@@ -1,5 +1,6 @@
 package isad.winteriscoming.backend;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -8,6 +9,7 @@ import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
 	public static float BERTSIOA = 0.25F;
+	private static JFrame frame;
 	private static String path;
 
 	public static void main(String[] args) {
@@ -17,7 +19,11 @@ public class Nagusia {
 				| UnsupportedLookAndFeelException e) {
 		}
 		String[] aukerak = { "Ireki", "Eraiki", "Itxi" };
-		int aukera = JOptionPane.showOptionDialog(null, "Datu Basea ireki edo eraiki nahi duzu?",
+		frame = new JFrame("WinterTwitter " + BERTSIOA);
+		frame.setUndecorated(true);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		int aukera = JOptionPane.showOptionDialog(frame, "Datu Basea ireki edo eraiki nahi duzu?",
 				"WinterTwitter " + BERTSIOA, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				aukerak, aukerak[0]);
 		switch (aukera) {
@@ -39,5 +45,10 @@ public class Nagusia {
 
 	public static String getPath() {
 		return path;
+	}
+	
+	public static JFrame getFrame()
+	{
+		return frame;
 	}
 }

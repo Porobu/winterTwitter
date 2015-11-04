@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
 
 import isad.winteriscoming.frontend.Login;
+import isad.winteriscoming.frontend.WinterTwitter;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

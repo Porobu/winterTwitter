@@ -170,7 +170,7 @@ public final class DBKS {
 
 			st.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,
+			JOptionPane.showMessageDialog(Nagusia.getFrame(), "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
