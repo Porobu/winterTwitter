@@ -8,7 +8,6 @@ import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
 
 import isad.winteriscoming.frontend.Login;
-import isad.winteriscoming.frontend.WinterTwitter;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -74,6 +73,12 @@ public class Konexioa {
 		return new AccessToken(token, tokenSecret);
 	}
 
+	private void kredentzialakGorde(String token, String tokenSecret)
+	{
+		DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA(NICK,IZENA,EMAIL,ID,TOKEN,TOKENSECRET) VALUES('0','0','0','0','0','0')");
+		//DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA('0','0','0','0','" + token +"','" + tokenSecret + "')");
+	}
+
 	public void tokenaLortu() {
 		String pin = gureLogin.getPIN();
 		try {
@@ -91,6 +96,8 @@ public class Konexioa {
 			}
 		}
 		konektatuta = true;
+		if(Login.getLogin().getGordetzeko())
+			this.kredentzialakGorde(accessToken.getToken(), accessToken.getTokenSecret());
 	}
 
 	public void deskonektatu() {

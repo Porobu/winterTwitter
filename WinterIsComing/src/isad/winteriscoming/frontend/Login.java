@@ -30,6 +30,7 @@ public class Login extends JFrame implements KeyListener {
 	private String pinString;
 
 	public Login() {
+		tokenakGorde = true;
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.gurePanela = new JPanel(new SpringLayout());
@@ -41,6 +42,8 @@ public class Login extends JFrame implements KeyListener {
 		this.pin.setLabelFor(pinField);
 		this.gurePanela.add(pinField);
 		this.gorde = new JCheckBox("PINa gorde");
+		this.gorde.setSelected(true);
+		this.gorde.addActionListener(gureAE -> this.aldatu());
 		SpringUtilities.makeCompactGrid(this.gurePanela, 1, 2, 6, 6, 6, 6);
 		this.add(this.gurePanela, BorderLayout.NORTH);
 		this.add(this.gorde, BorderLayout.CENTER);
@@ -70,6 +73,10 @@ public class Login extends JFrame implements KeyListener {
 		Konexioa.getKonexioa().tokenaLortu();
 	}
 
+	private void aldatu() {
+		tokenakGorde = this.gorde.isSelected();
+	}
+
 	@Override
 	public void keyPressed(KeyEvent teklaSakatuta) {
 		if (teklaSakatuta.getKeyCode() == KeyEvent.VK_ENTER)
@@ -84,5 +91,9 @@ public class Login extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 
+	}
+
+	public boolean getGordetzeko() {
+		return tokenakGorde;
 	}
 }
