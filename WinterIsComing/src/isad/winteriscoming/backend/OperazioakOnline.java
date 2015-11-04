@@ -20,7 +20,6 @@ public final class OperazioakOnline {
 	private OperazioakOnline() {
 
 	}
-
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
 	}
