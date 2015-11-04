@@ -99,8 +99,8 @@ public final class DBKS {
 		} catch (Exception e) {
 			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}
-		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", "WinterTwitter " + Nagusia.BERTSIOA,
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.",
+				"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public ResultSet aginduaExekutatu(String agindua) {
@@ -164,8 +164,10 @@ public final class DBKS {
 			st.executeQuery("SELECT ID, IZENA, MOTA, IDERABILTZAILEA, NICK FROM BESTEERABILTZAILEAK");
 			st.executeQuery("SELECT ERABID, ZERRENID FROM DITU");
 			st.executeQuery("SELECT NICK, IZENA, EMAIL, ID FROM ERABILTZAILEA");
-			st.executeQuery("SELECT TXIOID, ERABID, DATA, EDUKIA FROM AIPAMENA");
+			st.executeQuery("SELECT TXIOID, ERABID, DATA, EDUKIA FROM AIPAMENAK");
 			st.executeQuery("SELECT ID, IZENA FROM ZERRENDA");
+			st.executeQuery("SELECT BIDALTZAILEID, HARTZAILEID, DATA, EDUKIA FROM MEZUA");
+
 			st.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,

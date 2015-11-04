@@ -22,9 +22,11 @@ public class Konexioa {
 	private AccessToken accessToken;
 	private Twitter twitter;
 	private RequestToken requestToken;
+	private boolean konektatuta;
 	private static Konexioa gureKonexioa;
 
 	private Konexioa() {
+		konektatuta = false;
 		gureLogin = null;
 		accessToken = null;
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -34,6 +36,10 @@ public class Konexioa {
 		TwitterFactory factory = new TwitterFactory(configuration);
 		twitter = factory.getInstance();
 		requestToken = null;
+	}
+
+	public boolean isKonektatuta() {
+		return konektatuta;
 	}
 
 	public static Konexioa getKonexioa() {
@@ -83,12 +89,17 @@ public class Konexioa {
 				throw new SentitzenNaizException("Ezin da token-a lortu");
 			}
 		}
+		konektatuta = true;
 	}
 
 	public void deskonektatu() {
-		gureKonexioa = new Konexioa();
-		JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", "WinterTwitter " + Nagusia.BERTSIOA,
-				JOptionPane.WARNING_MESSAGE);
+		if (konektatuta) {
+			gureKonexioa = new Konexioa();
+			JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", "WinterTwitter " + Nagusia.BERTSIOA,
+					JOptionPane.INFORMATION_MESSAGE);
+		} else
+			JOptionPane.showMessageDialog(null, "Ez zaude twitterera konektatuta.\nEzin zara deskonektatu.",
+					"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.WARNING_MESSAGE);
 	}
 
 	public Twitter getTwitter() {

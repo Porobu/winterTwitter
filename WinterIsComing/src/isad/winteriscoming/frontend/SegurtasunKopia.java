@@ -1,9 +1,10 @@
 package isad.winteriscoming.frontend;
 
+import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import static java.nio.file.StandardCopyOption.*;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -13,9 +14,8 @@ import isad.winteriscoming.backend.Nagusia;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 
 public class SegurtasunKopia {
-	public SegurtasunKopia()
-	{
-		
+	public SegurtasunKopia() {
+
 	}
 
 	public void kopiaEgin() {
