@@ -103,7 +103,7 @@ public final class DBKS {
 				"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public ResultSet aginduaExekutatu(String agindua) {
+	public ResultSet queryExekutatu(String agindua) {
 		ResultSet emaitza = null;
 		try {
 			Statement st = this.konexioa.createStatement();
@@ -114,6 +114,16 @@ public final class DBKS {
 		}
 		return emaitza;
 	}
+	
+	public void aginduaExekutatu(String agindua){
+	try {
+		Statement st = this.konexioa.createStatement();
+		st.execute(agindua);
+		st.close();
+	} catch (Exception salbuespena) {
+		throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+	}
+}
 
 	public String exportResource(String resourceName, String path) {
 		InputStream stream = null;

@@ -9,7 +9,7 @@ public class OperazioakOffline {
 	public List<String> bilatuTxioetan(String st) {
 		List<String> emaitza = new ArrayList<>();
 		ResultSet rs = DBKS.getDBKS()
-				.aginduaExekutatu("SELECT EDUKIA, DATA FROM TXIOA WHERE EDUKIA LIKE " + st + " AND MOTA = TXIOA");
+				.queryExekutatu("SELECT EDUKIA, DATA FROM TXIOA WHERE EDUKIA LIKE " + st + " AND MOTA = TXIOA");
 		return emaitza;
 	}
 }
