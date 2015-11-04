@@ -64,37 +64,20 @@ public final class OperazioakOnline {
 	}
 
 	public void gustokoakDeskargatu() {
-		// eginda eta badabil
-		// gustoko tweet bakoitzaren igorlea "norenak" parametroan dago
-		// gustoko tweet denak "tweetak" parametroan daude
-		// gustoko tweet bakoitzaren sorrera data "datak" parametroan dago
+		// eginda
+		// paging egin behar da
 		try {
-			ArrayList<String> norenak = new ArrayList<String>();
-			ArrayList<String> tweetak = new ArrayList<String>();
-			ArrayList<Date> datak = new ArrayList<Date>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> favs = twitter.getFavorites();
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			for (Status fav : favs) {
 				System.out.println("@" + fav.getUser().getScreenName() + " - " + fav.getText());
-				norenak.add(fav.getUser().getScreenName());
-				tweetak.add(fav.getText());
-				datak.add(fav.getCreatedAt());
+				DBKS.getDBKS().aginduaExekutatu("INSERT INTO TXIOA VALUES ('" + fav.getUser().getScreenName() + "', '" + fav.getText() + "', '" + fav.getCreatedAt() + "'");
 			}
-			gustokoakDBraSartu(norenak, tweetak, datak);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
-		}
-	}
-
-	public void gustokoakDBraSartu(ArrayList<String> norenak, ArrayList<String> txioak, ArrayList<Date> datak) {
-		String agindua = "";
-		for (int i = 0; i < norenak.size(); i++) {
-			// beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO TXIOA " + "VALUES ('" + norenak + "', '" + txioak + "', '" + datak + "')";
-			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
