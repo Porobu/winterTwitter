@@ -226,7 +226,7 @@ public final class OperazioakOnline {
 				
 				System.out.println(twitter.showUser(user.getId()).getName());
 				jarraitzaileak.add(twitter.showUser(user.getId()).getName());
-				agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + us.getId() + "', '" + us.getName() + "', '" + jarraitzailea + "','" + user.getId() + "')";
+				agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + us.getId() + "', '" + us.getName() + "', '" + jarraitzailea + "','" + user.getId() + "','" + us.getScreenName() + "')";
 				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
 						
@@ -237,19 +237,14 @@ public final class OperazioakOnline {
 		}
 	}
 	
-	public void jarraitzaileakDBraSartu(ArrayList<String> jarraitzaileak) {
-		String agindua = "";
-		for (int i = 0; i < jarraitzaileak.size(); i++) {
-			//beheko agindu hau egin modu egokian
-			agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + jarraitzaileak + "')";
-			DBKS.getDBKS().aginduaExekutatu(agindua);
-		}
-	}
+	
 
 	public void jarraituakDeskargatu() {
 		// eginda eta badabil
 		// jarraitzaile guztien izena "jarraituak" parametroan daude
 		try {
+			String agindua = "";
+			String jarraitua="jarraitua";
 			ArrayList<String> jarraituak = new ArrayList<String>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User us = twitter.verifyCredentials();
@@ -260,6 +255,8 @@ public final class OperazioakOnline {
 			for (User user : userList) {
 				System.out.println(twitter.showUser(user.getId()).getName());
 				jarraituak.add(twitter.showUser(user.getId()).getName());
+				agindua = "INSERT INTO BESTEERABILTZAILEAK " + "VALUES ('" + us.getId() + "', '" + us.getName() + "', '" + jarraitua + "','" + user.getId() + "','" + us.getScreenName() + "')";
+				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
 			jarraituakDBraSartu(jarraituak);
 		} catch (TwitterException te) {
