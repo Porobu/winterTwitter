@@ -160,11 +160,11 @@ public final class DBKS {
 		Statement st;
 		try {
 			st = konexioa.createStatement();
-			st.executeQuery("SELECT TXIOID, ERABID, DATA FROM BARNE");
+			st.executeQuery("SELECT ID, EDUKIA, DATA, MOTA FROM TXIOA");
 			st.executeQuery("SELECT ID, IZENA, MOTA, IDERABILTZAILEA, NICK FROM BESTEERABILTZAILEAK");
 			st.executeQuery("SELECT ERABID, ZERRENID FROM DITU");
 			st.executeQuery("SELECT NICK, IZENA, EMAIL, ID FROM ERABILTZAILEA");
-			st.executeQuery("SELECT ID, EDUKIA, DATA, MOTA FROM TXIOA");
+			st.executeQuery("SELECT TXIOID, ERABID, DATA, EDUKIA FROM AIPAMENA");
 			st.executeQuery("SELECT ID, IZENA FROM ZERRENDA");
 			st.close();
 		} catch (SQLException e) {
