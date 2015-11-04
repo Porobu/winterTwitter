@@ -4,6 +4,8 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -67,9 +69,15 @@ public class Konexioa {
 	private AccessToken kredentzialakKargatu() {
 		String token = null;
 		String tokenSecret = null;
-		// TODO Datu basetik hartu behar dira, eta ez badira existitzen
-		// twittereko web gunea ireki. Baita ere mezu bat jarri esaten ea beste
-		// kontu batekkin egin nahi duzu login
+		ResultSet rs = DBKS.getDBKS().queryExekutatu(
+				"SELECT TOKEN, TOKENSECRET FROM ERABILTZAILEA WHERE TOKEN NOT NULL AND TOKENSECRET NOT NULL");
+		try {
+			rs.next();
+			token = rs.getString(1);
+			token = rs.getString(2);
+		} catch (SQLException e) {
+			throw new SentitzenNaizException("Ez dira tokenak datu basean aurkitu");
+		}
 		return new AccessToken(token, tokenSecret);
 	}
 
