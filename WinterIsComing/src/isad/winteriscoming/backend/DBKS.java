@@ -59,7 +59,10 @@ public final class DBKS {
 		} catch (SQLException gureSalbuespena) {
 			throw new SentitzenNaizException("Ezin da datu basera konektatu");
 		}
-		this.datubaseaKonprobatu();
+		boolean ondo = this.datubaseaKonprobatu();
+		if (!ondo) {
+			this.konektatu(this.getPath());
+		}
 	}
 
 	public String datuBaseaGordetzekoPath() {
@@ -96,7 +99,7 @@ public final class DBKS {
 		} catch (Exception e) {
 			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}
-		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", "GORDE NAGO!!!!!",
+		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", "WinterTwitter " + Nagusia.BERTSIOA,
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -147,7 +150,7 @@ public final class DBKS {
 			try {
 				this.konexioa.commit();
 				this.konexioa.close();
-				this.gureDBKS = new DBKS();
+				gureDBKS = new DBKS();
 			} catch (SQLException e) {
 
 			}
@@ -165,8 +168,8 @@ public final class DBKS {
 			st.executeQuery("SELECT ID, IZENA FROM ZERRENDA");
 			st.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa", "WinterTwitter " + Nagusia.BERTSIOA,
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

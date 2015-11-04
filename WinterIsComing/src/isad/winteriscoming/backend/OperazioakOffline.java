@@ -1,21 +1,15 @@
 package isad.winteriscoming.backend;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.User;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OperazioakOffline {
-	
-	public void bilatuTxioetan(String st) {
-		// TODO datu basearekin komunikazioa lortu ondoren inplementatu
-		try {
-			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User user = twitter.verifyCredentials();
-			// egiteke
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to get timeline: " + te.getMessage());
-			System.exit(-1);
-		}
+
+	public List<String> bilatuTxioetan(String st) {
+		List<String> emaitza = new ArrayList<>();
+		ResultSet rs = DBKS.getDBKS()
+				.aginduaExekutatu("SELECT EDUKIA, DATA FROM TXIOA WHERE EDUKIA LIKE " + st + " AND MOTA = TXIOA");
+		return emaitza;
 	}
 }
