@@ -19,8 +19,6 @@ import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import net.ucanaccess.jdbc.UcanaccessDriver;
 
 public final class DBKS {
-	// FIXME Nahiz eta datu basera ondo konektatu, baliozkoa den ikusi behar
-	// dugu, SQL aginduen bitartez
 	private static DBKS gureDBKS;
 	private Connection konexioa;
 

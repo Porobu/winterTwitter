@@ -11,7 +11,7 @@ public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
 	private JMenu fitxategia, konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
-	private JMenuItem konektatu, deskonektatu, txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak,
+	private JMenuItem konektatu, deskonektatu, konektatuTokenekin, txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak,
 			jasotakoMezuak, bidalitakoMezuak, txioakBilatu, bertxioakBilatu, gustukoakBilatu, zerrendakBilatu,
 			mezuakBilatu, excel, kopiaEgin, kopiaKargatu;
 
@@ -34,6 +34,9 @@ public class Menua extends JMenuBar {
 		konexioa = new JMenu("Konexioa");
 		konektatu = new JMenuItem("Konektatu");
 		deskonektatu = new JMenuItem("Deskonektatu");
+		konektatuTokenekin = new JMenuItem("Konektatu Tokenekin");
+		konektatuTokenekin.addActionListener(gureAE -> Konexioa.getKonexioa().tokenarekinKonektatu());
+		konexioa.add(konektatuTokenekin);
 		konektatu.addActionListener(gureAE -> Konexioa.getKonexioa().logeatu());
 		deskonektatu.addActionListener(gureAE -> Konexioa.getKonexioa().deskonektatu());
 		konexioa.add(konektatu);

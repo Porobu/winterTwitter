@@ -70,13 +70,13 @@ public class Konexioa {
 		String token = null;
 		String tokenSecret = null;
 		ResultSet rs = DBKS.getDBKS().queryExekutatu(
-				"SELECT TOKEN, TOKENSECRET FROM ERABILTZAILEA WHERE TOKEN NOT NULL AND TOKENSECRET NOT NULL");
+				"SELECT TOKEN, TOKENSECRET FROM ERABILTZAILEA");
 		try {
 			rs.next();
 			token = rs.getString(1);
-			token = rs.getString(2);
+			tokenSecret = rs.getString(2);
 		} catch (SQLException e) {
-			throw new SentitzenNaizException("Ez dira tokenak datu basean aurkitu");
+			return null;
 		}
 		return new AccessToken(token, tokenSecret);
 	}
@@ -85,6 +85,11 @@ public class Konexioa {
 		DBKS.getDBKS().aginduaExekutatu(
 				"INSERT INTO ERABILTZAILEA(NICK,IZENA,EMAIL,ID,TOKEN,TOKENSECRET) VALUES('0','0','0','0','" + token
 						+ "','" + tokenSecret + "')");
+	}
+	
+	public void tokenarekinKonektatu()
+	{
+		twitter.setOAuthAccessToken(this.kredentzialakKargatu());
 	}
 
 	public void tokenaLortu() {

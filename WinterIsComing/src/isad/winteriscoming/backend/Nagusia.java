@@ -17,6 +17,11 @@ public class Nagusia {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
+			try {
+				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+					| UnsupportedLookAndFeelException e1) {
+			}
 		}
 		String[] aukerak = { "Ireki", "Eraiki", "Itxi" };
 		frame = new JFrame("WinterTwitter " + BERTSIOA);
@@ -46,9 +51,8 @@ public class Nagusia {
 	public static String getPath() {
 		return path;
 	}
-	
-	public static JFrame getFrame()
-	{
+
+	public static JFrame getFrame() {
 		return frame;
 	}
 }
