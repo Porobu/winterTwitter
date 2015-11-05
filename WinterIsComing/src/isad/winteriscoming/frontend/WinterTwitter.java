@@ -15,7 +15,6 @@ public class WinterTwitter extends JFrame {
 	private JPanel txioak;
 
 	public WinterTwitter() {
-		Nagusia.getFrame().dispose();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setTitle("WinterTwitter " + Nagusia.BERTSIOA + " " + Nagusia.getPath());

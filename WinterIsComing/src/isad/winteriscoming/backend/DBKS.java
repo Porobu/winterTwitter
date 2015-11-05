@@ -29,6 +29,14 @@ public final class DBKS {
 		return gureDBKS != null ? gureDBKS : (gureDBKS = new DBKS());
 	}
 
+	public String getDefaultPath() {
+		File f = new File(System.getProperty("user.home") + "/WinterTwitter.accdb");
+		if (f.exists())
+			return f.getAbsolutePath();
+		else
+			return null;
+	}
+
 	public String getPath() {
 		String path;
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
@@ -112,16 +120,16 @@ public final class DBKS {
 		}
 		return emaitza;
 	}
-	
-	public void aginduaExekutatu(String agindua){
-	try {
-		Statement st = this.konexioa.createStatement();
-		st.execute(agindua);
-		st.close();
-	} catch (Exception salbuespena) {
-		throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+
+	public void aginduaExekutatu(String agindua) {
+		try {
+			Statement st = this.konexioa.createStatement();
+			st.execute(agindua);
+			st.close();
+		} catch (Exception salbuespena) {
+			throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+		}
 	}
-}
 
 	public String exportResource(String resourceName, String path) {
 		InputStream stream = null;
@@ -175,10 +183,9 @@ public final class DBKS {
 			st.executeQuery("SELECT TXIOID, ERABID, DATA, EDUKIA FROM AIPAMENAK");
 			st.executeQuery("SELECT ID, IZENA FROM ZERRENDA");
 			st.executeQuery("SELECT BIDALTZAILEID, HARTZAILEID, DATA, EDUKIA FROM MEZUA");
-
 			st.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(Nagusia.getFrame(), "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,
+			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}

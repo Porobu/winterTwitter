@@ -8,8 +8,6 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import isad.winteriscoming.backend.DBKS;
-
 public class SentitzenNaizException extends RuntimeException {
 	private static final long serialVersionUID = -1014723140002334926L;
 
