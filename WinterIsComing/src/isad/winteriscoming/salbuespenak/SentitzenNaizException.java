@@ -14,7 +14,6 @@ public class SentitzenNaizException extends RuntimeException {
 	private static final long serialVersionUID = -1014723140002334926L;
 
 	public SentitzenNaizException(String gureMezua) {
-		DBKS.getDBKS().konexioaItxi();
 		try {
 			PrintWriter gurePW = new PrintWriter(new File(System.getProperty("user.home") + "/SentitzenNaiz.txt"));
 			gurePW.println("SENTITZEN NAIZ BAINA ERROREA!!!!!");
