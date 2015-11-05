@@ -76,6 +76,7 @@ public final class DBKS {
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
 		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
+		gureFileChooser.setSelectedFile(new File("WinterTwitter"));
 		int gureZenbakia = gureFileChooser.showSaveDialog(null);
 		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
 			System.exit(0);

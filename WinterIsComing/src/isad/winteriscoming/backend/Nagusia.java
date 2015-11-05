@@ -8,7 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
-	public static float BERTSIOA = 0.25F;
+	public static float BERTSIOA = 0.3F;
 	private static JFrame frame;
 	private static String path;
 
@@ -28,15 +28,20 @@ public class Nagusia {
 		frame.setUndecorated(true);
 		frame.setVisible(true);
 		path = DBKS.getDBKS().getDefaultPath();
+		String[] aukerak2 = { "Kargatu", "Beste bat erabili" };
+		int aukera = JOptionPane.YES_OPTION;
+		if (aukera == JOptionPane.CLOSED_OPTION)
+			System.exit(0);
 		if (path != null) {
-			JOptionPane.showMessageDialog(frame, "Defektuzko datu basea aurkitu da.", "WinterTwitter " + BERTSIOA,
-					JOptionPane.INFORMATION_MESSAGE);
+			aukera = JOptionPane.showOptionDialog(frame, "Defektuzko datu basea " + path + " karpetan aurkitu da.",
+					"WinterTwitter " + BERTSIOA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					aukerak2, aukerak2[0]);
 		}
-		if (path == null) {
+		if (path == null || aukera == JOptionPane.NO_OPTION) {
 			String[] aukerak = { "Ireki", "Eraiki", "Itxi" };
-			int aukera = JOptionPane.showOptionDialog(frame,
-					"Datu Basea beste leku batetik ireki edo eraiki nahi duzu?", "WinterTwitter " + BERTSIOA,
-					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
+			aukera = JOptionPane.showOptionDialog(frame, "Datu Basea beste leku batetik ireki edo eraiki nahi duzu?",
+					"WinterTwitter " + BERTSIOA, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					aukerak, aukerak[0]);
 			switch (aukera) {
 			case JOptionPane.YES_OPTION:
 				path = DBKS.getDBKS().getPath();
