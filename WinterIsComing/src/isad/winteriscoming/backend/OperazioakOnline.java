@@ -20,6 +20,9 @@ public final class OperazioakOnline {
 
 	private OperazioakOnline() {
 	}
+	
+	//paginazioarekin egin meodoak
+	//sinceId() ere erabili--> Paging psge = new Paging(pagenumber, count, sinceId)
 
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
