@@ -36,16 +36,24 @@ public final class OperazioakOnline {
 			User user = twitter.verifyCredentials();
 			List<Status> favs = twitter.getFavorites();
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
+			int orria = 1;
+			Paging paging = null;
 			for (Status fav : favs) {
+				paging = new Paging(orria, 100);
 				System.out.println("@" + fav.getId() + " - " + fav.getText());
 				String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
 						+ "04/11/2015" + ", gustokoa')";
-				DBKS.getDBKS().aginduaExekutatu(agindua);
+				//DBKS.getDBKS().aginduaExekutatu(agindua);
+				orria ++;
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 		}
+	}
+	
+	public void gustokoakDeskargatuSinceID(long id) {
+		
 	}
 
 	public void txioakDeskargatu() {
