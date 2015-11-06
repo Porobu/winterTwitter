@@ -37,12 +37,12 @@ public final class OperazioakOnline {
 			List<Status> favs = twitter.getFavorites();
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			int orria = 1;
-			Paging paging = null;
+			Paging paging;
 			for (Status fav : favs) {
-				paging = new Paging(orria, 100);
+				paging = new Paging(orria, 50);
 				System.out.println("@" + fav.getId() + " - " + fav.getText());
-				String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
-						+ "04/11/2015" + ", gustokoa')";
+				//String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
+				//		+ "04/11/2015" + ", gustokoa')";
 				//DBKS.getDBKS().aginduaExekutatu(agindua);
 				orria ++;
 			}
