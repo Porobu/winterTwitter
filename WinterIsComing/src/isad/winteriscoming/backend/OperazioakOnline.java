@@ -29,21 +29,25 @@ public final class OperazioakOnline {
 	}
 
 	public void gustokoakDeskargatu() {
-		// eginda
-		// paging egin behar da
+		// egiten
+		
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
-			List<Status> favs = twitter.getFavorites();
+			List<Status> favs;
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			int orria = 1;
-			Paging paging;
-			for (Status fav : favs) {
-				paging = new Paging(orria, 50);
-				System.out.println("@" + fav.getId() + " - " + fav.getText());
-				//String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
-				//		+ "04/11/2015" + ", gustokoa')";
-				//DBKS.getDBKS().aginduaExekutatu(agindua);
+			int konprobatzeko = 1;
+			for (;;) {
+				favs = twitter.getFavorites(new Paging(orria, 100));
+				for (Status fav : favs) {
+					//limitea konprobatzeko zenbakia
+					System.out.println(konprobatzeko + ":");
+					System.out.println("@" + fav.getId() + " - " + fav.getText());
+					//String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
+					//		+ "04/11/2015" + ", gustokoa')";
+					//DBKS.getDBKS().aginduaExekutatu(agindua);
+				}
 				orria ++;
 			}
 		} catch (TwitterException te) {
