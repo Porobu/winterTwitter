@@ -47,6 +47,7 @@ public final class OperazioakOnline {
 					//String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
 					//		+ "04/11/2015" + ", gustokoa')";
 					//DBKS.getDBKS().aginduaExekutatu(agindua);
+					konprobatzeko++;
 				}
 				orria ++;
 			}
