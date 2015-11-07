@@ -126,7 +126,7 @@ public final class OperazioakOnline {
 			String benetakoData;
 			System.out.println("Showing @" + user.getScreenName() + "'s mentions.");
 			for (int orria = 1; orria < 2; orria++) {
-				mentzioak = twitter.getMentionsTimeline();
+				mentzioak = twitter.getMentionsTimeline(new Paging(orria, 100));
 				for (Status mentzio : mentzioak) {
 					System.out.println("@" + mentzio.getUser().getScreenName() + " - " + mentzio.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(mentzio.getCreatedAt()));
@@ -141,28 +141,26 @@ public final class OperazioakOnline {
 			System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-	
-	//hemen noa
+
+	// hemen noa
 	public void jarraitzaileakDeskargatu() {
-		// eginda eta badabil
-		// jarraitzaile guztien izena "jarraitzaileak" parametroan daude
+		// egiten
 		try {
-			String agindua = "";
 			String jarraitzailea = "jarraitzailea";
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
-			long cursor = -1;
-			List<User> userList;
+			List<User> jarraitzaileak;
 			System.out.println("Listing followers:");
-			userList = twitter.getFollowersList(erabiltzailea.getId(), cursor);
-			for (User jarraitzaile : userList) {
-				agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
-						+ jarraitzaile.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitzaile.getName())
-						+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','" + jarraitzaile.getScreenName()
-						+ "')";
-				DBKS.getDBKS().aginduaExekutatu(agindua);
+			for (int orria = 1; orria < 2; orria++) {
+				jarraitzaileak = twitter.getFollowersList(erabiltzailea.getId(), -1);
+				for (User jarraitzaile : jarraitzaileak) {
+					String agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
+							+ jarraitzaile.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitzaile.getName())
+							+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','"
+							+ jarraitzaile.getScreenName() + "')";
+					DBKS.getDBKS().aginduaExekutatu(agindua);
+				}
 			}
-
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get followers' ids: " + te.getMessage());
@@ -170,52 +168,46 @@ public final class OperazioakOnline {
 	}
 
 	public void jarraituakDeskargatu() {
-		// eginda eta badabil
-		// jarraitzaile guztien izena "jarraituak" parametroan daude
+		// egiten
 		try {
-			String agindua = "";
-			String jarraitua = "jarraitua";
+			String jarraitzailea = "jarraitzailea";
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
-			long cursor = -1;
-			List<User> userList;
-			System.out.println("Listing followers:");
-			userList = twitter.getFriendsList(erabiltzailea.getId(), cursor);
-			for (User jarraitu : userList) {
-				agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
-						+ String.valueOf(jarraitu.getId()) + "', '" + jarraitu.getName() + "', '" + jarraitua + "','"
-						+ String.valueOf(erabiltzailea.getId()) + "','" + jarraitu.getScreenName() + "')";
-				DBKS.getDBKS().aginduaExekutatu(agindua);
+			List<User> jarraituak;
+			System.out.println("Listing followed:");
+			for (int orria = 1; orria < 2; orria++) {
+				jarraituak = twitter.getFriendsList(erabiltzailea.getId(), -1);
+				for (User jarraitu : jarraituak) {
+					String agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
+							+ jarraitu.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitu.getName())
+							+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','"
+							+ jarraitu.getScreenName() + "')";
+					DBKS.getDBKS().aginduaExekutatu(agindua);
+				}
 			}
-
 		} catch (TwitterException te) {
 			te.printStackTrace();
-			System.out.println("Failed to get followers' ids: " + te.getMessage());
+			System.out.println("Failed to get followed' ids: " + te.getMessage());
 		}
 	}
 
 	public void zerrendakDeskargatu() {
-		// eginda eta badabil
-		// zerrenda guztiak eta bertan dauden jarraituak "zerrendak" parametroan
-		// gordetzen dira
-		// zerrenda bakoitzak hasieran "." bat izango du
-		// hurrengo izen guztiak zerrenda horretako jarraituak izango dira,
-		// "."-dun bat aurkitu arte
+		// egiten
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			ArrayList<String> zerrendak = new ArrayList<String>();
-			long cursor = -1;
 			PagableResponseList<User> users;
-			ResponseList<UserList> lists = twitter.getUserLists(twitter.getScreenName());
+			ResponseList<UserList> lists;
+			lists = twitter.getUserLists(twitter.getScreenName());
 			for (UserList list : lists) {
-				users = twitter.getUserListMembers((list.getId()), cursor);
-				zerrendak.add("." + (list.getName()));
+				users = twitter.getUserListMembers((list.getId()), -1);
 				System.out.println(
-						"Izena:" + list.getName() + " / Deskribapena: " + list.getDescription() + " / Jarraituak:");
+						"Izena:" + list.getName() + " / Deskribapena: " + 
+						list.getDescription() + " / Jarraituak:");
 				for (User user : users) {
+					//"list" zerrenda bakoitzeko jarraituriko erabiltzaieak:
 					System.out.println("@" + user.getScreenName());
-					zerrendak.add(user.getScreenName());
 				}
+				//zerrenda bakoitza datu-basean sartu
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -224,14 +216,8 @@ public final class OperazioakOnline {
 	}
 
 	public void jasotakoMezuakDeskargatu() {
-		// eginda eta badabil
-		// mezu bakoitzaren igorlea "norenak" parametroan dago
-		// mezu denak "mezuak" parametroan daude
-		// mezu bakoitzaren sorrera data "datak" parametroan dago
+		// egiten
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
-		ArrayList<String> norenak = new ArrayList<String>();
-		ArrayList<String> mezuak = new ArrayList<String>();
-		ArrayList<Date> datak = new ArrayList<Date>();
 		try {
 			Paging paging = new Paging(1);
 			List<DirectMessage> messages;
@@ -240,9 +226,7 @@ public final class OperazioakOnline {
 				for (DirectMessage message : messages) {
 					System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
 							+ message.getText());
-					norenak.add(message.getSenderScreenName());
-					mezuak.add(message.getText());
-					datak.add(message.getCreatedAt());
+					//hemen agindua datu basera sartzeko
 				}
 				paging.setPage(paging.getPage() + 1);
 			} while (messages.size() > 0 && paging.getPage() < 10);
@@ -253,32 +237,24 @@ public final class OperazioakOnline {
 	}
 
 	public void bidalitakoMezuakDeskargatu() {
-		// eginda eta badabil
-		// mezu bakoitzaren hartzailea "norentzat" parametroan dago
-		// mezu denak "mezuak" parametroan daude
-		// mezu bakoitzaren sorrera data "datak" parametroan dago
-		Twitter twitter = Konexioa.getKonexioa().getTwitter();
-		ArrayList<String> norentzat = new ArrayList<String>();
-		ArrayList<String> mezuak = new ArrayList<String>();
-		ArrayList<Date> datak = new ArrayList<Date>();
-		try {
-			Paging page = new Paging(1);
-			List<DirectMessage> directMessages;
-			do {
-				directMessages = twitter.getSentDirectMessages(page);
-				for (DirectMessage message : directMessages) {
-					System.out.println("To: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
-							+ message.getText());
-					norentzat.add(message.getSenderScreenName());
-					mezuak.add(message.getText());
-					datak.add(message.getCreatedAt());
+		// egiten
+				Twitter twitter = Konexioa.getKonexioa().getTwitter();
+				try {
+					Paging paging = new Paging(1);
+					List<DirectMessage> messages;
+					do {
+						messages = twitter.getSentDirectMessages(paging);
+						for (DirectMessage message : messages) {
+							System.out.println("From: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
+									+ message.getText());
+							//hemen agindua datu basera sartzeko
+						}
+						paging.setPage(paging.getPage() + 1);
+					} while (messages.size() > 0 && paging.getPage() < 10);
+				} catch (TwitterException te) {
+					te.printStackTrace();
+					System.out.println("Failed to get sent messages: " + te.getMessage());
 				}
-				page.setPage(page.getPage() + 1);
-			} while (directMessages.size() > 0 && page.getPage() < 10);
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to get sent messages: " + te.getMessage());
-		}
 	}
 
 	private String itzuliBenetakoData(String dataTxarra) {
