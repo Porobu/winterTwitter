@@ -21,12 +21,14 @@ public final class OperazioakOnline {
 	private OperazioakOnline() {
 	}
 
-	//favs = twitter.getFavorites(new Paging(orria, 100));
-	//16 bider egiten bada hau, petatu egiten du
-	//beraz, paging(orriZenb, 100) egiten badugu, 15 birako loop bat ipini behar dugu,
-	//gero erabiltzaileari abisatu eta nonbaiten gorde geratzen den denbora
-	
-	// sinceId() ere erabili--> Paging page = new Paging(pagenumber, count, sinceId)
+	// favs = twitter.getFavorites(new Paging(orria, 100));
+	// 16 bider egiten bada hau, petatu egiten du
+	// beraz, paging(orriZenb, 100) egiten badugu, 15 birako loop bat ipini
+	// behar dugu,
+	// gero erabiltzaileari abisatu eta nonbaiten gorde geratzen den denbora
+
+	// sinceId() ere erabili--> Paging page = new Paging(pagenumber, count,
+	// sinceId)
 
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
@@ -46,10 +48,10 @@ public final class OperazioakOnline {
 				for (Status fav : favs) {
 					System.out.println("@" + fav.getId() + " - " + fav.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(fav.getCreatedAt()));
-					//String agindua = "INSERT INTO TXIOA VALUES ('" +
-					//fav.getId() + "', '" + fav.getText() + "', '"
-					//+ benetakoData + "' , 'gustokoa')";
-					//DBKS.getDBKS().aginduaExekutatu(agindua);
+					// String agindua = "INSERT INTO TXIOA VALUES ('" +
+					// fav.getId() + "', '" + fav.getText() + "', '"
+					// + benetakoData + "' , 'gustokoa')";
+					// DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 				System.out.println(orria + ". orria");
 			}
@@ -76,10 +78,10 @@ public final class OperazioakOnline {
 				for (Status txioa : txioak) {
 					System.out.println("@" + txioa.getUser().getScreenName() + " - " + txioa.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(txioa.getCreatedAt()));
-					//String agindua = "INSERT INTO TXIOA VALUES ('" +
-					//fav.getId() + "', '" + fav.getText() + "', '"
-					//+ benetakoData + "' , 'txioa')";
-					//DBKS.getDBKS().aginduaExekutatu(agindua);
+					// String agindua = "INSERT INTO TXIOA VALUES ('" +
+					// fav.getId() + "', '" + fav.getText() + "', '"
+					// + benetakoData + "' , 'txioa')";
+					// DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
 		} catch (TwitterException te) {
@@ -89,7 +91,7 @@ public final class OperazioakOnline {
 	}
 
 	public void bertxioakDeskargatu() {
-		// eginda eta badabil
+		// egiten
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
@@ -97,15 +99,15 @@ public final class OperazioakOnline {
 			String benetakoData;
 			System.out.println("Showing @" + user.getScreenName() + "'s retweets.");
 			for (int orria = 1; orria < 2; orria++) {
-				bertxioak  = twitter.getUserTimeline(new Paging(orria, 100));
+				bertxioak = twitter.getUserTimeline(new Paging(orria, 100));
 				for (Status bertxio : bertxioak) {
 					if (bertxio.getText().startsWith("RT @")) {
 						System.out.println("@" + bertxio.getUser().getScreenName() + " - " + bertxio.getText());
 						benetakoData = itzuliBenetakoData(String.valueOf(bertxio.getCreatedAt()));
-						//String agindua = "INSERT INTO TXIOA VALUES ('" +
-						//bertxio.getId() + "', '" + bertxio.getText() + "', '"
-						//+ benetakoData + "' , 'bertxioa')";
-						//DBKS.getDBKS().aginduaExekutatu(agindua);
+						// String agindua = "INSERT INTO TXIOA VALUES ('" +
+						// bertxio.getId() + "', '" + bertxio.getText() + "', '"
+						// + benetakoData + "' , 'bertxioa')";
+						// DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
 			}
@@ -116,24 +118,22 @@ public final class OperazioakOnline {
 	}
 
 	public void aipamenakDeskargatu() {
-		// eginda eta badabil
-		// aiamen bakoitzaren igorlea "norenak" parametroan dago
-		// aipamen denak "mentzioak" parametroan daude
-		// aipamen bakoitzaren sorrera data "datak" parametroan dago
+		// egiten
 		try {
-			ArrayList<String> norenak = new ArrayList<String>();
-			ArrayList<String> aipamenak = new ArrayList<String>();
-			ArrayList<Date> datak = new ArrayList<Date>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
-			List<Status> mentions = twitter.getMentionsTimeline();
+			List<Status> mentzioak;
+			String benetakoData;
 			System.out.println("Showing @" + user.getScreenName() + "'s mentions.");
-			for (Status mention : mentions) {
-				if (mention.getText().startsWith("RT @")) {
-					System.out.println("@" + mention.getUser().getScreenName() + " - " + mention.getText());
-					norenak.add(mention.getUser().getScreenName());
-					aipamenak.add(mention.getText());
-					datak.add(mention.getCreatedAt());
+			for (int orria = 1; orria < 2; orria++) {
+				mentzioak = twitter.getMentionsTimeline();
+				for (Status mentzio : mentzioak) {
+					System.out.println("@" + mentzio.getUser().getScreenName() + " - " + mentzio.getText());
+					benetakoData = itzuliBenetakoData(String.valueOf(mentzio.getCreatedAt()));
+					// String agindua = "INSERT INTO TXIOA VALUES ('" +
+					// bertxio.getId() + "', '" + bertxio.getText() + "', '"
+					// + benetakoData + "' , 'mentzioa')";
+					// DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
 		} catch (TwitterException te) {
@@ -141,7 +141,8 @@ public final class OperazioakOnline {
 			System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-
+	
+	//hemen noa
 	public void jarraitzaileakDeskargatu() {
 		// eginda eta badabil
 		// jarraitzaile guztien izena "jarraitzaileak" parametroan daude
@@ -279,7 +280,7 @@ public final class OperazioakOnline {
 			System.out.println("Failed to get sent messages: " + te.getMessage());
 		}
 	}
-	
+
 	private String itzuliBenetakoData(String dataTxarra) {
 		System.out.println(dataTxarra + ":");
 		char[] data = new char[10];
