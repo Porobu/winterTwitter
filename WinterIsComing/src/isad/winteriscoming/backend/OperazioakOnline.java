@@ -50,6 +50,7 @@ public final class OperazioakOnline {
 					konprobatzeko++;
 				}
 				orria ++;
+				System.out.println(orria + ". orria");
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
