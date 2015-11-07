@@ -32,6 +32,7 @@ public final class GetFavorites {
             List<Status> statuses = twitter.getFavorites(new Paging(1, 100));
             for (Status status : statuses) {
                 System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+                System.out.println(status.getCreatedAt());
             }
             System.out.println("done.");
             System.exit(0);

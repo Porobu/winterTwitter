@@ -20,9 +20,13 @@ public final class OperazioakOnline {
 
 	private OperazioakOnline() {
 	}
+
+	//favs = twitter.getFavorites(new Paging(orria, 100));
+	//16 bider egiten bada hau, petatu egiten du
+	//beraz, paging(orriZenb, 100) egiten badugu, 15 birako loop bat ipini behar dugu,
+	//gero erabiltzaileari abisatu eta nonbaiten gorde geratzen den denbora
 	
-	//paginazioarekin egin meodoak
-	//sinceId() ere erabili--> Paging psge = new Paging(pagenumber, count, sinceId)
+	// sinceId() ere erabili--> Paging page = new Paging(pagenumber, count, sinceId)
 
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
@@ -30,26 +34,24 @@ public final class OperazioakOnline {
 
 	public void gustokoakDeskargatu() {
 		// egiten
-		
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> favs;
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
-			int orria = 1;
-			int konprobatzeko = 1;
-			for (;;) {
+			String benetakoData;
+			// amaieran orria < 16 jarri behar da
+			for (int orria = 1; orria < 2; orria++) {
 				favs = twitter.getFavorites(new Paging(orria, 100));
 				for (Status fav : favs) {
-					//limitea konprobatzeko zenbakia
-					System.out.println(konprobatzeko + ":");
 					System.out.println("@" + fav.getId() + " - " + fav.getText());
-					//String agindua = "INSERT INTO TXIOA VALUES ('" + fav.getId() + "', '" + fav.getText() + "', '"
-					//		+ "04/11/2015" + ", gustokoa')";
-					//DBKS.getDBKS().aginduaExekutatu(agindua);
-					konprobatzeko++;
+					benetakoData = itzuliBenetakoData(String.valueOf(fav.getCreatedAt()));
+					System.out.println(" Data ondo: " + benetakoData);
+					// String agindua = "INSERT INTO TXIOA VALUES ('" +
+					// fav.getId() + "', '" + fav.getText() + "', '"
+					// + benetakoData + ", gustokoa')";
+					// DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
-				orria ++;
 				System.out.println(orria + ". orria");
 			}
 		} catch (TwitterException te) {
@@ -57,33 +59,34 @@ public final class OperazioakOnline {
 			System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-	
+
 	public void gustokoakDeskargatuSinceID(long id) {
-		
+		// TODO Auto-generated method stub
 	}
 
 	public void txioakDeskargatu() {
-		// eginda eta badabil
-		// tweet denak "tweetak" parametroan daude
-		// tweet bakoitzaren sorrera data "datak" parametroan dago
+		// eginda
+		// createdAt modifikatu
 		try {
-			ArrayList<String> txioak = new ArrayList<String>();
-			ArrayList<Date> datak = new ArrayList<Date>();
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> tweets = twitter.getUserTimeline();
 			System.out.println("Showing @" + user.getScreenName() + "'s tweets.");
 			for (Status tweet : tweets) {
 				System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-				txioak.add(tweet.getText());
-				datak.add(tweet.getCreatedAt());
+				// txioak.add(tweet.getText());
+				// datak.add(tweet.getCreatedAt());
+				// String agindua = "INSERT INTO TXIOA VALUES ('" +
+				// tweet.getId() + "', '" + tweet.getText() + "', '"
+				// + "04/11/2015" + ", txioa')";
+				// DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-	
+
 	public void bertxioakDeskargatu() {
 		// eginda eta badabil
 		// retweet bakoitzaren igorlea "norenak" parametroan dago
@@ -137,7 +140,7 @@ public final class OperazioakOnline {
 			System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-	
+
 	public void jarraitzaileakDeskargatu() {
 		// eginda eta badabil
 		// jarraitzaile guztien izena "jarraitzaileak" parametroan daude
@@ -275,5 +278,52 @@ public final class OperazioakOnline {
 			System.out.println("Failed to get sent messages: " + te.getMessage());
 		}
 	}
+	
+	private String itzuliBenetakoData(String dataTxarra) {
+		System.out.println(dataTxarra + ":");
+		char[] data = new char[10];
+		data[0] = dataTxarra.charAt(8);
+		data[1] = dataTxarra.charAt(9);
+		data[2] = '/';
+		char[] hil = new char[3];
+		hil[0] = dataTxarra.charAt(4);
+		hil[1] = dataTxarra.charAt(5);
+		hil[2] = dataTxarra.charAt(6);
+		String hilabete = itzuliHilabetea(String.copyValueOf(hil));
+		data[3] = hilabete.charAt(0);
+		data[4] = hilabete.charAt(1);
+		data[5] = '/';
+		data[6] = dataTxarra.charAt(24);
+		data[7] = dataTxarra.charAt(25);
+		data[8] = dataTxarra.charAt(26);
+		data[9] = dataTxarra.charAt(27);
+		return String.copyValueOf(data);
+	}
 
+	private String itzuliHilabetea(String st) {
+		if (st.equalsIgnoreCase("Jan"))
+			return "01";
+		else if (st.equalsIgnoreCase("Feb"))
+			return "02";
+		else if (st.equalsIgnoreCase("Mar"))
+			return "03";
+		else if (st.equalsIgnoreCase("Apr"))
+			return "04";
+		else if (st.equalsIgnoreCase("May"))
+			return "05";
+		else if (st.equalsIgnoreCase("Jun"))
+			return "06";
+		else if (st.equalsIgnoreCase("Jul"))
+			return "07";
+		else if (st.equalsIgnoreCase("Aug"))
+			return "08";
+		else if (st.equalsIgnoreCase("Sep"))
+			return "09";
+		else if (st.equalsIgnoreCase("Oct"))
+			return "10";
+		else if (st.equalsIgnoreCase("Nov"))
+			return "11";
+		else
+			return "12";
+	}
 }
