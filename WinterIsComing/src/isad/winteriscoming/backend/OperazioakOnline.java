@@ -154,11 +154,11 @@ public final class OperazioakOnline {
 			for (int orria = 1; orria < 2; orria++) {
 				jarraitzaileak = twitter.getFollowersList(erabiltzailea.getId(), -1);
 				for (User jarraitzaile : jarraitzaileak) {
-					String agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
-							+ jarraitzaile.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitzaile.getName())
-							+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','"
-							+ jarraitzaile.getScreenName() + "')";
-					DBKS.getDBKS().aginduaExekutatu(agindua);
+//					String agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
+//							+ jarraitzaile.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitzaile.getName())
+//							+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','"
+//							+ jarraitzaile.getScreenName() + "')";
+//					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
 		} catch (TwitterException te) {
@@ -178,11 +178,11 @@ public final class OperazioakOnline {
 			for (int orria = 1; orria < 2; orria++) {
 				jarraituak = twitter.getFriendsList(erabiltzailea.getId(), -1);
 				for (User jarraitu : jarraituak) {
-					String agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
-							+ jarraitu.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitu.getName())
-							+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','"
-							+ jarraitu.getScreenName() + "')";
-					DBKS.getDBKS().aginduaExekutatu(agindua);
+//					String agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
+//							+ jarraitu.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitu.getName())
+//							+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','"
+//							+ jarraitu.getScreenName() + "')";
+//					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
 		} catch (TwitterException te) {
