@@ -42,17 +42,16 @@ public final class OperazioakOnline {
 			List<Status> favs;
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			String benetakoData;
+			String gustokoa="gustokoa";
 			// amaieran orria < 16 jarri behar da
 			for (int orria = 1; orria < 2; orria++) {
 				favs = twitter.getFavorites(new Paging(orria, 100));
 				for (Status fav : favs) {
 					System.out.println("@" + fav.getId() + " - " + fav.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(fav.getCreatedAt()));
-					System.out.println(benetakoData);
-					// String agindua = "INSERT INTO TXIOA VALUES ('" +
-					// fav.getId() + "', '" + fav.getText() + "', '"
-					// + benetakoData + "' , 'gustokoa')";
-					// DBKS.getDBKS().aginduaExekutatu(agindua);
+					String agindua = "INSERT INTO TXIOA VALUES ("+fav.getId()+", "+fav.getText()+", "+ benetakoData +", "+gustokoa+")";
+					System.out.println(agindua);
+					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 				System.out.println(orria + ". orria");
 			}

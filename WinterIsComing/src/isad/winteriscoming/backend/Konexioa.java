@@ -82,7 +82,7 @@ public class Konexioa {
 	}
 
 	private void kredentzialakGorde(String token, String tokenSecret) {
-		long id=0;
+		int id=0;
 		DBKS.getDBKS().aginduaExekutatu(
 				"INSERT INTO ERABILTZAILEA(ID,NICK,IZENA,EMAIL,TOKEN,TOKENSECRET) VALUES('"+id+"','0','0','0','" + token
 						+ "','" + tokenSecret + "')");
