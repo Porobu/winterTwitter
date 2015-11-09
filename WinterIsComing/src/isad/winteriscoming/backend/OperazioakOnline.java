@@ -48,6 +48,7 @@ public final class OperazioakOnline {
 				for (Status fav : favs) {
 					System.out.println("@" + fav.getId() + " - " + fav.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(fav.getCreatedAt()));
+					System.out.println(benetakoData);
 					// String agindua = "INSERT INTO TXIOA VALUES ('" +
 					// fav.getId() + "', '" + fav.getText() + "', '"
 					// + benetakoData + "' , 'gustokoa')";
