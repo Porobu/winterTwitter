@@ -47,9 +47,11 @@ public final class OperazioakOnline {
 			for (int orria = 1; orria < 2; orria++) {
 				favs = twitter.getFavorites(new Paging(orria, 100));
 				for (Status fav : favs) {
+					String idea=String.valueOf(fav.getId());
 					System.out.println("@" + fav.getId() + " - " + fav.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(fav.getCreatedAt()));
-					String agindua = "INSERT INTO TXIOA VALUES ("+fav.getId()+", "+fav.getText()+", "+ benetakoData +", "+gustokoa+")";
+					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)"+
+					"VALUES ('"+idea+"', '"+fav.getText()+"', '"+ benetakoData +"', '"+gustokoa+"')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -102,12 +104,14 @@ public final class OperazioakOnline {
 				bertxioak = twitter.getUserTimeline(new Paging(orria, 100));
 				for (Status bertxio : bertxioak) {
 					if (bertxio.getText().startsWith("RT @")) {
-						System.out.println("@" + bertxio.getUser().getScreenName() + " - " + bertxio.getText());
+						String bertxioa="bertxioa";
+						String idea=String.valueOf(bertxio.getId());
+						System.out.println("@" + bertxio.getId() + " - " + bertxio.getText());
 						benetakoData = itzuliBenetakoData(String.valueOf(bertxio.getCreatedAt()));
-						// String agindua = "INSERT INTO TXIOA VALUES ('" +
-						// bertxio.getId() + "', '" + bertxio.getText() + "', '"
-						// + benetakoData + "' , 'bertxioa')";
-						// DBKS.getDBKS().aginduaExekutatu(agindua);
+						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)"+
+						"VALUES ('"+idea+"', '"+bertxio.getText()+"', '"+ benetakoData +"', '"+bertxioa+"')";
+						System.out.println(agindua);
+						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
 			}
@@ -122,18 +126,18 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
-			List<Status> mentzioak;
+			List<Status> aipamenak;
 			String benetakoData;
 			System.out.println("Showing @" + user.getScreenName() + "'s mentions.");
 			for (int orria = 1; orria < 2; orria++) {
-				mentzioak = twitter.getMentionsTimeline(new Paging(orria, 100));
-				for (Status mentzio : mentzioak) {
-					System.out.println("@" + mentzio.getUser().getScreenName() + " - " + mentzio.getText());
-					benetakoData = itzuliBenetakoData(String.valueOf(mentzio.getCreatedAt()));
-					// String agindua = "INSERT INTO TXIOA VALUES ('" +
-					// bertxio.getId() + "', '" + bertxio.getText() + "', '"
-					// + benetakoData + "' , 'mentzioa')";
-					// DBKS.getDBKS().aginduaExekutatu(agindua);
+				aipamenak = twitter.getMentionsTimeline(new Paging(orria, 100));
+				for (Status aipamen : aipamenak) {
+					String idea=String.valueOf(aipamen.getCurrentUserRetweetId());
+					System.out.println("@" + aipamen.getUser().getScreenName() + " - " + aipamen.getText());
+					benetakoData = itzuliBenetakoData(String.valueOf(aipamen.getCreatedAt()));
+					String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)"+
+					"VALUES ('"+aipamen.getId() + "', '" +idea+ "', '"+benetakoData+ "' , '"+aipamen.getText()+"')";
+					 DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
 		} catch (TwitterException te) {
@@ -154,11 +158,11 @@ public final class OperazioakOnline {
 			for (int orria = 1; orria < 2; orria++) {
 				jarraitzaileak = twitter.getFollowersList(erabiltzailea.getId(), -1);
 				for (User jarraitzaile : jarraitzaileak) {
-//					String agindua = "INSERT INTO BESTEERABILTZAILEAK (ID, IZENA, MOTA, IDERABILTZAILEA, NICK) VALUES ('"
-//							+ jarraitzaile.getId() + "', '" + Charset.forName("UTF-8").encode(jarraitzaile.getName())
-//							+ "', '" + jarraitzailea + "','" + erabiltzailea.getId() + "','"
-//							+ jarraitzaile.getScreenName() + "')";
-//					DBKS.getDBKS().aginduaExekutatu(agindua);
+					String idea=String.valueOf(jarraitzaile.getId());
+					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick, idErabiltzailea)"+
+					"VALUES ('"+idea+"', '"+jarraitzaile.getScreenName()+"', '"+jarraitzailea+"', '"+jarraitzaile.getName()+"')";
+					System.out.println(agindua);
+					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
 		} catch (TwitterException te) {
