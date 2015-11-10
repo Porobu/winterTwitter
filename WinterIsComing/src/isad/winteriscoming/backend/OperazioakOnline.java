@@ -159,7 +159,7 @@ public final class OperazioakOnline {
 				jarraitzaileak = twitter.getFollowersList(erabiltzailea.getId(), -1);
 				for (User jarraitzaile : jarraitzaileak) {
 					String idea=String.valueOf(jarraitzaile.getId());
-					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick, idErabiltzailea)"+
+					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"+
 					"VALUES ('"+idea+"', '"+jarraitzaile.getScreenName()+"', '"+jarraitzailea+"', '"+jarraitzaile.getName()+"')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
