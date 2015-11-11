@@ -308,4 +308,9 @@ public final class OperazioakOnline {
 		else
 			return "12";
 	}
+	public String replace(String aldatzekoa){
+		
+		return null;
+		
+	}
 }
