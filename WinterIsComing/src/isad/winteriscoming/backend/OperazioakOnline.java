@@ -1,6 +1,8 @@
 package isad.winteriscoming.backend;
 
 import java.nio.charset.Charset;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,16 +44,16 @@ public final class OperazioakOnline {
 			List<Status> favs;
 			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			String benetakoData;
-			String gustokoa="gustokoa";
+			String gustokoa = "gustokoa";
 			// amaieran orria < 16 jarri behar da
 			for (int orria = 1; orria < 2; orria++) {
 				favs = twitter.getFavorites(new Paging(orria, 100));
 				for (Status fav : favs) {
-					String idea=String.valueOf(fav.getId());
+					String idea = String.valueOf(fav.getId());
 					System.out.println("@" + fav.getId() + " - " + fav.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(fav.getCreatedAt()));
-					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)"+
-					"VALUES ('"+idea+"', '"+fav.getText()+"', '"+ benetakoData +"', '"+gustokoa+"')";
+					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + " VALUES ('" + idea + "', '"
+							+ fav.getText() + "', '" + benetakoData + "', '" + gustokoa + "')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -73,17 +75,17 @@ public final class OperazioakOnline {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User user = twitter.verifyCredentials();
 			List<Status> txioak;
-			String txioaaa="txioa";
+			String txioaaa = "txioa";
 			String benetakoData;
 			System.out.println("Showing @" + user.getScreenName() + "'s tweets.");
 			for (int orria = 1; orria < 2; orria++) {
 				txioak = twitter.getUserTimeline(new Paging(orria, 100));
 				for (Status txioa : txioak) {
-					String idea=String.valueOf(txioa.getId());
+					String idea = String.valueOf(txioa.getId());
 					System.out.println("@" + txioa.getUser().getScreenName() + " - " + txioa.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(txioa.getCreatedAt()));
-					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)"+
-							"VALUES ('"+idea+"', '"+txioa.getText()+"', '"+ benetakoData +"', '"+txioaaa+"')";
+					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + "VALUES ('" + idea + "', '"
+							+ txioa.getText() + "', '" + benetakoData + "', '" + txioaaa + "')";
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
@@ -105,12 +107,12 @@ public final class OperazioakOnline {
 				bertxioak = twitter.getUserTimeline(new Paging(orria, 100));
 				for (Status bertxio : bertxioak) {
 					if (bertxio.getText().startsWith("RT @")) {
-						String bertxioa="bertxioa";
-						String idea=String.valueOf(bertxio.getId());
+						String bertxioa = "bertxioa";
+						String idea = String.valueOf(bertxio.getId());
 						System.out.println("@" + bertxio.getId() + " - " + bertxio.getText());
 						benetakoData = itzuliBenetakoData(String.valueOf(bertxio.getCreatedAt()));
-						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)"+
-						"VALUES ('"+idea+"', '"+bertxio.getText()+"', '"+ benetakoData +"', '"+bertxioa+"')";
+						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + "VALUES ('" + idea + "', '"
+								+ bertxio.getText() + "', '" + benetakoData + "', '" + bertxioa + "')";
 						System.out.println(agindua);
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
@@ -133,12 +135,13 @@ public final class OperazioakOnline {
 			for (int orria = 1; orria < 2; orria++) {
 				aipamenak = twitter.getMentionsTimeline(new Paging(orria, 100));
 				for (Status aipamen : aipamenak) {
-					String idea=String.valueOf(aipamen.getCurrentUserRetweetId());
+					String idea = String.valueOf(aipamen.getCurrentUserRetweetId());
 					System.out.println("@" + aipamen.getUser().getScreenName() + " - " + aipamen.getText());
 					benetakoData = itzuliBenetakoData(String.valueOf(aipamen.getCreatedAt()));
-					String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)"+
-					"VALUES ('"+aipamen.getId() + "', '" +idea+ "', '"+benetakoData+ "' , '"+aipamen.getText()+"')";
-					 DBKS.getDBKS().aginduaExekutatu(agindua);
+					String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
+							+ aipamen.getId() + "', '" + idea + "', '" + benetakoData + "' , '" + aipamen.getText()
+							+ "')";
+					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
 		} catch (TwitterException te) {
@@ -159,9 +162,10 @@ public final class OperazioakOnline {
 			for (int orria = 1; orria < 2; orria++) {
 				jarraitzaileak = twitter.getFollowersList(erabiltzailea.getId(), -1);
 				for (User jarraitzaile : jarraitzaileak) {
-					String idea=String.valueOf(jarraitzaile.getId());
-					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"+
-					"VALUES ('"+idea+"', '"+jarraitzaile.getScreenName()+"', '"+jarraitzailea+"', '"+jarraitzaile.getName()+"')";
+					String idea = String.valueOf(jarraitzaile.getId());
+					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + idea
+							+ "', '" + jarraitzaile.getScreenName() + "', '" + jarraitzailea + "', '"
+							+ jarraitzaile.getName() + "')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -183,9 +187,10 @@ public final class OperazioakOnline {
 			for (int orria = 1; orria < 2; orria++) {
 				jarraituak = twitter.getFriendsList(erabiltzailea.getId(), -1);
 				for (User jarraitu : jarraituak) {
-					String idea=String.valueOf(jarraitu.getId());
-					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"+
-					"VALUES ('"+idea+"', '"+jarraitu.getScreenName()+"', '"+jarraitzailea+"', '"+jarraitu.getName()+"')";
+					String idea = String.valueOf(jarraitu.getId());
+					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + idea
+							+ "', '" + jarraitu.getScreenName() + "', '" + jarraitzailea + "', '" + jarraitu.getName()
+							+ "')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -206,22 +211,22 @@ public final class OperazioakOnline {
 			for (UserList list : lists) {
 				users = twitter.getUserListMembers((list.getId()), -1);
 				System.out.println(
-						"Izena:" + list.getName() + " / Deskribapena: " + 
-						list.getDescription() + " / Jarraituak:");
-				String ideaList=String.valueOf(list.getId());
-				String agindua1 = "INSERT INTO ZERRENDA(id, izena)"+
-				"VALUES ('"+ideaList+"','"+list.getName()+"')";
+						"Izena:" + list.getName() + " / Deskribapena: " + list.getDescription() + " / Jarraituak:");
+				String ideaList = String.valueOf(list.getId());
+				String agindua1 = "INSERT INTO ZERRENDA(id, izena)" + "VALUES ('" + ideaList + "','" + list.getName()
+						+ "')";
 				DBKS.getDBKS().aginduaExekutatu(agindua1);
 				for (User user : users) {
-					//"list" zerrenda bakoitzeko jarraituriko erabiltzaieak:
+					// "list" zerrenda bakoitzeko jarraituriko erabiltzaieak:
 					System.out.println("@" + user.getScreenName());
-					String idea=String.valueOf(user.getId());
-					String agindua = "INSERT INTO DITU(erabId, zerrenId, erabiltzaileIzena, erabiltzaileNick)"+
-					"VALUES ('"+idea+"','"+ideaList+"','"+user.getScreenName()+"', '"+user.getName()+"')";
+					String idea = String.valueOf(user.getId());
+					String agindua = "INSERT INTO DITU(erabId, zerrenId, erabiltzaileIzena, erabiltzaileNick)"
+							+ "VALUES ('" + idea + "','" + ideaList + "','" + user.getScreenName() + "', '"
+							+ user.getName() + "')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
-				//zerrenda bakoitza datu-basean sartu
+				// zerrenda bakoitza datu-basean sartu
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -240,10 +245,10 @@ public final class OperazioakOnline {
 				for (DirectMessage message : messages) {
 					System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
 							+ message.getText());
-					//hemen agindua datu basera sartzeko
-					String idea=String.valueOf(message.getId());
-					String agindua = "INSERT INTO MEZUA(bidaltzaileIid, hartzaileId, data, edukia, bidaltzaileIzena, bidaltzaileNick, hartzaileIzena, hartzaileNick)"+
-					"VALUES ('"+idea+"')";
+					// hemen agindua datu basera sartzeko
+					String idea = String.valueOf(message.getId());
+					String agindua = "INSERT INTO MEZUA(bidaltzaileIid, hartzaileId, data, edukia, bidaltzaileIzena, bidaltzaileNick, hartzaileIzena, hartzaileNick)"
+							+ "VALUES ('" + idea + "')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -257,23 +262,40 @@ public final class OperazioakOnline {
 
 	public void bidalitakoMezuakDeskargatu() {
 		// egiten
-				Twitter twitter = Konexioa.getKonexioa().getTwitter();
-				try {
-					Paging paging = new Paging(1);
-					List<DirectMessage> messages;
-					do {
-						messages = twitter.getSentDirectMessages(paging);
-						for (DirectMessage message : messages) {
-							System.out.println("From: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
-									+ message.getText());
-							//hemen agindua datu basera sartzeko
-						}
-						paging.setPage(paging.getPage() + 1);
-					} while (messages.size() > 0 && paging.getPage() < 10);
-				} catch (TwitterException te) {
-					te.printStackTrace();
-					System.out.println("Failed to get sent messages: " + te.getMessage());
+		Twitter twitter = Konexioa.getKonexioa().getTwitter();
+		try {
+			Paging paging = new Paging(1);
+			List<DirectMessage> messages;
+			do {
+				messages = twitter.getSentDirectMessages(paging);
+				for (DirectMessage message : messages) {
+					System.out.println("From: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
+							+ message.getText());
+					// hemen agindua datu basera sartzeko
 				}
+				paging.setPage(paging.getPage() + 1);
+			} while (messages.size() > 0 && paging.getPage() < 10);
+		} catch (TwitterException te) {
+			te.printStackTrace();
+			System.out.println("Failed to get sent messages: " + te.getMessage());
+		}
+	}
+
+	private long hartuID(String taula, String ordena) {
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("SELECT ID FROM " + taula + " ORDER BY ID " + ordena);
+		try {
+			emaitza.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return emaitza.getLong(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1L;
 	}
 
 	private String itzuliBenetakoData(String dataTxarra) {
@@ -323,9 +345,10 @@ public final class OperazioakOnline {
 		else
 			return "12";
 	}
-	public String replace(String aldatzekoa){
-		
+
+	public String replace(String aldatzekoa) {
+
 		return null;
-		
+
 	}
 }
