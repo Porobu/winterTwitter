@@ -1,9 +1,7 @@
 package isad.winteriscoming.backend;
 
-import java.nio.charset.Charset;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,20 +38,17 @@ public final class OperazioakOnline {
 		// egiten
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User user = twitter.verifyCredentials();
 			List<Status> favs;
-			System.out.println("Showing @" + user.getScreenName() + "'s favorites.");
 			String benetakoData;
-			String gustokoa = "gustokoa";
 			// amaieran orria < 16 jarri behar da
 			for (int orria = 1; orria < 2; orria++) {
 				favs = twitter.getFavorites(new Paging(orria, 100));
 				for (Status fav : favs) {
 					String idea = String.valueOf(fav.getId());
 					System.out.println("@" + fav.getId() + " - " + fav.getText());
-					benetakoData = itzuliBenetakoData(String.valueOf(fav.getCreatedAt()));
+					benetakoData = itzuliBenetakoData(fav.getCreatedAt());
 					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + " VALUES ('" + idea + "', '"
-							+ fav.getText() + "', '" + benetakoData + "', '" + gustokoa + "')";
+							+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -73,19 +68,15 @@ public final class OperazioakOnline {
 		// egiten
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			User user = twitter.verifyCredentials();
 			List<Status> txioak;
-			String txioaaa = "txioa";
 			String benetakoData;
-			System.out.println("Showing @" + user.getScreenName() + "'s tweets.");
 			for (int orria = 1; orria < 2; orria++) {
 				txioak = twitter.getUserTimeline(new Paging(orria, 100));
 				for (Status txioa : txioak) {
-					String idea = String.valueOf(txioa.getId());
-					System.out.println("@" + txioa.getUser().getScreenName() + " - " + txioa.getText());
-					benetakoData = itzuliBenetakoData(String.valueOf(txioa.getCreatedAt()));
-					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + "VALUES ('" + idea + "', '"
-							+ txioa.getText() + "', '" + benetakoData + "', '" + txioaaa + "')";
+					String id = String.valueOf(txioa.getId());
+					benetakoData = itzuliBenetakoData((txioa.getCreatedAt()));
+					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + "VALUES ('" + id + "', '"
+							+ this.replace(txioa.getText()) + "', '" + benetakoData + "', 'txioa')";
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
 			}
@@ -110,7 +101,7 @@ public final class OperazioakOnline {
 						String bertxioa = "bertxioa";
 						String idea = String.valueOf(bertxio.getId());
 						System.out.println("@" + bertxio.getId() + " - " + bertxio.getText());
-						benetakoData = itzuliBenetakoData(String.valueOf(bertxio.getCreatedAt()));
+						benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
 						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + "VALUES ('" + idea + "', '"
 								+ bertxio.getText() + "', '" + benetakoData + "', '" + bertxioa + "')";
 						System.out.println(agindua);
@@ -137,7 +128,7 @@ public final class OperazioakOnline {
 				for (Status aipamen : aipamenak) {
 					String idea = String.valueOf(aipamen.getCurrentUserRetweetId());
 					System.out.println("@" + aipamen.getUser().getScreenName() + " - " + aipamen.getText());
-					benetakoData = itzuliBenetakoData(String.valueOf(aipamen.getCreatedAt()));
+					benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
 					String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
 							+ aipamen.getId() + "', '" + idea + "', '" + benetakoData + "' , '" + aipamen.getText()
 							+ "')";
@@ -281,8 +272,9 @@ public final class OperazioakOnline {
 		}
 	}
 
-	private long hartuID(String taula, String ordena) {
-		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("SELECT ID FROM " + taula + " ORDER BY ID " + ordena);
+	public long hartuID(String taula, String mota, String ordena) {
+		ResultSet emaitza = DBKS.getDBKS()
+				.queryExekutatu("SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
 		try {
 			emaitza.next();
 		} catch (SQLException e) {
@@ -290,6 +282,7 @@ public final class OperazioakOnline {
 			e.printStackTrace();
 		}
 		try {
+			System.out.println(emaitza.getLong(1));
 			return emaitza.getLong(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -298,8 +291,8 @@ public final class OperazioakOnline {
 		return -1L;
 	}
 
-	private String itzuliBenetakoData(String dataTxarra) {
-		System.out.println(dataTxarra + ":");
+	private String itzuliBenetakoData(Date data2) {
+		String dataTxarra = String.valueOf(data2);
 		char[] data = new char[10];
 		data[0] = dataTxarra.charAt(8);
 		data[1] = dataTxarra.charAt(9);
@@ -347,8 +340,8 @@ public final class OperazioakOnline {
 	}
 
 	public String replace(String aldatzekoa) {
-
-		return null;
+		
+		return aldatzekoa.replace("'", "''");
 
 	}
 }
