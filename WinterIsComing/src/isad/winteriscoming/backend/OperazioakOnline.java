@@ -41,27 +41,20 @@ public final class OperazioakOnline {
 			List<Status> favs;
 			String benetakoData;
 			// amaieran orria < 16 jarri behar da
-			for (int orria = 1; orria < 2; orria++) {
-				favs = twitter.getFavorites(new Paging(orria, 100));
+			for (int orria = 1; orria < 500; orria++) {
+				favs = twitter.getFavorites(new Paging(orria, 20));
 				for (Status fav : favs) {
-					String idea = String.valueOf(fav.getId());
-					System.out.println("@" + fav.getId() + " - " + fav.getText());
+					String id = String.valueOf(fav.getId());
 					benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + " VALUES ('" + idea + "', '"
+					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 							+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
-					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
-				System.out.println(orria + ". orria");
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 		}
-	}
-
-	public void gustokoakDeskargatuSinceID(long id) {
-		// TODO Auto-generated method stub
 	}
 
 	public void txioakDeskargatu() {

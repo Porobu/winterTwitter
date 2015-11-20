@@ -5,6 +5,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import isad.winteriscoming.backend.Konexioa;
+import isad.winteriscoming.backend.OperazioakOffline;
 import isad.winteriscoming.backend.OperazioakOnline;
 
 public class Menua extends JMenuBar {
@@ -42,6 +43,10 @@ public class Menua extends JMenuBar {
 		konexioa.add(konektatu);
 		konexioa.add(deskonektatu);
 		this.add(konexioa);
+		OperazioakOffline off = new OperazioakOffline();
+		if (!off.konprobatuTokenakDauden())
+			konektatuTokenekin.setEnabled(false);
+		deskonektatu.setEnabled(false);
 	}
 
 	private void jaitsiMenua() {

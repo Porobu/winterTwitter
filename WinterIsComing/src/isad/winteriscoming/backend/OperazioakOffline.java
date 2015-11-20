@@ -19,4 +19,15 @@ public class OperazioakOffline {
 		}
 		return emaitza;
 	}
+	
+	public boolean konprobatuTokenakDauden() {
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("Select * from erabiltzailea");
+		try {
+			return emaitza.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
