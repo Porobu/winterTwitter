@@ -19,7 +19,7 @@ public class OperazioakOffline {
 		}
 		return emaitza;
 	}
-	
+
 	public boolean konprobatuTokenakDauden() {
 		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("Select * from erabiltzailea");
 		try {

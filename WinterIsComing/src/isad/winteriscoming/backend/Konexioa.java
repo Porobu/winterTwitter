@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import isad.winteriscoming.frontend.Login;
+import isad.winteriscoming.frontend.Menua;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -69,8 +70,7 @@ public class Konexioa {
 	private AccessToken kredentzialakKargatu() {
 		String token = null;
 		String tokenSecret = null;
-		ResultSet rs = DBKS.getDBKS().queryExekutatu(
-				"SELECT TOKEN, TOKENSECRET FROM ERABILTZAILEA");
+		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT TOKEN, TOKENSECRET FROM ERABILTZAILEA");
 		try {
 			rs.next();
 			token = rs.getString(1);
@@ -82,15 +82,14 @@ public class Konexioa {
 	}
 
 	private void kredentzialakGorde(String token, String tokenSecret) {
-		int id=0;
-		DBKS.getDBKS().aginduaExekutatu(
-				"INSERT INTO ERABILTZAILEA(ID,NICK,IZENA,EMAIL,TOKEN,TOKENSECRET) VALUES('"+id+"','0','0','0','" + token
-						+ "','" + tokenSecret + "')");
+		int id = 0;
+		DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA(ID,NICK,IZENA,EMAIL,TOKEN,TOKENSECRET) VALUES('" + id
+				+ "','0','0','0','" + token + "','" + tokenSecret + "')");
 	}
-	
-	public void tokenarekinKonektatu()
-	{
+
+	public void tokenarekinKonektatu() {
 		twitter.setOAuthAccessToken(this.kredentzialakKargatu());
+		Menua.botoiakKonektatzean();
 	}
 
 	public void tokenaLortu() {
@@ -112,16 +111,14 @@ public class Konexioa {
 		konektatuta = true;
 		if (Login.getLogin().getGordetzeko())
 			this.kredentzialakGorde(accessToken.getToken(), accessToken.getTokenSecret());
+		Menua.botoiakKonektatzean();
 	}
 
 	public void deskonektatu() {
-		if (konektatuta) {
-			gureKonexioa = new Konexioa();
-			JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", "WinterTwitter " + Nagusia.BERTSIOA,
-					JOptionPane.INFORMATION_MESSAGE);
-		} else
-			JOptionPane.showMessageDialog(null, "Ez zaude twitterera konektatuta.\nEzin zara deskonektatu.",
-					"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.WARNING_MESSAGE);
+		gureKonexioa = new Konexioa();
+		JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", "WinterTwitter " + Nagusia.BERTSIOA,
+				JOptionPane.INFORMATION_MESSAGE);
+		Menua.botoiakHasieranEtaDeskonektatzean();
 	}
 
 	public Twitter getTwitter() {

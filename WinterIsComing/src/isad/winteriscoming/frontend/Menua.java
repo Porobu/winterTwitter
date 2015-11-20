@@ -12,9 +12,25 @@ public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
 	private JMenu fitxategia, konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
-	private JMenuItem konektatu, deskonektatu, konektatuTokenekin, txioak, bertxioak, gustokoak, jarraituak, jarraitzaileak, zerrendak,
-			jasotakoMezuak, bidalitakoMezuak, txioakBilatu, bertxioakBilatu, gustukoakBilatu, zerrendakBilatu,
-			mezuakBilatu, excel, kopiaEgin, kopiaKargatu;
+	private static JMenuItem konektatu;
+	private static JMenuItem deskonektatu;
+	private static JMenuItem konektatuTokenekin;
+	private JMenuItem txioak;
+	private JMenuItem bertxioak;
+	private JMenuItem gustokoak;
+	private JMenuItem jarraituak;
+	private JMenuItem jarraitzaileak;
+	private JMenuItem zerrendak;
+	private JMenuItem jasotakoMezuak;
+	private JMenuItem bidalitakoMezuak;
+	private JMenuItem txioakBilatu;
+	private JMenuItem bertxioakBilatu;
+	private JMenuItem gustukoakBilatu;
+	private JMenuItem zerrendakBilatu;
+	private JMenuItem mezuakBilatu;
+	private JMenuItem excel;
+	private JMenuItem kopiaEgin;
+	private JMenuItem kopiaKargatu;
 
 	public Menua() {
 		this.fitxategiaMenua();
@@ -43,10 +59,20 @@ public class Menua extends JMenuBar {
 		konexioa.add(konektatu);
 		konexioa.add(deskonektatu);
 		this.add(konexioa);
+		botoiakHasieranEtaDeskonektatzean();
+	}
+
+	public static void botoiakHasieranEtaDeskonektatzean() {
+		konektatu.setEnabled(true);
 		OperazioakOffline off = new OperazioakOffline();
-		if (!off.konprobatuTokenakDauden())
-			konektatuTokenekin.setEnabled(false);
+		konektatuTokenekin.setEnabled(off.konprobatuTokenakDauden());
 		deskonektatu.setEnabled(false);
+	}
+	
+	public static void botoiakKonektatzean() {
+		konektatu.setEnabled(false);
+		konektatuTokenekin.setEnabled(false);
+		deskonektatu.setEnabled(true);
 	}
 
 	private void jaitsiMenua() {
