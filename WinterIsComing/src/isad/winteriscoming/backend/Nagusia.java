@@ -8,7 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
-	public static float BERTSIOA = 0.3F;
+	public static float BERTSIOA = 0.4F;
 	private static JFrame frame;
 	private static String path;
 

@@ -3,6 +3,8 @@ package isad.winteriscoming.tests;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,8 +29,26 @@ public class DatuBaseaTest {
 	@Test
 	public void testDatuBasea() {
 		DBKS.getDBKS().datuBaseaEraiki(path);
-		//INSERTAK PROBATU
-		DBKS.getDBKS().aginduaExekutatu("INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('123', 'txioa', '01/01/2016', 'gustokoa')");
+		DBKS.getDBKS().konektatu(path);
+		// INSERT PROBATU
+		DBKS.getDBKS().aginduaExekutatu(
+				"INSERT INTO TXIOA(id, edukia, data, mota) VALUES('123', 'txioa', '01/01/2016', 'gustokoa')");
+		// SELECT PROBATU
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT * FROM TXIOA");
+		try {
+			if (!nireRS.next())
+				fail();
+		} catch (SQLException e) {
+		}
+		DBKS.getDBKS().aginduaExekutatu("DELETE FROM TXIOA");
+		nireRS = DBKS.getDBKS().queryExekutatu("SELECT * FROM TXIOA");
+		try {
+			if (nireRS.next())
+				fail();
+		} catch (SQLException e) {
+		}
+		// ESTO NECESITA UN ARREGLEISION
+		// NO SE BORRA EL ARCHIVO DE BLOQUEO
 		DBKS.getDBKS().konexioaItxi();
 		File fitxategia = new File(System.getProperty("user.home") + "/test.laccdb");
 		if (fitxategia.exists())
