@@ -27,7 +27,8 @@ public class DatuBaseaTest {
 	@Test
 	public void testDatuBasea() {
 		DBKS.getDBKS().datuBaseaEraiki(path);
-		// TODO Aginduen metodoak probatu
+		//INSERTAK PROBATU
+		DBKS.getDBKS().aginduaExekutatu("INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('123', 'txioa', '01/01/2016', 'gustokoa')");
 		DBKS.getDBKS().konexioaItxi();
 		File fitxategia = new File(System.getProperty("user.home") + "/test.laccdb");
 		if (fitxategia.exists())
