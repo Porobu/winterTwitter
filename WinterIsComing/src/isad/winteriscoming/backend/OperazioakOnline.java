@@ -227,12 +227,12 @@ public final class OperazioakOnline {
 			do {
 				messages = twitter.getDirectMessages(paging);
 				for (DirectMessage message : messages) {
-					System.out.println("From: @" + message.getSenderScreenName() + " id:" + message.getId() + " - "
-							+ message.getText());
 					// hemen agindua datu basera sartzeko
+					String benetakoData = itzuliBenetakoData(message.getCreatedAt());
 					String idea = String.valueOf(message.getId());
-					String agindua = "INSERT INTO MEZUA(bidaltzaileIid, hartzaileId, data, edukia, bidaltzaileIzena, bidaltzaileNick, hartzaileIzena, hartzaileNick)"
-							+ "VALUES ('" + idea + "')";
+					String agindua = "INSERT INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
+							+ "VALUES ('" + idea + "', '"+benetakoData+"','"+message.getText()+"', '"+message.getSenderScreenName()+"',"
+									+ " '"+message.getSenderScreenName()+"')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -245,7 +245,7 @@ public final class OperazioakOnline {
 	}
 
 	public void bidalitakoMezuakDeskargatu() {
-		// egiten
+		/*// egiten
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
 		try {
 			Paging paging = new Paging(1);
@@ -262,7 +262,7 @@ public final class OperazioakOnline {
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get sent messages: " + te.getMessage());
-		}
+		}*/
 	}
 
 	public long hartuID(String taula, String mota, String ordena) {

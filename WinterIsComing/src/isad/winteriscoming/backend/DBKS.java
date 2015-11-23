@@ -183,7 +183,7 @@ public final class DBKS {
 			st.executeQuery("SELECT NICK, IZENA, EMAIL, ID FROM ERABILTZAILEA");
 			st.executeQuery("SELECT TXIOID, ERABID, DATA, EDUKIA FROM AIPAMENAK");
 			st.executeQuery("SELECT ID, IZENA FROM ZERRENDA");
-			st.executeQuery("SELECT BIDALTZAILEID, HARTZAILEID, DATA, EDUKIA FROM MEZUA");
+			st.executeQuery("SELECT ID, DATA, EDUKIA, BIDALTZAILEIZENA, HARTZAILEIZENA FROM MEZUA");
 			st.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,
