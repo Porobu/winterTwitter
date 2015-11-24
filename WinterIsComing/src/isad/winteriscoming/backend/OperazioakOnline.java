@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import isad.winteriscoming.frontend.Login;
 import twitter4j.DirectMessage;
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
@@ -46,10 +47,17 @@ public final class OperazioakOnline {
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
-			System.out.println("Ezin izan da gustokorik hartu: " + te.getMessage());
-			//te.
-			//goiko hau erabili erabiltzaileari esateko zenbat denbora falta zaion berriro
-			//deia egin ahal izateko
+			if (te.exceededRateLimitation()) {
+				System.out.println("tssss");
+				//sartutak azkenengo id-a hartu eta gorde Datu-Basean.
+				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
+				int minutuak = segunduak/60;
+				segunduak = segunduak % 60;
+				Login.getLogin().denboraBistaratu(minutuak, segunduak);
+				//leiho bat zabaldu eta falta den denbora bistaratu erabiltzaileari
+			}
+			else 
+				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
 
@@ -71,7 +79,17 @@ public final class OperazioakOnline {
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
-			System.out.println("Failed to get timeline: " + te.getMessage());
+			if (te.exceededRateLimitation()) {
+				System.out.println("tssss");
+				//sartutak azkenengo id-a hartu eta gorde Datu-Basean.
+				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
+				int minutuak = segunduak/60;
+				segunduak = segunduak % 60;
+				Login.getLogin().denboraBistaratu(minutuak, segunduak);
+				//leiho bat zabaldu eta falta den denbora bistaratu erabiltzaileari
+			}
+			else 
+				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
 

@@ -77,6 +77,13 @@ public class Login extends JFrame implements KeyListener {
 		tokenakGorde = this.gorde.isSelected();
 	}
 
+	public void denboraBistaratu(int min, int seg) {
+		JLabel denbora = new JLabel();
+		denbora.setText("Twitter-eko web orrialdera egin daitekeen dei kopurua gainditu da, saiatu zaitzez berriro "
+				+ min + " minutu eta " + seg + " segundutan.");
+		denbora.setVisible(true);
+	}
+
 	@Override
 	public void keyPressed(KeyEvent teklaSakatuta) {
 		if (teklaSakatuta.getKeyCode() == KeyEvent.VK_ENTER)
