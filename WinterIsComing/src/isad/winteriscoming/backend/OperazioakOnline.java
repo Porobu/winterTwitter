@@ -20,15 +20,8 @@ public final class OperazioakOnline {
 
 	private OperazioakOnline() {
 	}
-
-	// favs = twitter.getFavorites(new Paging(orria, 100));
-	// 16 bider egiten bada hau, petatu egiten du
-	// beraz, paging(orriZenb, 100) egiten badugu, 15 birako loop bat ipini
-	// behar dugu,
-	// gero erabiltzaileari abisatu eta nonbaiten gorde geratzen den denbora
-
-	// sinceId() ere erabili--> Paging page = new Paging(pagenumber, count,
-	// sinceId)
+	
+	//since id eta max id erabili paging-etan
 
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
@@ -53,7 +46,10 @@ public final class OperazioakOnline {
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
-			System.out.println("Failed to get timeline: " + te.getMessage());
+			System.out.println("Ezin izan da gustokorik hartu: " + te.getMessage());
+			//te.
+			//goiko hau erabili erabiltzaileari esateko zenbat denbora falta zaion berriro
+			//deia egin ahal izateko
 		}
 	}
 
