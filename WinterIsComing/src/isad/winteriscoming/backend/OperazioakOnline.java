@@ -23,8 +23,8 @@ public final class OperazioakOnline {
 
 	private OperazioakOnline() {
 	}
-	
-	//since id eta max id erabili paging-etan
+
+	// since id eta max id erabili paging-etan
 
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
@@ -50,14 +50,18 @@ public final class OperazioakOnline {
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
-				//sartutak azkenengo id-a hartu eta gorde Datu-Basean.
+				// sartutak azkenengo id-a hartu eta gorde Datu-Basean.
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
-				int minutuak = segunduak/60;
+				int minutuak = segunduak / 60;
 				segunduak = segunduak % 60;
-				JOptionPane.showMessageDialog(null, "Ezin izan da zure eskakizuna bete, itxaron " + minutuak + " minutu eta " + segunduak + " segundu.", "Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
-				//leiho bat zabaldu eta falta den denbora bistaratu erabiltzaileari
-			}
-			else 
+				JOptionPane
+						.showMessageDialog(null,
+								"Ezin izan da zure eskakizuna bete, itxaron " + minutuak + " minutu eta " + segunduak
+										+ " segundu.",
+								"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+				// leiho bat zabaldu eta falta den denbora bistaratu
+				// erabiltzaileari
+			} else
 				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
@@ -82,14 +86,18 @@ public final class OperazioakOnline {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
 				System.out.println("tssss");
-				//sartutak azkenengo id-a hartu eta gorde Datu-Basean.
+				// sartutak azkenengo id-a hartu eta gorde Datu-Basean.
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
-				int minutuak = segunduak/60;
+				int minutuak = segunduak / 60;
 				segunduak = segunduak % 60;
-				Login.getLogin().denboraBistaratu(minutuak, segunduak);
-				//leiho bat zabaldu eta falta den denbora bistaratu erabiltzaileari
-			}
-			else 
+				JOptionPane
+						.showMessageDialog(null,
+								"Ezin izan da zure eskakizuna bete, itxaron " + minutuak + " minutu eta " + segunduak
+										+ " segundu.",
+								"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+				// leiho bat zabaldu eta falta den denbora bistaratu
+				// erabiltzaileari
+			} else
 				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
@@ -246,8 +254,8 @@ public final class OperazioakOnline {
 					String benetakoData = itzuliBenetakoData(message.getCreatedAt());
 					String idea = String.valueOf(message.getId());
 					String agindua = "INSERT INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
-							+ "VALUES ('" + idea + "', '"+benetakoData+"','"+message.getText()+"', '"+message.getSenderScreenName()+"',"
-									+ " '"+message.getSenderScreenName()+"')";
+							+ "VALUES ('" + idea + "', '" + benetakoData + "','" + message.getText() + "', '"
+							+ message.getSenderScreenName() + "'," + " '" + message.getSenderScreenName() + "')";
 					System.out.println(agindua);
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
@@ -260,24 +268,18 @@ public final class OperazioakOnline {
 	}
 
 	public void bidalitakoMezuakDeskargatu() {
-		/*// egiten
-		Twitter twitter = Konexioa.getKonexioa().getTwitter();
-		try {
-			Paging paging = new Paging(1);
-			List<DirectMessage> messages;
-			do {
-				messages = twitter.getSentDirectMessages(paging);
-				for (DirectMessage message : messages) {
-					System.out.println("From: @" + message.getRecipientScreenName() + " id:" + message.getId() + " - "
-							+ message.getText());
-					// hemen agindua datu basera sartzeko
-				}
-				paging.setPage(paging.getPage() + 1);
-			} while (messages.size() > 0 && paging.getPage() < 10);
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to get sent messages: " + te.getMessage());
-		}*/
+		/*
+		 * // egiten Twitter twitter = Konexioa.getKonexioa().getTwitter(); try
+		 * { Paging paging = new Paging(1); List<DirectMessage> messages; do {
+		 * messages = twitter.getSentDirectMessages(paging); for (DirectMessage
+		 * message : messages) { System.out.println("From: @" +
+		 * message.getRecipientScreenName() + " id:" + message.getId() + " - " +
+		 * message.getText()); // hemen agindua datu basera sartzeko }
+		 * paging.setPage(paging.getPage() + 1); } while (messages.size() > 0 &&
+		 * paging.getPage() < 10); } catch (TwitterException te) {
+		 * te.printStackTrace(); System.out.println(
+		 * "Failed to get sent messages: " + te.getMessage()); }
+		 */
 	}
 
 	public long hartuID(String taula, String mota, String ordena) {
@@ -348,7 +350,7 @@ public final class OperazioakOnline {
 	}
 
 	public String replace(String aldatzekoa) {
-		
+
 		return aldatzekoa.replace("'", "''");
 
 	}
