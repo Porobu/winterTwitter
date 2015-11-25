@@ -21,8 +21,7 @@ public class Menua extends JMenuBar {
 	private JMenuItem jarraituak;
 	private JMenuItem jarraitzaileak;
 	private JMenuItem zerrendak;
-	private JMenuItem jasotakoMezuak;
-	private JMenuItem bidalitakoMezuak;
+	private JMenuItem mezuak;
 	private JMenuItem txioakBilatu;
 	private JMenuItem bertxioakBilatu;
 	private JMenuItem gustukoakBilatu;
@@ -84,8 +83,7 @@ public class Menua extends JMenuBar {
 		this.jarraituak = new JMenuItem("Jarraituak");
 		this.jarraitzaileak = new JMenuItem("Jarraitzaileak");
 		this.zerrendak = new JMenuItem("Zerrendak");
-		this.jasotakoMezuak = new JMenuItem("Jasotako Mezuak");
-		this.bidalitakoMezuak = new JMenuItem("Bidalitako Mezuak");
+		this.mezuak = new JMenuItem("Mezuak");
 		this.jaitsi.add(this.jaitsi);
 		this.jaitsi.add(this.txioak);
 		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().txioakDeskargatu());
@@ -99,11 +97,8 @@ public class Menua extends JMenuBar {
 		this.jarraitzaileak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraitzaileakDeskargatu());
 		this.jaitsi.add(this.zerrendak);
 		this.zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakDeskargatu());
-		this.jaitsi.add(this.jasotakoMezuak);
-		this.jasotakoMezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jasotakoMezuakDeskargatu());
-		this.jaitsi.add(this.bidalitakoMezuak);
-		this.bidalitakoMezuak
-				.addActionListener(gureAE -> OperazioakOnline.getOperazioak().bidalitakoMezuakDeskargatu());
+		this.jaitsi.add(this.mezuak);
+		this.mezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().mezuakDeskargatu());
 		this.add(this.jaitsi);
 	}
 

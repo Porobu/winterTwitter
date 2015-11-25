@@ -25,6 +25,7 @@ public final class OperazioakOnline {
 	}
 
 	// since id eta max id erabili paging-etan
+	// mezuak bajatzekoa konpondu
 
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
@@ -241,7 +242,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void jasotakoMezuakDeskargatu() {
+	public void mezuakDeskargatu() {
 		// egiten
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
 		try {
@@ -265,21 +266,6 @@ public final class OperazioakOnline {
 			te.printStackTrace();
 			System.out.println("Failed to get messages: " + te.getMessage());
 		}
-	}
-
-	public void bidalitakoMezuakDeskargatu() {
-		/*
-		 * // egiten Twitter twitter = Konexioa.getKonexioa().getTwitter(); try
-		 * { Paging paging = new Paging(1); List<DirectMessage> messages; do {
-		 * messages = twitter.getSentDirectMessages(paging); for (DirectMessage
-		 * message : messages) { System.out.println("From: @" +
-		 * message.getRecipientScreenName() + " id:" + message.getId() + " - " +
-		 * message.getText()); // hemen agindua datu basera sartzeko }
-		 * paging.setPage(paging.getPage() + 1); } while (messages.size() > 0 &&
-		 * paging.getPage() < 10); } catch (TwitterException te) {
-		 * te.printStackTrace(); System.out.println(
-		 * "Failed to get sent messages: " + te.getMessage()); }
-		 */
 	}
 
 	public long hartuID(String taula, String mota, String ordena) {
