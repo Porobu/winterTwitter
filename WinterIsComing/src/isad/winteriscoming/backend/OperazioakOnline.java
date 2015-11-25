@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import isad.winteriscoming.frontend.Login;
 import twitter4j.DirectMessage;
 import twitter4j.PagableResponseList;
@@ -48,12 +50,11 @@ public final class OperazioakOnline {
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
-				System.out.println("tssss");
 				//sartutak azkenengo id-a hartu eta gorde Datu-Basean.
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				int minutuak = segunduak/60;
 				segunduak = segunduak % 60;
-				Login.getLogin().denboraBistaratu(minutuak, segunduak);
+				JOptionPane.showMessageDialog(null, "Ezin izan da zure eskakizuna bete, itxaron " + minutuak + " minutu eta " + segunduak + " segundu.", "Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
 				//leiho bat zabaldu eta falta den denbora bistaratu erabiltzaileari
 			}
 			else 
