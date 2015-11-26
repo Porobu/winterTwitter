@@ -8,7 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
-	public static float BERTSIOA = 0.4F;
+	public static float BERTSIOA = 0.5F;
 	private static JFrame frame;
 	private static String path;
 
@@ -37,6 +37,8 @@ public class Nagusia {
 					"WinterTwitter " + BERTSIOA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					aukerak2, aukerak2[0]);
 		}
+		if (aukera == JOptionPane.CLOSED_OPTION)
+			System.exit(0);
 		if (path == null || aukera == JOptionPane.NO_OPTION) {
 			String[] aukerak = { "Ireki", "Eraiki", "Itxi" };
 			aukera = JOptionPane.showOptionDialog(frame, "Datu Basea beste leku batetik ireki edo eraiki nahi duzu?",
