@@ -2,8 +2,11 @@
 Winter is Coming - ISAD 15 - 16
 
 Programa instalatzeko:
+
 Kode biltegia klonatu.
+
 Proiektua inportatu Eclipsen.
+
 Honako liburutegiak gehitu:
 - Commons-lang 2.6
 - Commons-logging 1.1.1
