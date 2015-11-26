@@ -18,7 +18,7 @@ public class EsportatuExcelUI {
 
 	public void gorde() {
 		JOptionPane.showMessageDialog(null, "Hautatu non eraiki nahi duzun Excel liburua",
-				"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.INFORMATION_MESSAGE);
+				Nagusia.TITULUA, JOptionPane.INFORMATION_MESSAGE);
 		String path = "";
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
@@ -37,7 +37,7 @@ public class EsportatuExcelUI {
 				if (f.exists()) {
 					String[] aukerak = { "Bai", "Ez" };
 					aukera = JOptionPane.showOptionDialog(null, "Liburua existitzen da jada.\nEzabatu nahi duzu?",
-							"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.YES_NO_OPTION,
+							Nagusia.TITULUA, JOptionPane.YES_NO_OPTION,
 							JOptionPane.WARNING_MESSAGE, null, aukerak, aukerak[0]);
 				} else
 					aukera = JOptionPane.YES_OPTION;
@@ -48,7 +48,7 @@ public class EsportatuExcelUI {
 		Excel nireExcel = new Excel();
 		if (nireExcel.idatzi(path))
 			JOptionPane.showMessageDialog(null, "Excel liburua " + path + " karpetan gorde da",
-					"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.INFORMATION_MESSAGE);
+					Nagusia.TITULUA, JOptionPane.INFORMATION_MESSAGE);
 
 	}
 

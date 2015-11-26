@@ -40,14 +40,14 @@ public class AukerakUI extends JFrame {
 	private void hasiEzDefektuzkoDB() {
 		String[] aukerak = { "Ireki", "Berria Eraiki" };
 		aukera = JOptionPane.showOptionDialog(this, "Datu Basea beste leku batetik ireki edo eraiki nahi duzu?",
-				Nagusia.titulua(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
+				Nagusia.TITULUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
 		this.aukeratu();
 	}
 
 	private void hasiDefektuzkoDB() {
 		String[] aukerak = { "Beste Bat Erabili", "Berri bat eraiki", "Defektuzkoa Kargatu" };
 		aukera = JOptionPane.showOptionDialog(this, "Defektuzko datu basea " + path + " karpetan aurkitu da.",
-				Nagusia.titulua(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak,
+				Nagusia.TITULUA, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak,
 				aukerak[2]);
 		this.aukeratu();
 	}
@@ -59,7 +59,7 @@ public class AukerakUI extends JFrame {
 			path = nireFOUI.getPath();
 			break;
 		case JOptionPane.NO_OPTION:
-			JOptionPane.showMessageDialog(this, luzea, Nagusia.titulua(), JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, luzea, Nagusia.TITULUA, JOptionPane.INFORMATION_MESSAGE);
 			path = nireFOUI.datuBaseaGordetzekoPath();
 			nireFOUI.datuBaseaEraiki(path);
 			break;

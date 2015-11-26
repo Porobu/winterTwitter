@@ -18,11 +18,11 @@ public class FitxategiOperazioakUI {
 	}
 
 	public void kopiaEgin() {
-		JOptionPane.showMessageDialog(null, "Hautatu non egin nahi duzun datu basearen kopia", Nagusia.titulua(),
+		JOptionPane.showMessageDialog(null, "Hautatu non egin nahi duzun datu basearen kopia", Nagusia.TITULUA,
 				JOptionPane.INFORMATION_MESSAGE);
 		String path = Nagusia.getPath();
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
-		gureFileChooser.setDialogTitle(Nagusia.titulua());
+		gureFileChooser.setDialogTitle(Nagusia.TITULUA);
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
 		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
 		while (path == Nagusia.getPath()) {
@@ -40,7 +40,7 @@ public class FitxategiOperazioakUI {
 			if (path == Nagusia.getPath())
 				JOptionPane.showMessageDialog(gureFileChooser,
 						"Hautatu duzun fitxategia kargatu duzunaren berdina da.\nMesedez, aukeratu beste bat",
-						Nagusia.titulua(), JOptionPane.WARNING_MESSAGE);
+						Nagusia.TITULUA, JOptionPane.WARNING_MESSAGE);
 		}
 		nireFO.dbKopiatu(path);
 	}
@@ -49,7 +49,7 @@ public class FitxategiOperazioakUI {
 		String path;
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
-		gureFileChooser.setDialogTitle(Nagusia.titulua());
+		gureFileChooser.setDialogTitle(Nagusia.TITULUA);
 		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
 		gureFileChooser.setSelectedFile(new File("WinterTwitter"));
 		int gureZenbakia = gureFileChooser.showSaveDialog(null);
@@ -71,7 +71,7 @@ public class FitxategiOperazioakUI {
 		File fitxategia = new File(path);
 		if (fitxategia.exists())
 			aukera = JOptionPane.showConfirmDialog(null,
-					"Datu basea existitzen da izen horrekin, jarraitzen baduzu ezabatu egingo da.", Nagusia.titulua(),
+					"Datu basea existitzen da izen horrekin, jarraitzen baduzu ezabatu egingo da.", Nagusia.TITULUA,
 					JOptionPane.YES_NO_OPTION);
 		if (aukera == JOptionPane.NO_OPTION || aukera == JOptionPane.CLOSED_OPTION)
 			System.exit(1);
@@ -82,7 +82,7 @@ public class FitxategiOperazioakUI {
 		} catch (Exception e) {
 			new SentitzenNaizException("Ezin da fitxategia esportatu");
 		}
-		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", Nagusia.titulua(),
+		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", Nagusia.TITULUA,
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -90,7 +90,7 @@ public class FitxategiOperazioakUI {
 		String path;
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
-		gureFileChooser.setDialogTitle(Nagusia.titulua());
+		gureFileChooser.setDialogTitle(Nagusia.TITULUA);
 		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
 		int gureZenbakia = gureFileChooser.showOpenDialog(null);
 		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
@@ -102,5 +102,4 @@ public class FitxategiOperazioakUI {
 		}
 		return path;
 	}
-
 }
