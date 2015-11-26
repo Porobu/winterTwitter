@@ -3,6 +3,7 @@ package isad.winteriscoming.backend;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -48,7 +49,18 @@ public class EsportatuExcel {
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Edukia");
 		row.createCell(2).setCellValue("Data");
-		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT * FROM TXIOA WHERE MOTA = TXIOA");
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT ID, EDUKIA, DATA FROM TXIOA WHERE MOTA = 'TXIOA'");
+		int i = 1;
+		try {
+			while (nireRS.next()) {
+				row = txioak.createRow(i);
+				for (int j = 0; j < 3; j++) {
+					row.createCell(j).setCellValue(nireRS.getString(j+1));
+				}
+				i++;
+			}
+		} catch (SQLException e) {
+		}
 	}
 
 }
