@@ -122,6 +122,8 @@ public class Menua extends JMenuBar {
 		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.esportatu = new JMenu("Esportatu");
 		this.excel = new JMenuItem("Excel");
+		EsportatuExcelUI nireExcel = new EsportatuExcelUI();
+		this.excel.addActionListener(gureAE -> nireExcel.gorde());
 		this.esportatu.add(this.excel);
 		this.add(this.esportatu);
 	}
