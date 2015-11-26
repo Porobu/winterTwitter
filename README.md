@@ -22,5 +22,6 @@ Honako liburutegiak gehitu (liburutegiak libs.zip fitxategian daude):
 - Twitter4j Media 4.0.4
 - Twitter4j Stream 4.0.4
 - UcanAccess 3.0.2
+- XMLBeans 5.1.2
 
 Konpilatu, klase nagusia /src/isad/winteriscoming/backend/Nagusia.java da.
