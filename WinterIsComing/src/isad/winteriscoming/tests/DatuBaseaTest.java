@@ -1,6 +1,6 @@
 package isad.winteriscoming.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.sql.ResultSet;
@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import isad.winteriscoming.backend.DBKS;
+import isad.winteriscoming.frontend.FitxategiOperazioakUI;
 
 public class DatuBaseaTest {
 	private String path;
@@ -28,7 +29,8 @@ public class DatuBaseaTest {
 
 	@Test
 	public void testDatuBasea() {
-		DBKS.getDBKS().datuBaseaEraiki(path);
+		FitxategiOperazioakUI nireFO = new FitxategiOperazioakUI();
+		nireFO.datuBaseaEraiki(path);
 		DBKS.getDBKS().konektatu(path);
 		// INSERT PROBATU
 		DBKS.getDBKS().aginduaExekutatu(

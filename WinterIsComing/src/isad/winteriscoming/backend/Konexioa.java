@@ -116,7 +116,7 @@ public class Konexioa {
 
 	public void deskonektatu() {
 		gureKonexioa = new Konexioa();
-		JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", "WinterTwitter " + Nagusia.BERTSIOA,
+		JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", Nagusia.titulua(),
 				JOptionPane.INFORMATION_MESSAGE);
 		Menua.botoiakHasieranEtaDeskonektatzean();
 	}

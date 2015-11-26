@@ -14,7 +14,6 @@ public class OperazioakOffline {
 		try {
 			rs.next();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return emaitza;
@@ -25,7 +24,6 @@ public class OperazioakOffline {
 		try {
 			return emaitza.next();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;

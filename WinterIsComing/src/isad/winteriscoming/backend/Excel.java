@@ -9,7 +9,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class EsportatuExcel {
+public class Excel {
 	private Workbook wb;
 	private Sheet txioak;
 	private Sheet bertxioak;
@@ -19,7 +19,7 @@ public class EsportatuExcel {
 	private Sheet zerrendak;
 	private Sheet mezuak;
 
-	public EsportatuExcel() {
+	public Excel() {
 
 	}
 

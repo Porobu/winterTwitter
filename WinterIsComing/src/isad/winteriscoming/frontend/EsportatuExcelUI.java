@@ -6,7 +6,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import isad.winteriscoming.backend.EsportatuExcel;
+import isad.winteriscoming.backend.Excel;
 import isad.winteriscoming.backend.Nagusia;
 import isad.winteriscoming.salbuespenak.SentitzenNaizException;
 
@@ -45,7 +45,7 @@ public class EsportatuExcelUI {
 				throw new SentitzenNaizException("Fitxategiak ez du balio.");
 			}
 		}
-		EsportatuExcel nireExcel = new EsportatuExcel();
+		Excel nireExcel = new Excel();
 		if (nireExcel.idatzi(path))
 			JOptionPane.showMessageDialog(null, "Excel liburua " + path + " karpetan gorde da",
 					"WinterTwitter " + Nagusia.BERTSIOA, JOptionPane.INFORMATION_MESSAGE);

@@ -132,7 +132,7 @@ public class Menua extends JMenuBar {
 		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
 		this.kopiaEgin = new JMenuItem("Kopia Egin");
-		SegurtasunKopia gureSK = new SegurtasunKopia();
+		FitxategiOperazioakUI gureSK = new FitxategiOperazioakUI();
 		this.kopiaEgin.addActionListener(gureAE -> gureSK.kopiaEgin());
 		this.kopiaKargatu = new JMenuItem("Kopia Kargatu");
 		this.segurtasunKopia.add(this.kopiaEgin);
