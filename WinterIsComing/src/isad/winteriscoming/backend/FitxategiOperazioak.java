@@ -17,7 +17,7 @@ public class FitxategiOperazioak {
 
 	}
 
-	public void dbKopiatu(String path) {
+	public void kopiatu(String path) {
 		File oraingoa = new File(Nagusia.getPath());
 		File berria = new File(path);
 		try {
