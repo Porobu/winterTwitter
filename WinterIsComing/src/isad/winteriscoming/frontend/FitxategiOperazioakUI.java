@@ -42,7 +42,7 @@ public class FitxategiOperazioakUI {
 						"Hautatu duzun fitxategia kargatu duzunaren berdina da.\nMesedez, aukeratu beste bat",
 						Nagusia.TITULUA, JOptionPane.WARNING_MESSAGE);
 		}
-		nireFO.dbKopiatu(path);
+		nireFO.kopiatu(path);
 	}
 
 	public String datuBaseaGordetzekoPath() {
