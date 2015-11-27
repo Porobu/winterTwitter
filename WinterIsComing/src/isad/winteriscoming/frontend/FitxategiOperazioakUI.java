@@ -18,8 +18,8 @@ public class FitxategiOperazioakUI {
 	}
 
 	public void kopiaEgin() {
-		JOptionPane.showMessageDialog(null, "Hautatu non egin nahi duzun datu basearen kopia", Nagusia.TITULUA,
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Hautatu non egin nahi duzun datu basearen kopia",
+				Nagusia.TITULUA, JOptionPane.INFORMATION_MESSAGE);
 		String path = Nagusia.getPath();
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setDialogTitle(Nagusia.TITULUA);
@@ -70,7 +70,7 @@ public class FitxategiOperazioakUI {
 		int aukera = JOptionPane.YES_OPTION;
 		File fitxategia = new File(path);
 		if (fitxategia.exists())
-			aukera = JOptionPane.showConfirmDialog(null,
+			aukera = JOptionPane.showConfirmDialog(WinterTwitter.getOraingoWT(),
 					"Datu basea existitzen da izen horrekin, jarraitzen baduzu ezabatu egingo da.", Nagusia.TITULUA,
 					JOptionPane.YES_NO_OPTION);
 		if (aukera == JOptionPane.NO_OPTION || aukera == JOptionPane.CLOSED_OPTION)

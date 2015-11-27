@@ -17,7 +17,7 @@ public class EsportatuExcelUI {
 	}
 
 	public void gorde() {
-		JOptionPane.showMessageDialog(null, "Hautatu non eraiki nahi duzun Excel liburua",
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Hautatu non eraiki nahi duzun Excel liburua",
 				Nagusia.TITULUA, JOptionPane.INFORMATION_MESSAGE);
 		String path = "";
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
@@ -47,7 +47,7 @@ public class EsportatuExcelUI {
 		}
 		Excel nireExcel = new Excel();
 		if (nireExcel.idatzi(path))
-			JOptionPane.showMessageDialog(null, "Excel liburua " + path + " karpetan gorde da",
+			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Excel liburua " + path + " karpetan gorde da",
 					Nagusia.TITULUA, JOptionPane.INFORMATION_MESSAGE);
 
 	}
