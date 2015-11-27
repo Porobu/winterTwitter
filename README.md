@@ -7,7 +7,7 @@ Kode biltegia klonatu.
 
 Proiektua inportatu Eclipsen.
 
-Honako liburutegiak gehitu (liburutegiak libs.zip fitxategian daude):
+Honako liburutegiak gehitu (liburutegiak libs.zip fitxategian daude WinterIsComing karpetan):
 - Commons-lang 2.6
 - Commons-logging 1.1.1
 - Hsqldb
