@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 import isad.winteriscoming.backend.Konexioa;
 import isad.winteriscoming.externals.SpringUtilities;
@@ -31,7 +32,7 @@ public class Login extends JFrame implements KeyListener {
 
 	public Login() {
 		tokenakGorde = true;
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.gurePanela = new JPanel(new SpringLayout());
 		this.setTitle("Login");

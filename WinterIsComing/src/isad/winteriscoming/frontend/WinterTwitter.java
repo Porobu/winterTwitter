@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -19,20 +18,11 @@ public class WinterTwitter extends JFrame {
 	private static final long serialVersionUID = -2685559474031286026L;
 	private JPanel barra;
 	private JPanel txioak;
-	private static JMenuBar menua;
+	private JMenuBar menua;
 
 	public WinterTwitter() {
-		menua = new Menua();
-		InputStream stream = WinterTwitter.class.getResourceAsStream("/isad/winteriscoming/logoa.png");
-		BufferedImage logoa;
-		try {
-			logoa = ImageIO.read(stream);
-			this.setIconImage(logoa);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		this.menua = new Menua();
+		this.ikonoaJarri();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setTitle("WinterTwitter " + Nagusia.BERTSIOA + " " + Nagusia.getPath());
@@ -46,14 +36,23 @@ public class WinterTwitter extends JFrame {
 		this.setVisible(true);
 	}
 
-
 	private void barraEraiki() {
 		barra = new JPanel();
-		barra.setLayout(new GridLayout(10, 1));
-		
+		barra.setLayout(new GridLayout(0, 10));
+
 	}
 
 	private void txioakEraiki() {
 		txioak = new JPanel();
+	}
+
+	private void ikonoaJarri() {
+		InputStream stream = WinterTwitter.class.getResourceAsStream("/isad/winteriscoming/logoa.png");
+		BufferedImage logoa;
+		try {
+			logoa = ImageIO.read(stream);
+			this.setIconImage(logoa);
+		} catch (IOException e) {
+		}
 	}
 }
