@@ -343,7 +343,7 @@ public final class OperazioakOnline {
 	public void gustokoakJaitsi() {
 		// egiten
 		//galderak: gustokoak rate limit exception ematen duenean zein orritan dagoen gorde behar da?
-		//
+		//paging-ak kopondu, juanan-i galdetu
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> favs;
@@ -364,8 +364,8 @@ public final class OperazioakOnline {
 				}
 			} else {
 				//for honetan datu basean ez dauden tweet zaharrak sartuko dira
-				for (int orria = 14; orria < 20; orria++) {
-					favs = twitter.getFavorites(new Paging(orria, 20, zaharrena, 1L));
+				for (int orria = 1; orria < 20; orria++) {
+					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
 						System.out.println(id);
