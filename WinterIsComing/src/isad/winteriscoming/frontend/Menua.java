@@ -90,7 +90,7 @@ public class Menua extends JMenuBar {
 		this.jaitsi.add(this.bertxioak);
 		this.bertxioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().bertxioakDeskargatu());
 		this.jaitsi.add(this.gustokoak);
-		this.gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakDeskargatu());
+		this.gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
 		this.jaitsi.add(this.jarraituak);
 		this.jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakDeskargatu());
 		this.jaitsi.add(this.jarraitzaileak);
