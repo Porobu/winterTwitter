@@ -342,6 +342,8 @@ public final class OperazioakOnline {
 
 	public void gustokoakJaitsi() {
 		// egiten
+		//galderak: gustokoak rate limit exception ematen duenean zein orritan dagoen gorde behar da?
+		//
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> favs;
@@ -350,7 +352,7 @@ public final class OperazioakOnline {
 			Long berriena = hartuID("Txioa", "gustokoa", "ASC");
 			if (zaharrena == -1L) {
 				//kasu honetan erabiltzaileak ez du gustokorik datu basean
-				for (int orria = 1; orria < 500; orria++) {
+				for (int orria = 1; orria < 20; orria++) {
 					favs = twitter.getFavorites(new Paging(orria, 20));
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
@@ -361,8 +363,8 @@ public final class OperazioakOnline {
 					}
 				}
 			} else {
-				//for honetandatu basean ez dauden tweet zaharrak sartuko dira
-				for (int orria = 1; orria < 500; orria++) {
+				//for honetan datu basean ez dauden tweet zaharrak sartuko dira
+				for (int orria = 14; orria < 20; orria++) {
 					favs = twitter.getFavorites(new Paging(orria, 20, zaharrena, 1L));
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
@@ -372,9 +374,10 @@ public final class OperazioakOnline {
 								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
+					System.out.println(orria);
 				}
 				//for honetan datu basean ez dauden tweet berrienak sartuko dira
-				for (int orria = 1; orria < 500; orria++) {
+				for (int orria = 1; orria < 20; orria++) {
 					favs = twitter.getFavorites(new Paging(orria, 20, berriena));
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
@@ -384,6 +387,7 @@ public final class OperazioakOnline {
 								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
+					System.out.println(orria);
 				}
 			}
 		} catch (TwitterException te) {
