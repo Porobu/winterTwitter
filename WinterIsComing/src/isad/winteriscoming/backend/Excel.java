@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
 public class Excel {
 	private Workbook wb;
 	private Sheet txioak;
@@ -25,14 +26,6 @@ public class Excel {
 
 	public boolean idatzi(String path) {
 		wb = new XSSFWorkbook();
-		txioak = wb.createSheet("Txioak");
-		bertxioak = wb.createSheet("Bertxioak");
-		gustokoak = wb.createSheet("Gustokoak");
-		jarraituak = wb.createSheet("Jarraituak");
-		jarraitzaileak = wb.createSheet("Jarraitzaileak");
-		zerrendak = wb.createSheet("Zerrendak");
-		mezuak = wb.createSheet("Mezuak");
-
 		try {
 			this.txioakOrriaEgin();
 			this.bertxioakOrriaEgin();
@@ -52,6 +45,8 @@ public class Excel {
 	}
 
 	private void txioakOrriaEgin() throws SQLException {
+		txioak = wb.createSheet("Txioak");
+		txioak.setSelected(true);
 		Row row = txioak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Edukia");
@@ -68,6 +63,8 @@ public class Excel {
 	}
 
 	private void bertxioakOrriaEgin() throws SQLException {
+		bertxioak = wb.createSheet("Bertxioak");
+		bertxioak.setSelected(true);
 		Row row = bertxioak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Edukia");
@@ -85,6 +82,8 @@ public class Excel {
 	}
 
 	private void gustokoakOrriaEgin() throws SQLException {
+		gustokoak = wb.createSheet("Gustokoak");
+		gustokoak.setSelected(true);
 		Row row = gustokoak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Edukia");
@@ -102,6 +101,8 @@ public class Excel {
 	}
 
 	private void jarraituakOrriaEgin() throws SQLException {
+		jarraituak = wb.createSheet("Jarraituak");
+		jarraituak.setSelected(true);
 		Row row = jarraituak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Izena");
@@ -121,6 +122,8 @@ public class Excel {
 	}
 
 	private void jarraitzaileakOrriaEgin() throws SQLException {
+		jarraitzaileak = wb.createSheet("Jarraitzaileak");
+		jarraitzaileak.setSelected(true);
 		Row row = jarraitzaileak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Izena");
@@ -139,6 +142,8 @@ public class Excel {
 	}
 
 	private void zerrendakOrriaEgin() throws SQLException {
+		zerrendak = wb.createSheet("Zerrendak");
+		zerrendak.setSelected(true);
 		Row row = zerrendak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Izena");
@@ -154,6 +159,8 @@ public class Excel {
 	}
 
 	private void mezuakOrriaEgin() throws SQLException {
+		mezuak = wb.createSheet("Mezuak");
+		mezuak.setSelected(true);
 		Row row = mezuak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Data");

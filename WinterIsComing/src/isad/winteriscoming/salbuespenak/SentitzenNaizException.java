@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
+import isad.winteriscoming.frontend.WinterTwitter;
+
 public class SentitzenNaizException extends RuntimeException {
 	private static final long serialVersionUID = -1014723140002334926L;
 
@@ -24,12 +26,12 @@ public class SentitzenNaizException extends RuntimeException {
 		}
 		String gureString = System.getProperty("os.name");
 		if (gureString.contains("win") || gureString.contains("Win"))
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
 					gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
 							+ "\nStack trace " + System.getProperty("user.home") + "\\SentitzenNaiz.txt" + " gorde da.",
 					"SENTITZEN NAIZ BAINA ERROREA!!!!!", JOptionPane.ERROR_MESSAGE);
 		else
-			JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
 					gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
 							+ "\nStack trace " + System.getProperty("user.home") + "/SentitzenNaiz.txt" + " gorde da.",
 					"SENTITZEN NAIZ BAINA ERROREA!!!!!", JOptionPane.ERROR_MESSAGE);
