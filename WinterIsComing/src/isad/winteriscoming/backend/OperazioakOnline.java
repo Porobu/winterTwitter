@@ -334,10 +334,17 @@ public final class OperazioakOnline {
 			String benetakoData;
 			Long zaharrena = hartuID("Txioa", "gustokoa", "DESC");
 			Long berriena = hartuID("Txioa", "gustokoa", "ASC");
+			//salbuespen bat pantailaratuko du, ResultSet-a hutsik dagoelako, hori normala da
 			if (zaharrena == -1L) {
 				// kasu honetan erabiltzaileak ez du gustokorik datu basean
-				for (int orria = 1; orria < 20; orria++) {
+				int orria = 0;
+				boolean amaituta = false;
+				while (!amaituta) {
+					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20));
+					if (favs.size()<20) {
+						amaituta = true;
+					}
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
 						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
@@ -347,6 +354,7 @@ public final class OperazioakOnline {
 					}
 				}
 			} else {
+				//hemetik aurrera begiratu eta konpondu
 				// for honetan datu basean ez dauden tweet zaharrak sartuko dira
 				for (int orria = 1; orria < 20; orria++) {
 					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
@@ -378,7 +386,7 @@ public final class OperazioakOnline {
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
-				// sartutak azkenengo id-a hartu eta gorde Datu-Basean.
+				// Orri zenbakia gorde datu basean???
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				int minutuak = segunduak / 60;
 				segunduak = segunduak % 60;
