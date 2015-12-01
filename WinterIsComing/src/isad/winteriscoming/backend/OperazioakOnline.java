@@ -19,8 +19,6 @@ import twitter4j.UserList;
 
 public final class OperazioakOnline {
 	private static OperazioakOnline gureOperazioak;
-	private String maxId;
-	private String sinceId;
 
 	private OperazioakOnline() {
 	}
