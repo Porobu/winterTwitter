@@ -19,6 +19,8 @@ import twitter4j.UserList;
 
 public final class OperazioakOnline {
 	private static OperazioakOnline gureOperazioak;
+	private String maxId;
+	private String sinceId;
 
 	private OperazioakOnline() {
 	}
@@ -73,11 +75,13 @@ public final class OperazioakOnline {
 				txioak = twitter.getUserTimeline(new Paging(orria, 100));
 				for (Status txioa : txioak) {
 					String id = String.valueOf(txioa.getId());
+
 					benetakoData = itzuliBenetakoData((txioa.getCreatedAt()));
 					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota)" + "VALUES ('" + id + "', '"
 							+ this.replace(txioa.getText()) + "', '" + benetakoData + "', 'txioa')";
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
+
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -321,8 +325,9 @@ public final class OperazioakOnline {
 
 	public void gustokoakJaitsi() {
 		// egiten
-		//galderak: gustokoak rate limit exception ematen duenean zein orritan dagoen gorde behar da?
-		//paging-ak kopondu, juanan-i galdetu
+		// galderak: gustokoak rate limit exception ematen duenean zein orritan
+		// dagoen gorde behar da?
+		// paging-ak kopondu, juanan-i galdetu
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> favs;
@@ -330,7 +335,7 @@ public final class OperazioakOnline {
 			Long zaharrena = hartuID("Txioa", "gustokoa", "DESC");
 			Long berriena = hartuID("Txioa", "gustokoa", "ASC");
 			if (zaharrena == -1L) {
-				//kasu honetan erabiltzaileak ez du gustokorik datu basean
+				// kasu honetan erabiltzaileak ez du gustokorik datu basean
 				for (int orria = 1; orria < 20; orria++) {
 					favs = twitter.getFavorites(new Paging(orria, 20));
 					for (Status fav : favs) {
@@ -342,7 +347,7 @@ public final class OperazioakOnline {
 					}
 				}
 			} else {
-				//for honetan datu basean ez dauden tweet zaharrak sartuko dira
+				// for honetan datu basean ez dauden tweet zaharrak sartuko dira
 				for (int orria = 1; orria < 20; orria++) {
 					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
 					for (Status fav : favs) {
@@ -355,7 +360,8 @@ public final class OperazioakOnline {
 					}
 					System.out.println(orria);
 				}
-				//for honetan datu basean ez dauden tweet berrienak sartuko dira
+				// for honetan datu basean ez dauden tweet berrienak sartuko
+				// dira
 				for (int orria = 1; orria < 20; orria++) {
 					favs = twitter.getFavorites(new Paging(orria, 20, berriena));
 					for (Status fav : favs) {
@@ -376,11 +382,9 @@ public final class OperazioakOnline {
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				int minutuak = segunduak / 60;
 				segunduak = segunduak % 60;
-				JOptionPane
-						.showMessageDialog(null,
-								"Ezin izan da zure eskakizuna bete, itxaron " + minutuak + " minutu eta " + segunduak
-										+ " segundu.",
-								"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ezin izan da zure eskakizuna bete, itxaron " + minutuak
+						+ " minutu eta " + segunduak + " segundu.", "Eskakizun kopuru maximoa gainditua",
+						JOptionPane.WARNING_MESSAGE);
 				// leiho bat zabaldu eta falta den denbora bistaratu
 				// erabiltzaileari
 			} else

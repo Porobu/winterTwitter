@@ -75,6 +75,20 @@ public final class DBKS {
 		}
 	}
 
+	public boolean agindukoaDago(String agindua) {
+
+		Statement st;
+		Boolean erantzuna = null;
+		try {
+			st = this.konexioa.createStatement();
+			erantzuna = st.execute(agindua);
+		} catch (SQLException e) {
+			throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+		}
+		return erantzuna;
+
+	}
+
 	public void konexioaItxi() {
 		if (this.konexioa != null)
 			try {
