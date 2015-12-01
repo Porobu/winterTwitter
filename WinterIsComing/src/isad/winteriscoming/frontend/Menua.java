@@ -90,7 +90,7 @@ public class Menua extends JMenuBar {
 		this.jaitsi.add(this.bertxioak);
 		this.bertxioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().bertxioakDeskargatu());
 		this.jaitsi.add(this.gustokoak);
-		this.gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakDeskargatu());
+		this.gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
 		this.jaitsi.add(this.jarraituak);
 		this.jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakDeskargatu());
 		this.jaitsi.add(this.jarraitzaileak);
@@ -132,8 +132,8 @@ public class Menua extends JMenuBar {
 		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
 		this.kopiaEgin = new JMenuItem("Kopia Egin");
-		FitxategiOperazioakUI gureSK = new FitxategiOperazioakUI();
-		this.kopiaEgin.addActionListener(gureAE -> gureSK.kopiaEgin());
+		FitxategiOperazioakUI gureFOUI = new FitxategiOperazioakUI();
+		this.kopiaEgin.addActionListener(gureAE -> gureFOUI.kopiaEgin());
 		this.kopiaKargatu = new JMenuItem("Kopia Kargatu");
 		this.segurtasunKopia.add(this.kopiaEgin);
 		this.segurtasunKopia.add(this.kopiaKargatu);

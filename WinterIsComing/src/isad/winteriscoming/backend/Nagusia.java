@@ -7,9 +7,10 @@ import isad.winteriscoming.frontend.AukerakUI;
 import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
-	public static final float BERTSIOA = 0.55F;
+	public static final float BERTSIOA = 0.56F;
 	public static final String TITULUA = "WinterTwitter " + Nagusia.BERTSIOA;
 	private static String path;
+	private static WinterTwitter wtFrame;
 
 	public static void main(String[] args) {
 		try {
@@ -22,10 +23,12 @@ public class Nagusia {
 					| UnsupportedLookAndFeelException e1) {
 			}
 		}
+		wtFrame = new WinterTwitter();
+		wtFrame.dekoratuGabeHasieratu();
 		AukerakUI nireAUI = new AukerakUI();
 		path = nireAUI.hasi();
 		DBKS.getDBKS().konektatu(path);
-		new WinterTwitter();
+		wtFrame.dekoratu();
 	}
 
 	public static String getPath() {

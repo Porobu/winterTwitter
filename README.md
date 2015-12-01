@@ -1,7 +1,11 @@
 # winterTwitter
 Winter is Coming - ISAD 15 - 16
 
-Programa instalatzeko:
+Programa instalatzeko (0.56 bertsioan idatzita, bertsio berriagoek beharbada zeozer desberdina izan dezakete):
+
+Programa erabili edo konpilatu aurretik:
+- Programa exekutatzeko JRE 8 edo berriagoa behar da.
+- Programa konpilatzeko JDK 8 erabili behar da
 
 Kode biltegia klonatu.
 

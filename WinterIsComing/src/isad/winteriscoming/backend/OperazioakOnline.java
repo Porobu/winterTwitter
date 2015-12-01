@@ -318,4 +318,73 @@ public final class OperazioakOnline {
 		return aldatzekoa.replace("'", "''");
 
 	}
+
+	public void gustokoakJaitsi() {
+		// egiten
+		//galderak: gustokoak rate limit exception ematen duenean zein orritan dagoen gorde behar da?
+		//paging-ak kopondu, juanan-i galdetu
+		try {
+			Twitter twitter = Konexioa.getKonexioa().getTwitter();
+			List<Status> favs;
+			String benetakoData;
+			Long zaharrena = hartuID("Txioa", "gustokoa", "DESC");
+			Long berriena = hartuID("Txioa", "gustokoa", "ASC");
+			if (zaharrena == -1L) {
+				//kasu honetan erabiltzaileak ez du gustokorik datu basean
+				for (int orria = 1; orria < 20; orria++) {
+					favs = twitter.getFavorites(new Paging(orria, 20));
+					for (Status fav : favs) {
+						String id = String.valueOf(fav.getId());
+						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
+						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+						DBKS.getDBKS().aginduaExekutatu(agindua);
+					}
+				}
+			} else {
+				//for honetan datu basean ez dauden tweet zaharrak sartuko dira
+				for (int orria = 1; orria < 20; orria++) {
+					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
+					for (Status fav : favs) {
+						String id = String.valueOf(fav.getId());
+						System.out.println(id);
+						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
+						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+						DBKS.getDBKS().aginduaExekutatu(agindua);
+					}
+					System.out.println(orria);
+				}
+				//for honetan datu basean ez dauden tweet berrienak sartuko dira
+				for (int orria = 1; orria < 20; orria++) {
+					favs = twitter.getFavorites(new Paging(orria, 20, berriena));
+					for (Status fav : favs) {
+						String id = String.valueOf(fav.getId());
+						System.out.println(id);
+						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
+						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+						DBKS.getDBKS().aginduaExekutatu(agindua);
+					}
+					System.out.println(orria);
+				}
+			}
+		} catch (TwitterException te) {
+			te.printStackTrace();
+			if (te.exceededRateLimitation()) {
+				// sartutak azkenengo id-a hartu eta gorde Datu-Basean.
+				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
+				int minutuak = segunduak / 60;
+				segunduak = segunduak % 60;
+				JOptionPane
+						.showMessageDialog(null,
+								"Ezin izan da zure eskakizuna bete, itxaron " + minutuak + " minutu eta " + segunduak
+										+ " segundu.",
+								"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+				// leiho bat zabaldu eta falta den denbora bistaratu
+				// erabiltzaileari
+			} else
+				System.out.println("Failed to get timeline: " + te.getMessage());
+		}
+	}
 }
