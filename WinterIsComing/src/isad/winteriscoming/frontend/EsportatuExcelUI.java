@@ -8,7 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import isad.winteriscoming.backend.Excel;
 import isad.winteriscoming.backend.Nagusia;
-import isad.winteriscoming.salbuespenak.SentitzenNaizException;
+import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 
 public class EsportatuExcelUI {
 
@@ -42,7 +42,7 @@ public class EsportatuExcelUI {
 				} else
 					aukera = JOptionPane.YES_OPTION;
 			} catch (Exception salbuespena) {
-				throw new SentitzenNaizException("Fitxategiak ez du balio.");
+				throw new WinterTwitterSalbuespena("Fitxategiak ez du balio.");
 			}
 		}
 		Excel nireExcel = new Excel();

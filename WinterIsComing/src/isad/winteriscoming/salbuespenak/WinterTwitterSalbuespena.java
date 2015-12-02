@@ -10,10 +10,10 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 
 import isad.winteriscoming.frontend.WinterTwitter;
 
-public class SentitzenNaizException extends RuntimeException {
+public class WinterTwitterSalbuespena extends RuntimeException {
 	private static final long serialVersionUID = -1014723140002334926L;
 
-	public SentitzenNaizException(String gureMezua) {
+	public WinterTwitterSalbuespena(String gureMezua) {
 		try {
 			PrintWriter gurePW = new PrintWriter(new File(System.getProperty("user.home") + "/SentitzenNaiz.txt"));
 			gurePW.println("SENTITZEN NAIZ BAINA ERROREA!!!!!");

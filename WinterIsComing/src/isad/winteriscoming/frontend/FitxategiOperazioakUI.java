@@ -8,7 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import isad.winteriscoming.backend.FitxategiOperazioak;
 import isad.winteriscoming.backend.Nagusia;
-import isad.winteriscoming.salbuespenak.SentitzenNaizException;
+import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 
 public class FitxategiOperazioakUI {
 	private FitxategiOperazioak nireFO;
@@ -35,7 +35,7 @@ public class FitxategiOperazioakUI {
 					path = path + ".accdb";
 				}
 			} catch (Exception salbuespena) {
-				throw new SentitzenNaizException("Fitxategiak ez du balio!!!!!");
+				throw new WinterTwitterSalbuespena("Fitxategiak ez du balio!!!!!");
 			}
 			if (path == Nagusia.getPath())
 				JOptionPane.showMessageDialog(gureFileChooser,
@@ -61,7 +61,7 @@ public class FitxategiOperazioakUI {
 				path = path + ".accdb";
 			}
 		} catch (Exception salbuespena) {
-			throw new SentitzenNaizException("Fitxategiak ez du balio!!!!!");
+			throw new WinterTwitterSalbuespena("Fitxategiak ez du balio!!!!!");
 		}
 		return path;
 	}
@@ -80,7 +80,7 @@ public class FitxategiOperazioakUI {
 		try {
 			nireFO.dbEsportatu("/isad/winteriscoming/DatuBasea.accdb", path);
 		} catch (Exception e) {
-			new SentitzenNaizException("Ezin da fitxategia esportatu");
+			new WinterTwitterSalbuespena("Ezin da fitxategia esportatu");
 		}
 		JOptionPane.showMessageDialog(null, "Datu basea " + path + " karpetan gorde da.", Nagusia.TITULUA,
 				JOptionPane.INFORMATION_MESSAGE);
@@ -98,7 +98,7 @@ public class FitxategiOperazioakUI {
 		try {
 			path = gureFileChooser.getSelectedFile().getAbsolutePath();
 		} catch (Exception salbuespena) {
-			throw new SentitzenNaizException("Fitxategiak ez du balio!!!!!");
+			throw new WinterTwitterSalbuespena("Fitxategiak ez du balio!!!!!");
 		}
 		return path;
 	}

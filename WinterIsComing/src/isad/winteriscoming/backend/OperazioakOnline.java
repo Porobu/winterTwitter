@@ -262,7 +262,7 @@ public final class OperazioakOnline {
 			e.printStackTrace();
 		}
 		try {
-
+			
 			return emaitza.getLong(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -368,6 +368,8 @@ public final class OperazioakOnline {
 								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
+					System.out.println(favs.size());
+					System.out.println(amaituta);
 				}
 			} else {
 				// kasu honetan erabiltzaileak baditu gustokorik datu-basean

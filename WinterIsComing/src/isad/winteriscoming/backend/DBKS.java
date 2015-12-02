@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-import isad.winteriscoming.salbuespenak.SentitzenNaizException;
+import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 import net.ucanaccess.jdbc.UcanaccessDriver;
 
 public final class DBKS {
@@ -35,13 +35,13 @@ public final class DBKS {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 		} catch (ClassNotFoundException salbuespena) {
-			throw new SentitzenNaizException("Driverra ez da aurkitu");
+			throw new WinterTwitterSalbuespena("Driverra ez da aurkitu");
 		}
 		try {
 			String konexioaString = UcanaccessDriver.URL_PREFIX + path;
 			this.konexioa = DriverManager.getConnection(konexioaString + ";Openexclusive=true", "", "");
 		} catch (SQLException gureSalbuespena) {
-			throw new SentitzenNaizException("Ezin da datu basera konektatu");
+			throw new WinterTwitterSalbuespena("Ezin da datu basera konektatu");
 		}
 		boolean ondo = this.datubaseaKonprobatu();
 		if (!ondo) {
@@ -60,7 +60,7 @@ public final class DBKS {
 			emaitza = st.executeQuery(agindua);
 			st.close();
 		} catch (Exception salbuespena) {
-			throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
 		return emaitza;
 	}
@@ -71,7 +71,7 @@ public final class DBKS {
 			st.execute(agindua);
 			st.close();
 		} catch (Exception salbuespena) {
-			throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
 	}
 
@@ -83,7 +83,7 @@ public final class DBKS {
 			st = this.konexioa.createStatement();
 			erantzuna = st.execute(agindua);
 		} catch (SQLException e) {
-			throw new SentitzenNaizException("Ezin da " + agindua + " exekutatu.");
+			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
 		return erantzuna;
 

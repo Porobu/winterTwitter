@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 import isad.winteriscoming.frontend.Login;
 import isad.winteriscoming.frontend.Menua;
-import isad.winteriscoming.salbuespenak.SentitzenNaizException;
+import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -54,7 +54,7 @@ public class Konexioa {
 		try {
 			requestToken = twitter.getOAuthRequestToken();
 		} catch (TwitterException e1) {
-			throw new SentitzenNaizException("Ez da token-a lortu");
+			throw new WinterTwitterSalbuespena("Ez da token-a lortu");
 		}
 		accessToken = null;
 		try {
@@ -62,7 +62,7 @@ public class Konexioa {
 		} catch (UnsupportedOperationException ignore) {
 		} catch (IOException ignore) {
 		} catch (URISyntaxException e) {
-			throw new SentitzenNaizException("Ezin da web gunea ireki");
+			throw new WinterTwitterSalbuespena("Ezin da web gunea ireki");
 		}
 		gureLogin = new Login();
 	}
@@ -103,9 +103,9 @@ public class Konexioa {
 			twitter.setOAuthAccessToken(accessToken);
 		} catch (TwitterException te) {
 			if (401 == te.getStatusCode()) {
-				throw new SentitzenNaizException("Ezin da token-a lortu (401 errorea)");
+				throw new WinterTwitterSalbuespena("Ezin da token-a lortu (401 errorea)");
 			} else {
-				throw new SentitzenNaizException("Ezin da token-a lortu");
+				throw new WinterTwitterSalbuespena("Ezin da token-a lortu");
 			}
 		}
 		konektatuta = true;

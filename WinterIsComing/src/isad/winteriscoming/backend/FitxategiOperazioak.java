@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 
-import isad.winteriscoming.salbuespenak.SentitzenNaizException;
+import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 
 public class FitxategiOperazioak {
 
@@ -23,7 +23,7 @@ public class FitxategiOperazioak {
 		try {
 			Files.copy(oraingoa.toPath(), berria.toPath(), COPY_ATTRIBUTES);
 		} catch (IOException e) {
-			throw new SentitzenNaizException("Ezin da fitxategia kopiatu");
+			throw new WinterTwitterSalbuespena("Ezin da fitxategia kopiatu");
 		}
 	}
 
@@ -34,7 +34,7 @@ public class FitxategiOperazioak {
 		try {
 			stream = DBKS.class.getResourceAsStream(resourceName);
 			if (stream == null) {
-				throw new SentitzenNaizException("Ez da datu basea aurkitu .jar fitxategian");
+				throw new WinterTwitterSalbuespena("Ez da datu basea aurkitu .jar fitxategian");
 			}
 			int readBytes;
 			byte[] buffer = new byte[4096];
@@ -45,7 +45,7 @@ public class FitxategiOperazioak {
 				resStreamOut.write(buffer, 0, readBytes);
 			}
 		} catch (Exception ex) {
-			throw new SentitzenNaizException("Ezin da fitxategia kopiatu");
+			throw new WinterTwitterSalbuespena("Ezin da fitxategia kopiatu");
 		} finally {
 			try {
 				stream.close();
