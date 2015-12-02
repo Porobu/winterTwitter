@@ -349,22 +349,24 @@ public final class OperazioakOnline {
 
 	// hemetik segi konponketarekin
 	public void jarraitzaileakDeskargatu() {
-		// egiten
 		try {
-			String jarraitzailea = "jarraitzailea";
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
-			List<User> jarraitzaileak;
-			for (int orria = 1; orria < 2; orria++) {
-				jarraitzaileak = twitter.getFollowersList(erabiltzailea.getId(), -1);
-				for (User jarraitzaile : jarraitzaileak) {
-					String idea = String.valueOf(jarraitzaile.getId());
-					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + idea
-							+ "', '" + jarraitzaile.getScreenName() + "', '" + jarraitzailea + "', '"
-							+ jarraitzaile.getName() + "')";
+			//List<User> jarraitzaileak;
+			long zenb = -1;
+			do  {
+				//jarraitzaileak = twitter.getFollowersList(erabiltzailea.getId(), nextCursor);
+				PagableResponseList<User> usersResponse = twitter.getFollowersList(erabiltzailea.getId(), zenb);
+				//usersResponse listaren tamaina 20 da
+				zenb = usersResponse.getNextCursor();
+				for (User user : usersResponse) {
+					String id = String.valueOf(user.getId());
+					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
+							+ "', '" + user.getScreenName() + "', ' jarraitzailea ', '"
+							+ user.getName() + "')";
 					DBKS.getDBKS().aginduaExekutatu(agindua);
-				}
-			}
+				} 
+			} while (zenb > 0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 		}
