@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import isad.winteriscoming.backend.DBKS;
 import isad.winteriscoming.backend.Nagusia;
 
-public class AukerakUI{
+public class AukerakUI {
 
 	private String path;
 	private int aukera;
@@ -26,17 +26,18 @@ public class AukerakUI{
 	}
 
 	private void hasiEzDefektuzkoDB() {
-		String[] aukerak = { "Ireki", "Berria Eraiki" };
-		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(), "Datu Basea beste leku batetik ireki edo eraiki nahi duzu?",
+		String[] aukerak = { "Ireki", "Berria Sortu" };
+		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
+				"Datu Basea beste leku batetik ireki edo eraiki nahi duzu?\nAplikazioa erabili duzun lehenengo aldia bada, berria sortu sakatu.",
 				Nagusia.TITULUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
 		this.aukeratu();
 	}
 
 	private void hasiDefektuzkoDB() {
-		String[] aukerak = { "Beste Bat Erabili", "Berri bat eraiki", "Defektuzkoa Kargatu" };
-		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(), "Defektuzko datu basea " + path + " karpetan aurkitu da.",
-				Nagusia.TITULUA, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak,
-				aukerak[2]);
+		String[] aukerak = { "Beste Bat Erabili", "Berri bat sortu", "Defektuzkoa Kargatu" };
+		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
+				"Defektuzko datu basea " + path + " karpetan aurkitu da.", Nagusia.TITULUA,
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[2]);
 		this.aukeratu();
 	}
 
@@ -47,7 +48,8 @@ public class AukerakUI{
 			path = nireFOUI.getPath();
 			break;
 		case JOptionPane.NO_OPTION:
-			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), luzea, Nagusia.TITULUA, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), luzea, Nagusia.TITULUA,
+					JOptionPane.INFORMATION_MESSAGE);
 			path = nireFOUI.datuBaseaGordetzekoPath();
 			nireFOUI.datuBaseaEraiki(path);
 			break;
