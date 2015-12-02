@@ -256,14 +256,13 @@ public final class OperazioakOnline {
 		ResultSet emaitza = DBKS.getDBKS()
 				.queryExekutatu("SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
 		try {
-			emaitza.next();		
-			return emaitza.getLong(1);
+			if (emaitza.next())			
+				return emaitza.getLong(1);
+			else 
+				return -1L;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("Errore bat ematen du, konpondu beharra dago.");
+			return -1L;
 		}
-		return -1L;
 	}
 
 	private int hartuPaging(String mota) {
