@@ -374,7 +374,7 @@ public final class OperazioakOnline {
 				while (!amaituta) {
 					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20, berriena));
-					if (favs.size()==0) {
+					if (favs.isEmpty()) {
 						amaituta = true;
 					}
 					for (Status fav : favs) {
@@ -396,12 +396,14 @@ public final class OperazioakOnline {
 				// while honetan datu basean ez dauden tweet zaharrak sartuko
 				// dira
 				// orria = hartuPaging("Gustokoa");
+				orria = 0;
+				amaituta = false;
 				while (!amaituta) {
 					orria++;
-					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
+					favs = twitter.getFavorites(new Paging(orria, 20, zaharrena, 1L));
 					if (favs.isEmpty()) {
 						amaituta = true;
-						DBKS.getDBKS().queryExekutatu("UPDATE PAGING SET Orria=-1 WHERE Mota='Gustokoa'");
+						//DBKS.getDBKS().queryExekutatu("UPDATE PAGING SET Orria=-1 WHERE Mota='Gustokoa'");
 					}
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
