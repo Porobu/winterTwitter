@@ -256,14 +256,14 @@ public final class OperazioakOnline {
 		ResultSet emaitza = DBKS.getDBKS()
 				.queryExekutatu("SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
 		try {
-			if (emaitza.next()) {
+			if (emaitza.next())
 				return emaitza.getLong(1);
-			} else if (ordena.equals("ASC"))
+			else if (ordena.equals("ASC"))
 				return 1L;
 			else
 				return Long.MAX_VALUE;
 		} catch (SQLException e) {
-			return -1L;
+			return 1L;
 		}
 	}
 
@@ -340,8 +340,8 @@ public final class OperazioakOnline {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> favs;
 			String benetakoData;
-			Long zaharrena = hartuID("Txioa", "gustokoa", "DESC");
-			Long berriena = hartuID("Txioa", "gustokoa", "ASC");
+			Long zaharrena = hartuID("Txioa", "gustokoa", "ASC");
+			Long berriena = hartuID("Txioa", "gustokoa", "DESC");
 			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
 			// hutsik dagoelako, hori normala da
 			if (zaharrena.equals(Long.MAX_VALUE)) {
@@ -350,7 +350,7 @@ public final class OperazioakOnline {
 				while (!amaituta) {
 					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20));
-					if (favs.size() == 0) {
+					if (favs.isEmpty()) {
 						amaituta = true;
 					}
 					for (Status fav : favs) {
@@ -374,8 +374,7 @@ public final class OperazioakOnline {
 				while (!amaituta) {
 					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20, berriena));
-					System.out.println(favs.size());
-					if (favs.size() == 0) {
+					if (favs.size()==0) {
 						amaituta = true;
 					}
 					for (Status fav : favs) {
@@ -392,6 +391,7 @@ public final class OperazioakOnline {
 					System.out.println("Orriaren luzera: " + favs.size());
 					System.out.println("Amaituta? --> " + amaituta);
 				}
+				//HONARTE ONDO DABIL!!!!!!!!!!!!!!!!!!!!
 				System.out.println("2. while-an:\n");
 				// while honetan datu basean ez dauden tweet zaharrak sartuko
 				// dira
@@ -399,7 +399,7 @@ public final class OperazioakOnline {
 				while (!amaituta) {
 					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
-					if (favs.size() == 0) {
+					if (favs.isEmpty()) {
 						amaituta = true;
 						DBKS.getDBKS().queryExekutatu("UPDATE PAGING SET Orria=-1 WHERE Mota='Gustokoa'");
 					}
@@ -421,52 +421,6 @@ public final class OperazioakOnline {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
 				DBKS.getDBKS().queryExekutatu("UPDATE PAGING SET Orria=" + orria + " WHERE Mota='Gustokoa'");
-				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
-				int minutuak = segunduak / 60;
-				segunduak = segunduak % 60;
-				JOptionPane
-						.showMessageDialog(null,
-								"Ezin izan da zure eskakizuna bete, itxaron " + minutuak + " minutu eta " + segunduak
-										+ " segundu.",
-								"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
-
-			} else
-				System.out.println("Failed to get timeline: " + te.getMessage());
-		}
-	}
-
-	public void gustokoakJaitsi2() {
-		// egiten
-		int orria = 0;
-		boolean amaituta = false;
-		try {
-			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			List<Status> favs;
-			String benetakoData;
-			Long zaharrena = hartuID("Txioa", "gustokoa", "DESC");
-			Long berriena = hartuID("Txioa", "gustokoa", "ASC");
-			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
-			// hutsik dagoelako, hori normala da
-			while (!amaituta) {
-				orria++;
-				favs = twitter.getFavorites(new Paging(orria, 20, berriena, zaharrena));
-				if (favs.size() < 20) {
-					amaituta = true;
-				}
-				for (Status fav : favs) {
-					String id = String.valueOf(fav.getId());
-					benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-					String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-							+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
-					DBKS.getDBKS().aginduaExekutatu(agindua);
-				}
-				System.out.println(orria);
-			}
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			if (te.exceededRateLimitation()) {
-				// DBKS.getDBKS().queryExekutatu("UPDATE PAGING SET Orria=" +
-				// orria + " WHERE Mota='Gustokoa'");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				int minutuak = segunduak / 60;
 				segunduak = segunduak % 60;
