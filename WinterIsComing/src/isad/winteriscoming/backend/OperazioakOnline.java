@@ -350,7 +350,7 @@ public final class OperazioakOnline {
 				while (!amaituta) {
 					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20));
-					if (favs.size() < 20) {
+					if (favs.size() == 0) {
 						amaituta = true;
 					}
 					for (Status fav : favs) {
@@ -362,7 +362,7 @@ public final class OperazioakOnline {
 					}
 					System.out.println("Orri zenbakia: " + orria);
 					System.out.println("Orriaren luzera: " + favs.size());
-					System.out.println("Amaituta? --> " + amaituta);
+					System.out.println("Amaituta? --> " + amaituta + "\n");
 				}
 			} else {
 				System.out.println("2. else-an:\n");
@@ -374,15 +374,19 @@ public final class OperazioakOnline {
 				while (!amaituta) {
 					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20, berriena));
-					if (favs.size() < 20) {
+					System.out.println(favs.size());
+					if (favs.size() == 0) {
 						amaituta = true;
 					}
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
-						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
-						DBKS.getDBKS().aginduaExekutatu(agindua);
+						if (id != String.valueOf(berriena)) {
+							benetakoData = itzuliBenetakoData(fav.getCreatedAt());
+							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+									+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+							DBKS.getDBKS().aginduaExekutatu(agindua);
+						} else
+							amaituta = true;
 					}
 					System.out.println("Orri zenbakia: " + orria);
 					System.out.println("Orriaren luzera: " + favs.size());
@@ -395,12 +399,13 @@ public final class OperazioakOnline {
 				while (!amaituta) {
 					orria++;
 					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
-					if (favs.size() < 20) {
+					if (favs.size() == 0) {
 						amaituta = true;
 						DBKS.getDBKS().queryExekutatu("UPDATE PAGING SET Orria=-1 WHERE Mota='Gustokoa'");
 					}
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
+
 						System.out.println(id);
 						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
 						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
