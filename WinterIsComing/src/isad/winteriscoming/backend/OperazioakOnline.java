@@ -453,7 +453,7 @@ public final class OperazioakOnline {
 		try {
 			if (emaitza.next())
 				return emaitza.getLong(1);
-			else if (ordena.equals("ASC"))
+			else if (ordena.equals("DESC"))
 				return 1L;
 			else
 				return Long.MAX_VALUE;
