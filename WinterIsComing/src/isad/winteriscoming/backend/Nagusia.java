@@ -23,6 +23,14 @@ public class Nagusia {
 					| UnsupportedLookAndFeelException e1) {
 			}
 		}
+		//PARA LOS MAC
+		if(System.getProperty("os.name").contains("Mac OS X")){
+			try {
+				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+					| UnsupportedLookAndFeelException e) {
+			}
+		}
 		//CAMBIAR ESTILO DE MAC A GETCROSSPLATFORMLOOKANDFEEL()
 		wtFrame = new WinterTwitter();
 		wtFrame.dekoratuGabeHasieratu();
