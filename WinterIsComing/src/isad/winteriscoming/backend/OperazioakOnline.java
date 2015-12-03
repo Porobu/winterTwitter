@@ -376,7 +376,7 @@ public final class OperazioakOnline {
 			} catch (SQLException e) {
 			}
 			if (!(jarraitzaileKopDB==jarraitzaileKopTwitter)) {
-				if (jarraitzaileKopTwitter>jarraitzaileKopDB && zenb == 0) {
+				if (jarraitzaileKopTwitter>jarraitzaileKopDB && zenb == 0L) {
 					zenb = -1L;
 					count = (int) (jarraitzaileKopTwitter-jarraitzaileKopDB);
 				}
@@ -385,10 +385,11 @@ public final class OperazioakOnline {
 					// twitter.getFollowersList(erabiltzailea.getId(),
 					// nextCursor);
 					PagableResponseList<User> usersResponse = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
+					count = count - 20;
 					for (User user : usersResponse) {
 						String id = String.valueOf(user.getId());
 						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
-								+ "', '" + replace(user.getScreenName()) + "', ' jarraitzailea ', '" + replace(user.getName()) + "')";
+								+ "', '" + replace(user.getName()) + "', ' jarraitzailea ', '" + replace(user.getScreenName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					zenb = usersResponse.getNextCursor();
