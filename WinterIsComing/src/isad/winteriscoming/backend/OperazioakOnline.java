@@ -352,15 +352,15 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
-			long jarraitzaileKopTwitter = erabiltzailea.getFriendsCount();
-			long jarraitzaileKopDB = jarraitzaileKopTwitter;
+			long jarraituKopTwitter = erabiltzailea.getFriendsCount();
+			long jarraituKopDB = jarraituKopTwitter;
 			ResultSet jKDB = DBKS.getDBKS()
 					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitua'");
 			try {
 				if (jKDB.next()) {
-					jarraitzaileKopDB = jKDB.getLong(1);
+					jarraituKopDB = jKDB.getLong(1);
 				} else
-					jarraitzaileKopDB = 0;
+					jarraituKopDB = 0;
 			} catch (SQLException e) {
 			}
 			String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='jarraitua'");
@@ -370,16 +370,13 @@ public final class OperazioakOnline {
 					zenb = emaitza.getLong(1);
 			} catch (SQLException e) {
 			}
-			if (!(jarraitzaileKopDB == jarraitzaileKopTwitter)) {
-				if (jarraitzaileKopTwitter > jarraitzaileKopDB && zenb == 0L) {
+			if (!(jarraituKopDB == jarraituKopTwitter)) {
+				if (jarraituKopTwitter > jarraituKopDB && zenb == 0L) {
 					zenb = -1L;
-					count = (int) (jarraitzaileKopTwitter - jarraitzaileKopDB);
+					count = (int) (jarraituKopTwitter - jarraituKopDB);
 					hasierakoak = true;
 				}
 				do {
-					// jarraituak =
-					// twitter.getFriendsList(erabiltzailea.getId(),
-					// nextCursor);
 					PagableResponseList<User> following = twitter.getFriendsList(erabiltzailea.getId(), zenb, count);
 					if (hasierakoak)
 						count = count - 20;
@@ -436,9 +433,6 @@ public final class OperazioakOnline {
 					hasierakoak = true;
 				}
 				do {
-					// jarraituak =
-					// twitter.getFriendsList(erabiltzailea.getId(),
-					// nextCursor);
 					PagableResponseList<User> follower = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
 					if (hasierakoak)
 						count = count - 20;
@@ -463,7 +457,9 @@ public final class OperazioakOnline {
 				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-
+	
+	//hemen zoaz konponketetan
+	
 	public void zerrendakJaitsi() {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
