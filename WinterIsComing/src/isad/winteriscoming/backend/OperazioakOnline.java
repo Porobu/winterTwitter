@@ -349,10 +349,25 @@ public final class OperazioakOnline {
 
 	// hemetik segi konponketarekin
 	public void jarraitzaileakDeskargatu() {
+		// begiratu ia datubaseko jarraitzaile kopurua eta erabiltzailearen datu
+		// base kopurua berdina den, eta (horrela ez bada && kurtsorea==0) bada
+		// orduan kenketa egin eta getFollowersList() metodoan int count gehitu,
+		// kenketa horren emaitzarekin(DB-ra sartzeko falta diren
+		// erabiltzaileak)
 		long zenb = 0L;
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
+			long jarraitzaileKopTwitter = erabiltzailea.getFollowersCount();
+			long jarraitzaileKopDB = jarraitzaileKopTwitter;
+			ResultSet jKDB = DBKS.getDBKS().queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
+			try {
+				if (jKDB.next()) {
+					jarraitzaileKopDB = jKDB.getLong(1);
+				}
+			} catch (SQLException e) {
+			}
+			
 			do {
 				// jarraitzaileak =
 				// twitter.getFollowersList(erabiltzailea.getId(), nextCursor);
@@ -360,10 +375,11 @@ public final class OperazioakOnline {
 				ResultSet emaitza = DBKS.getDBKS().queryExekutatu(nextCursor);
 				try {
 					if (emaitza.next()) {
-							if (emaitza.getLong(1)!=0)
-								zenb = emaitza.getLong(1);
+						if (emaitza.getLong(1) != 0)
+							zenb = emaitza.getLong(1);
 					}
-				} catch (SQLException e) {}
+				} catch (SQLException e) {
+				}
 				PagableResponseList<User> usersResponse = twitter.getFollowersList(erabiltzailea.getId(), zenb);
 				for (User user : usersResponse) {
 					String id = String.valueOf(user.getId());
@@ -375,7 +391,8 @@ public final class OperazioakOnline {
 			DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
+				DBKS.getDBKS()
+						.aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
