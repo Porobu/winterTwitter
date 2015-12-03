@@ -33,12 +33,11 @@ public final class DBKS {
 
 	public void konektatu(String path) {
 		try {
-			Class.forName("org.sqlite.JDBC");
-		} catch (ClassNotFoundException salbuespena) {
+			Class.forName("org.sqlite.JDBC").newInstance();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException salbuespena) {
 			throw new WinterTwitterSalbuespena("Driverra ez da aurkitu");
 		}
 		try {
-			// String konexioaString = ;
 			this.konexioa = DriverManager.getConnection("jdbc:sqlite:" + path);
 		} catch (SQLException gureSalbuespena) {
 			throw new WinterTwitterSalbuespena("Ezin da datu basera konektatu");
