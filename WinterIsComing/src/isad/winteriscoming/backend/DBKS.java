@@ -57,7 +57,6 @@ public final class DBKS {
 		try {
 			Statement st = this.konexioa.createStatement();
 			emaitza = st.executeQuery(agindua);
-			st.close();
 		} catch (Exception salbuespena) {
 			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
@@ -68,7 +67,6 @@ public final class DBKS {
 		try {
 			Statement st = this.konexioa.createStatement();
 			st.execute(agindua);
-			st.close();
 		} catch (Exception salbuespena) {
 			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
