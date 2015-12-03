@@ -31,7 +31,6 @@ public class Nagusia {
 					| UnsupportedLookAndFeelException e) {
 			}
 		}
-		//CAMBIAR ESTILO DE MAC A GETCROSSPLATFORMLOOKANDFEEL()
 		wtFrame = new WinterTwitter();
 		wtFrame.dekoratuGabeHasieratu();
 		AukerakUI nireAUI = new AukerakUI();
