@@ -54,7 +54,7 @@ public final class OperazioakOnline {
 							String id = String.valueOf(txio.getId());
 							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
 							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ this.replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
+									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -74,7 +74,7 @@ public final class OperazioakOnline {
 							String id = String.valueOf(txio.getId());
 							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
 							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ this.replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
+									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -94,7 +94,7 @@ public final class OperazioakOnline {
 						if (!id.equals(String.valueOf(zaharrena)) && !txio.isRetweet()) {
 							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
 							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ this.replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
+									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -134,7 +134,7 @@ public final class OperazioakOnline {
 							String id = String.valueOf(bertxio.getId());
 							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
 							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ this.replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
+									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -154,7 +154,7 @@ public final class OperazioakOnline {
 							String id = String.valueOf(bertxio.getId());
 							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
 							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ this.replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
+									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -174,7 +174,7 @@ public final class OperazioakOnline {
 						if (!id.equals(String.valueOf(zaharrena)) && bertxio.isRetweet()) {
 							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
 							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ this.replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
+									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -213,7 +213,7 @@ public final class OperazioakOnline {
 						String id = String.valueOf(fav.getId());
 						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
 						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+								+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
@@ -231,7 +231,7 @@ public final class OperazioakOnline {
 						String id = String.valueOf(fav.getId());
 						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
 						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-								+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+								+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
@@ -250,7 +250,7 @@ public final class OperazioakOnline {
 						if (!id.equals(String.valueOf(zaharrena))) {
 							benetakoData = itzuliBenetakoData(fav.getCreatedAt());
 							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ this.replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+									+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -290,7 +290,7 @@ public final class OperazioakOnline {
 
 						benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
 						String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
-								+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '" + aipamen.getText()
+								+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '" + replace(aipamen.getText())
 								+ "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
@@ -310,7 +310,7 @@ public final class OperazioakOnline {
 
 						benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
 						String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
-								+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '" + aipamen.getText()
+								+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '" + replace(aipamen.getText())
 								+ "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
@@ -331,7 +331,7 @@ public final class OperazioakOnline {
 							benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
 							String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
 									+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
-									+ aipamen.getText() + "')";
+									+ replace(aipamen.getText()) + "')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -388,7 +388,7 @@ public final class OperazioakOnline {
 					for (User user : usersResponse) {
 						String id = String.valueOf(user.getId());
 						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
-								+ "', '" + user.getScreenName() + "', ' jarraitzailea ', '" + user.getName() + "')";
+								+ "', '" + replace(user.getScreenName()) + "', ' jarraitzailea ', '" + replace(user.getName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					zenb = usersResponse.getNextCursor();
