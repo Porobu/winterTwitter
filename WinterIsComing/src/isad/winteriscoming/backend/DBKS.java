@@ -104,13 +104,14 @@ public final class DBKS {
 		Statement st;
 		try {
 			st = konexioa.createStatement();
-			st.executeQuery("SELECT ID, EDUKIA, DATA, MOTA FROM TXIOA");
-			st.executeQuery("SELECT ID, IZENA, MOTA, IDERABILTZAILEA, NICK FROM BESTEERABILTZAILEAK");
-			st.executeQuery("SELECT ERABID, ZERRENID FROM DITU");
-			st.executeQuery("SELECT NICK, IZENA, EMAIL, ID FROM ERABILTZAILEA");
-			st.executeQuery("SELECT TXIOID, ERABID, DATA, EDUKIA FROM AIPAMENAK");
-			st.executeQuery("SELECT ID, IZENA FROM ZERRENDA");
-			st.executeQuery("SELECT ID, DATA, EDUKIA, BIDALTZAILEIZENA, HARTZAILEIZENA FROM MEZUA");
+			st.executeQuery("SELECT id, edukia, data, mota FROM TXIOA");
+			st.executeQuery("SELECT id, izena, mota, nick, idErabiltzailea FROM BESTEERABILTZAILEAK");
+			st.executeQuery("SELECT erabId, zerrenId FROM DITU");
+			st.executeQuery("SELECT id, nick, izena, email, token, tokenSecret FROM ERABILTZAILEA");
+			st.executeQuery("SELECT txioId, erabId, data, edukia FROM AIPAMENAK");
+			st.executeQuery("SELECT id, izena FROM ZERRENDA");
+			st.executeQuery("SELECT id, data, edukia, bidaltzileIzena, hartzaileIzena FROM MEZUA");
+			st.executeQuery("SELECT mota, kurtsoreBalioa FROM PAGING");
 			st.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Datu basea ez da baliozkoa!", Nagusia.IZENBURUA,
