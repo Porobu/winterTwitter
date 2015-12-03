@@ -355,40 +355,49 @@ public final class OperazioakOnline {
 		// kenketa horren emaitzarekin(DB-ra sartzeko falta diren
 		// erabiltzaileak)
 		long zenb = 0L;
+		int count = 20;
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
 			long jarraitzaileKopTwitter = erabiltzailea.getFollowersCount();
 			long jarraitzaileKopDB = jarraitzaileKopTwitter;
-			ResultSet jKDB = DBKS.getDBKS().queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
+			ResultSet jKDB = DBKS.getDBKS()
+					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
 			try {
 				if (jKDB.next()) {
 					jarraitzaileKopDB = jKDB.getLong(1);
 				}
 			} catch (SQLException e) {
 			}
-			
-			do {
-				// jarraitzaileak =
-				// twitter.getFollowersList(erabiltzailea.getId(), nextCursor);
-				String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='jarraitzailea'");
-				ResultSet emaitza = DBKS.getDBKS().queryExekutatu(nextCursor);
-				try {
-					if (emaitza.next()) {
-						if (emaitza.getLong(1) != 0)
-							zenb = emaitza.getLong(1);
+			String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='jarraitzailea'");
+			ResultSet emaitza = DBKS.getDBKS().queryExekutatu(nextCursor);
+			try {
+				if (emaitza.next()) {
+					if (emaitza.getLong(1) != 0)
+						zenb = emaitza.getLong(1);
+				}
+			} catch (SQLException e) {
+			}
+			if (!(jarraitzaileKopDB==jarraitzaileKopTwitter)) {
+				if (jarraitzaileKopTwitter>jarraitzaileKopDB && zenb == 0) {
+					zenb = -1L;
+					count = (int) (jarraitzaileKopTwitter-jarraitzaileKopDB);
+				}
+				do {
+					// jarraitzaileak =
+					// twitter.getFollowersList(erabiltzailea.getId(),
+					// nextCursor);
+					PagableResponseList<User> usersResponse = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
+					for (User user : usersResponse) {
+						String id = String.valueOf(user.getId());
+						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
+								+ "', '" + user.getScreenName() + "', ' jarraitzailea ', '" + user.getName() + "')";
+						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
-				} catch (SQLException e) {
-				}
-				PagableResponseList<User> usersResponse = twitter.getFollowersList(erabiltzailea.getId(), zenb);
-				for (User user : usersResponse) {
-					String id = String.valueOf(user.getId());
-					String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
-							+ "', '" + user.getScreenName() + "', ' jarraitzailea ', '" + user.getName() + "')";
-					DBKS.getDBKS().aginduaExekutatu(agindua);
-				}
-			} while (zenb > 0);
-			DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
+					zenb = usersResponse.getNextCursor();
+				} while (zenb > 0);
+				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
+			}	
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
 				DBKS.getDBKS()
