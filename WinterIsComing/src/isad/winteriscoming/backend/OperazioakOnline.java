@@ -349,11 +349,6 @@ public final class OperazioakOnline {
 
 	// hemetik segi konponketarekin
 	public void jarraitzaileakDeskargatu() {
-		// begiratu ia datubaseko jarraitzaile kopurua eta erabiltzailearen datu
-		// base kopurua berdina den, eta (horrela ez bada && kurtsorea==0) bada
-		// orduan kenketa egin eta getFollowersList() metodoan int count gehitu,
-		// kenketa horren emaitzarekin(DB-ra sartzeko falta diren
-		// erabiltzaileak)
 		long zenb = 0L;
 		int count = 20;
 		try {
@@ -367,6 +362,7 @@ public final class OperazioakOnline {
 				if (jKDB.next()) {
 					jarraitzaileKopDB = jKDB.getLong(1);
 				}
+				else jarraitzaileKopDB = 0;
 			} catch (SQLException e) {
 			}
 			String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='jarraitzailea'");
@@ -376,6 +372,7 @@ public final class OperazioakOnline {
 					if (emaitza.getLong(1) != 0)
 						zenb = emaitza.getLong(1);
 				}
+				else zenb = -1L;
 			} catch (SQLException e) {
 			}
 			if (!(jarraitzaileKopDB==jarraitzaileKopTwitter)) {
