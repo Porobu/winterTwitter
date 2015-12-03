@@ -107,7 +107,7 @@ public final class DBKS {
 			st.executeQuery("SELECT id, nick, izena, email, token, tokenSecret FROM ERABILTZAILEA");
 			st.executeQuery("SELECT txioId, erabId, data, edukia FROM AIPAMENAK");
 			st.executeQuery("SELECT id, izena FROM ZERRENDA");
-			st.executeQuery("SELECT id, data, edukia, bidaltzileIzena, hartzaileIzena FROM MEZUA");
+			st.executeQuery("SELECT id, data, edukia, bidaltzaileIzena, hartzaileIzena FROM MEZUA");
 			st.executeQuery("SELECT mota, kurtsoreBalioa FROM PAGING");
 			st.close();
 		} catch (SQLException e) {
