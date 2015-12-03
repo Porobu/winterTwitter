@@ -29,14 +29,14 @@ public class AukerakUI {
 		String[] aukerak = { "Ireki", "Berria Sortu" };
 		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
 				"Datu Basea beste leku batetik ireki edo berria sortu nahi duzu?\nAplikazioa erabili duzun lehenengo aldia bada, berria sortu sakatu.",
-				Nagusia.TITULUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
+				Nagusia.IZENBURUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
 		this.aukeratu();
 	}
 
 	private void hasiDefektuzkoDB() {
 		String[] aukerak = { "Beste Bat Erabili", "Berri bat sortu", "Defektuzkoa Kargatu" };
 		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
-				"Defektuzko datu basea " + path + " karpetan aurkitu da.", Nagusia.TITULUA,
+				"Defektuzko datu basea " + path + " karpetan aurkitu da.", Nagusia.IZENBURUA,
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[2]);
 		this.aukeratu();
 	}
@@ -48,7 +48,7 @@ public class AukerakUI {
 			path = nireFOUI.getPath();
 			break;
 		case JOptionPane.NO_OPTION:
-			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), luzea, Nagusia.TITULUA,
+			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), luzea, Nagusia.IZENBURUA,
 					JOptionPane.INFORMATION_MESSAGE);
 			path = nireFOUI.datuBaseaGordetzekoPath();
 			nireFOUI.datuBaseaEraiki(path);

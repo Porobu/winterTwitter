@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import isad.winteriscoming.frontend.WinterTwitter;
 import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 
 public final class DBKS {
@@ -112,7 +113,7 @@ public final class DBKS {
 			st.executeQuery("SELECT ID, DATA, EDUKIA, BIDALTZAILEIZENA, HARTZAILEIZENA FROM MEZUA");
 			st.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", Nagusia.TITULUA,
+			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Datu basea ez da baliozkoa!", Nagusia.IZENBURUA,
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}

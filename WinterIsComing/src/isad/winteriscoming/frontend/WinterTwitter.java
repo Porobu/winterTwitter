@@ -26,7 +26,7 @@ public class WinterTwitter extends JFrame {
 	public void dekoratuGabeHasieratu() {
 		this.ikonoaJarri();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle(Nagusia.TITULUA);
+		this.setTitle(Nagusia.IZENBURUA);
 		this.setLocationRelativeTo(null);
 		this.setUndecorated(true);
 		this.setVisible(true);
@@ -36,7 +36,7 @@ public class WinterTwitter extends JFrame {
 	public void dekoratu() {
 		this.dispose();
 		this.setUndecorated(false);
-		this.setTitle(Nagusia.TITULUA + " " + Nagusia.getPath());
+		this.setTitle(Nagusia.IZENBURUA + " " + Nagusia.getPath());
 		this.menua = new Menua();
 		this.nagusia = new WinterTwitterPanel();
 		this.setJMenuBar(menua);
