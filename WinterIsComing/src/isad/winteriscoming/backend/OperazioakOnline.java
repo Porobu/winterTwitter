@@ -348,7 +348,7 @@ public final class OperazioakOnline {
 	}
 
 	// hemetik segi konponketarekin
-	public void jarraituakDeskargatu() {
+	public void jarraituakJaitsi() {
 		long zenb = 1L;
 		int count = 20;
 		//boolean amaituta=false;
@@ -405,7 +405,7 @@ public final class OperazioakOnline {
 		}
 	}
 
-	public void jarraitzaileakDeskargatu() {
+	public void jarraitzaileakJaitsi() {
 		// egiten
 		long zenb = 0L;
 		int count = 20;
