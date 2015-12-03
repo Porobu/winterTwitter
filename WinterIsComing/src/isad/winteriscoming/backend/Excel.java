@@ -50,7 +50,7 @@ public class Excel {
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Edukia");
 		row.createCell(2).setCellValue("Data");
-		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT ID, EDUKIA, DATA FROM TXIOA WHERE MOTA = 'TXIOA'");
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, edukia, data FROM TXIOA WHERE MOTA = 'txioa'");
 		int i = 1;
 		while (nireRS.next()) {
 			row = txioak.createRow(i);
@@ -68,7 +68,7 @@ public class Excel {
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Edukia");
 		row.createCell(2).setCellValue("Data");
-		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT ID, EDUKIA, DATA FROM TXIOA WHERE MOTA = 'BERTXIOA'");
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, edukia, data FROM TXIOA WHERE MOTA = 'bertxioa'");
 		int i = 1;
 
 		while (nireRS.next()) {
@@ -87,7 +87,7 @@ public class Excel {
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Edukia");
 		row.createCell(2).setCellValue("Data");
-		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT ID, EDUKIA, DATA FROM TXIOA WHERE MOTA = 'GUSTOKOA'");
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, edukia, data FROM TXIOA WHERE MOTA = 'gustokoa'");
 		int i = 1;
 
 		while (nireRS.next()) {
@@ -108,7 +108,7 @@ public class Excel {
 		row.createCell(2).setCellValue("Nick");
 		row.createCell(2).setCellValue("ID Erabiltzailea");
 		ResultSet nireRS = DBKS.getDBKS().queryExekutatu(
-				"SELECT ID, IZENA, NICK, IDERABILTZAILEA FROM BESTEERABILTZAILEAK WHERE MOTA = 'JARRAITUA'");
+				"SELECT id, izena, nick, idErabiltzailea FROM BESTEERABILTZAILEAK WHERE MOTA = 'jarraitua'");
 		int i = 1;
 
 		while (nireRS.next()) {
@@ -129,7 +129,7 @@ public class Excel {
 		row.createCell(2).setCellValue("Nick");
 		row.createCell(2).setCellValue("ID Erabiltzailea");
 		ResultSet nireRS = DBKS.getDBKS().queryExekutatu(
-				"SELECT ID, IZENA, NICK, IDERABILTZAILEA FROM BESTEERABILTZAILEAK WHERE MOTA = 'JARRAITZAILEA'");
+				"SELECT id, izena, nick, idErabiltzailea FROM BESTEERABILTZAILEAK WHERE MOTA = 'jarraitzailea'");
 		int i = 1;
 		while (nireRS.next()) {
 			row = txioak.createRow(i);
@@ -146,7 +146,7 @@ public class Excel {
 		Row row = zerrendak.createRow(0);
 		row.createCell(0).setCellValue("ID");
 		row.createCell(1).setCellValue("Izena");
-		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT ID, IZENA FROM ZERRENDA");
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, izena FROM ZERRENDA");
 		int i = 1;
 		while (nireRS.next()) {
 			row = txioak.createRow(i);
