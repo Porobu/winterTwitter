@@ -20,7 +20,6 @@ public class WinterTwitter extends JFrame {
 
 	public WinterTwitter() {
 		nireWT = this;
-
 	}
 
 	public void dekoratuGabeHasieratu() {
