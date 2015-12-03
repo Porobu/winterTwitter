@@ -10,12 +10,10 @@ import javax.swing.JOptionPane;
 import twitter4j.DirectMessage;
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
-import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
-import twitter4j.UserList;
 
 public final class OperazioakOnline {
 	private static OperazioakOnline gureOperazioak;
@@ -351,7 +349,7 @@ public final class OperazioakOnline {
 	public void jarraituakJaitsi() {
 		long zenb = 1L;
 		int count = 20;
-		//boolean amaituta=false;
+		boolean hasierakoak=false;
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
@@ -377,13 +375,15 @@ public final class OperazioakOnline {
 				if (jarraitzaileKopTwitter>jarraitzaileKopDB && zenb == 0L) {
 					zenb = -1L;
 					count = (int) (jarraitzaileKopTwitter-jarraitzaileKopDB);
+					hasierakoak=true;
 				}
 				do {
 					// jarraituak =
 					// twitter.getFriendsList(erabiltzailea.getId(),
 					// nextCursor);
 					PagableResponseList<User> following = twitter.getFriendsList(erabiltzailea.getId(), zenb, count);
-					count = count - 20;
+					if (hasierakoak)	
+						count = count - 20;
 					for (User erab : following) {
 						String id = String.valueOf(erab.getId());
 						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
@@ -392,7 +392,7 @@ public final class OperazioakOnline {
 					}
 					zenb = following.getNextCursor();
 				} while (zenb > 0);
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitua'");
+				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='jarraitua'");
 			}	
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
@@ -406,9 +406,9 @@ public final class OperazioakOnline {
 	}
 
 	public void jarraitzaileakJaitsi() {
-		// egiten
-		long zenb = 0L;
+		long zenb = 1L;
 		int count = 20;
+		boolean hasierakoak=false;
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
@@ -426,33 +426,32 @@ public final class OperazioakOnline {
 			String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='jarraitzailea'");
 			ResultSet emaitza = DBKS.getDBKS().queryExekutatu(nextCursor);
 			try {
-				if (emaitza.next()) {
-					if (emaitza.getLong(1) != 0)
+				if (emaitza.next()) 
 						zenb = emaitza.getLong(1);
-				}
-				else zenb = -1L;
 			} catch (SQLException e) {
 			}
 			if (!(jarraitzaileKopDB==jarraitzaileKopTwitter)) {
 				if (jarraitzaileKopTwitter>jarraitzaileKopDB && zenb == 0L) {
 					zenb = -1L;
 					count = (int) (jarraitzaileKopTwitter-jarraitzaileKopDB);
+					hasierakoak=true;
 				}
 				do {
-					// jarraitzaileak =
-					// twitter.getFollowersList(erabiltzailea.getId(),
+					// jarraituak =
+					// twitter.getFriendsList(erabiltzailea.getId(),
 					// nextCursor);
-					PagableResponseList<User> usersResponse = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
-					count = count - 20;
-					for (User user : usersResponse) {
-						String id = String.valueOf(user.getId());
+					PagableResponseList<User> follower = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
+					if (hasierakoak)	
+						count = count - 20;
+					for (User erab : follower) {
+						String id = String.valueOf(erab.getId());
 						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
-								+ "', '" + replace(user.getName()) + "', 'jarraitzailea', '" + replace(user.getScreenName()) + "')";
+								+ "', '" + replace(erab.getName()) + "', 'jarraitzailea', '" + replace(erab.getScreenName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
-					zenb = usersResponse.getNextCursor();
+					zenb = follower.getNextCursor();
 				} while (zenb > 0);
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
+				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='jarraitzailea'");
 			}	
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
