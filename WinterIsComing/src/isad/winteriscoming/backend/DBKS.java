@@ -10,7 +10,6 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
-import net.ucanaccess.jdbc.UcanaccessDriver;
 
 public final class DBKS {
 	private static DBKS gureDBKS;
@@ -24,7 +23,7 @@ public final class DBKS {
 	}
 
 	public String getDefaultPath() {
-		File f = new File(System.getProperty("user.home") + "/WinterTwitter.accdb");
+		File f = new File(System.getProperty("user.home") + "/WinterTwitter.db");
 		if (f.exists())
 			return f.getAbsolutePath();
 		else
@@ -33,13 +32,13 @@ public final class DBKS {
 
 	public void konektatu(String path) {
 		try {
-			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException salbuespena) {
 			throw new WinterTwitterSalbuespena("Driverra ez da aurkitu");
 		}
 		try {
-			String konexioaString = UcanaccessDriver.URL_PREFIX + path;
-			this.konexioa = DriverManager.getConnection(konexioaString + ";Openexclusive=true", "", "");
+			//String konexioaString = ;
+			this.konexioa = DriverManager.getConnection("jdbc:sqlite:" + path);
 		} catch (SQLException gureSalbuespena) {
 			throw new WinterTwitterSalbuespena("Ezin da datu basera konektatu");
 		}
@@ -113,7 +112,7 @@ public final class DBKS {
 			st.executeQuery("SELECT ID, DATA, EDUKIA, BIDALTZAILEIZENA, HARTZAILEIZENA FROM MEZUA");
 			st.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", "WinterTwitter " + Nagusia.BERTSIOA,
+			JOptionPane.showMessageDialog(null, "Datu basea ez da baliozkoa!", Nagusia.TITULUA,
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}

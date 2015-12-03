@@ -3,9 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="libs/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="libs/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="libs/hsqldb.jar"/>
-	<classpathentry kind="lib" path="libs/jackcess-2.1.2.jar"/>
 	<classpathentry kind="lib" path="libs/twitter4j-async-4.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/twitter4j-core-4.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/twitter4j-media-support-4.0.4.jar"/>
@@ -18,5 +15,6 @@
 	<classpathentry kind="lib" path="libs/poi-ooxml-schemas-3.13-20150929.jar"/>
 	<classpathentry kind="lib" path="libs/poi-scratchpad-3.13-20150929.jar"/>
 	<classpathentry kind="lib" path="libs/xmlbeans-5.1.2.jar"/>
+	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

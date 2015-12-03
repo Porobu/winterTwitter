@@ -31,8 +31,8 @@ public class FitxategiOperazioakUI {
 				return;
 			try {
 				path = gureFileChooser.getSelectedFile().getAbsolutePath();
-				if (!path.contains(".accdb")) {
-					path = path + ".accdb";
+				if (!path.contains(".db")) {
+					path = path + ".db";
 				}
 			} catch (Exception salbuespena) {
 				throw new WinterTwitterSalbuespena("Fitxategiak ez du balio!!!!!");
@@ -50,15 +50,15 @@ public class FitxategiOperazioakUI {
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
 		gureFileChooser.setDialogTitle(Nagusia.TITULUA);
-		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
+		gureFileChooser.setFileFilter(new FileNameExtensionFilter("WinterTwitter Datu Baseak", "db"));
 		gureFileChooser.setSelectedFile(new File("WinterTwitter"));
 		int gureZenbakia = gureFileChooser.showSaveDialog(null);
 		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
 			System.exit(0);
 		try {
 			path = gureFileChooser.getSelectedFile().getAbsolutePath();
-			if (!path.contains(".accdb")) {
-				path = path + ".accdb";
+			if (!path.contains(".db")) {
+				path = path + ".db";
 			}
 		} catch (Exception salbuespena) {
 			throw new WinterTwitterSalbuespena("Fitxategiak ez du balio!!!!!");
@@ -78,7 +78,7 @@ public class FitxategiOperazioakUI {
 		fitxategia.delete();
 		FitxategiOperazioak nireFO = new FitxategiOperazioak();
 		try {
-			nireFO.dbEsportatu("/isad/winteriscoming/DatuBasea.accdb", path);
+			nireFO.dbEsportatu("/isad/winteriscoming/DatuBasea.db", path);
 		} catch (Exception e) {
 			new WinterTwitterSalbuespena("Ezin da fitxategia esportatu");
 		}
@@ -91,7 +91,7 @@ public class FitxategiOperazioakUI {
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
 		gureFileChooser.setDialogTitle(Nagusia.TITULUA);
-		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
+		gureFileChooser.setFileFilter(new FileNameExtensionFilter("WinterTwitter Datu Baseak", "db"));
 		int gureZenbakia = gureFileChooser.showOpenDialog(null);
 		if (gureZenbakia == JFileChooser.CANCEL_OPTION)
 			System.exit(0);
