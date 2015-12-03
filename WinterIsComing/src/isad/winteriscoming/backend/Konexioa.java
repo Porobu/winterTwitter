@@ -72,7 +72,7 @@ public class Konexioa {
 	private AccessToken kredentzialakKargatu() {
 		String token = null;
 		String tokenSecret = null;
-		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT TOKEN, TOKENSECRET FROM ERABILTZAILEA");
+		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT token, tokenSecret FROM ERABILTZAILEA");
 		try {
 			rs.next();
 			token = rs.getString(1);
@@ -85,7 +85,7 @@ public class Konexioa {
 
 	private void kredentzialakGorde(String token, String tokenSecret) {
 		int id = 0;
-		DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA(ID,NICK,IZENA,EMAIL,TOKEN,TOKENSECRET) VALUES('" + id
+		DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA(id,nick,izena,email,token,tokenSecret) VALUES('" + id
 				+ "','0','0','0','" + token + "','" + tokenSecret + "')");
 	}
 

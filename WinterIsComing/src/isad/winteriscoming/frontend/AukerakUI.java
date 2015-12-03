@@ -29,7 +29,7 @@ public class AukerakUI {
 		String[] aukerak = { "Ireki", "Berria Sortu" };
 		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
 				"Datu Basea beste leku batetik ireki edo berria sortu nahi duzu?\nAplikazioa erabili duzun lehenengo aldia bada, berria sortu sakatu.",
-				Nagusia.IZENBURUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[0]);
+				Nagusia.IZENBURUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[1]);
 		this.aukeratu();
 	}
 

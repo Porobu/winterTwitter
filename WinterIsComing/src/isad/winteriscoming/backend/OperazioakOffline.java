@@ -20,11 +20,10 @@ public class OperazioakOffline {
 	}
 
 	public boolean konprobatuTokenakDauden() {
-		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("Select * from erabiltzailea");
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("SELECT token, tokenSecret FROM ERABILTZAILEA");
 		try {
 			return emaitza.next();
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return false;
 	}

@@ -38,7 +38,7 @@ public final class DBKS {
 			throw new WinterTwitterSalbuespena("Driverra ez da aurkitu");
 		}
 		try {
-			//String konexioaString = ;
+			// String konexioaString = ;
 			this.konexioa = DriverManager.getConnection("jdbc:sqlite:" + path);
 		} catch (SQLException gureSalbuespena) {
 			throw new WinterTwitterSalbuespena("Ezin da datu basera konektatu");
@@ -114,8 +114,8 @@ public final class DBKS {
 			st.executeQuery("SELECT mota, kurtsoreBalioa FROM PAGING");
 			st.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Datu basea ez da baliozkoa!", Nagusia.IZENBURUA,
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Datu basea ez da baliozkoa!",
+					Nagusia.IZENBURUA, JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

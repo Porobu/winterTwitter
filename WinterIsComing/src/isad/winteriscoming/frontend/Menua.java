@@ -69,7 +69,7 @@ public class Menua extends JMenuBar {
 		konektatuTokenekin.setEnabled(off.konprobatuTokenakDauden());
 		deskonektatu.setEnabled(false);
 	}
-	
+
 	public static void botoiakKonektatzean() {
 		konektatu.setEnabled(false);
 		konektatuTokenekin.setEnabled(false);
