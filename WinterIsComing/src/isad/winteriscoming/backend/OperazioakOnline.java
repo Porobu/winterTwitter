@@ -483,25 +483,31 @@ public final class OperazioakOnline {
 	}
 
 	public void mezuakDeskargatu() {
-		// paging??
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
 		try {
-			Paging paging = new Paging(1, 100);
-			List<DirectMessage> messages;
+			Paging paging = new Paging(1, 20);
+			List<DirectMessage> messages, sentMessages;
 			do {
+				sentMessages = twitter.getSentDirectMessages(paging);
 				messages = twitter.getDirectMessages(paging);
-
 				for (DirectMessage message : messages) {
-					// hemen agindua datu basera sartzeko
 					String benetakoData = itzuliBenetakoData(message.getCreatedAt());
-					String idea = String.valueOf(message.getId());
+					String id = String.valueOf(message.getId());
 					String agindua = "INSERT INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
-							+ "VALUES ('" + idea + "', '" + benetakoData + "','" + message.getText() + "', '"
+							+ "VALUES ('" + id + "', '" + benetakoData + "','" + message.getText() + "', '"
 							+ message.getSenderScreenName() + "'," + " '" + message.getRecipientScreenName() + "')";
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
+				for (DirectMessage sentMessage : sentMessages) {
+					String benetakoData = itzuliBenetakoData(sentMessage.getCreatedAt());
+					String id = String.valueOf(sentMessage.getId());
+					String agindua = "INSERT INTO MEZUA(id, data, edukia, hartzaileIzena, bidaltzaileIzena)"
+							+ "VALUES ('" + id + "', '" + benetakoData + "','" + sentMessage.getText() + "', '"
+							+ sentMessage.getSenderScreenName() + "'," + " '" + sentMessage.getRecipientScreenName() + "')";
+					DBKS.getDBKS().aginduaExekutatu(agindua);
+				}
 				paging.setPage(paging.getPage() + 1);
-			} while (messages.size() > 0 && paging.getPage() < 10);
+			} while (messages.size() > 0 || sentMessages.size() > 0);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 		}
