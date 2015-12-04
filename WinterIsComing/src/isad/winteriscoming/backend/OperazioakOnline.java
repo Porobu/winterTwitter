@@ -354,8 +354,8 @@ public final class OperazioakOnline {
 			User erabiltzailea = twitter.verifyCredentials();
 			long jarraituKopTwitter = erabiltzailea.getFriendsCount();
 			long jarraituKopDB = jarraituKopTwitter;
-			ResultSet jKDB = DBKS.getDBKS()
-					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitua'");
+			ResultSet jKDB = DBKS.getDBKS().queryExekutatu(
+					"SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitua'");
 			try {
 				if (jKDB.next()) {
 					jarraituKopDB = jKDB.getLong(1);
@@ -383,8 +383,8 @@ public final class OperazioakOnline {
 					for (User erab : following) {
 						String id = String.valueOf(erab.getId());
 						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
-								+ "', '" + replace(erab.getName()) + "', 'jarraitua', '" + replace(erab.getScreenName())
-								+ "')";
+								+ "', '" + replace(erab.getName()) + "', 'jarraitua', '"
+								+ replace(erab.getScreenName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					zenb = following.getNextCursor();
@@ -410,8 +410,8 @@ public final class OperazioakOnline {
 			User erabiltzailea = twitter.verifyCredentials();
 			long jarraitzaileKopTwitter = erabiltzailea.getFollowersCount();
 			long jarraitzaileKopDB = jarraitzaileKopTwitter;
-			ResultSet jKDB = DBKS.getDBKS()
-					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
+			ResultSet jKDB = DBKS.getDBKS().queryExekutatu(
+					"SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
 			try {
 				if (jKDB.next()) {
 					jarraitzaileKopDB = jKDB.getLong(1);
@@ -449,8 +449,8 @@ public final class OperazioakOnline {
 			}
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS()
-						.aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
+				DBKS.getDBKS().aginduaExekutatu(
+						"UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -459,17 +459,29 @@ public final class OperazioakOnline {
 	}
 
 	public void zerrendakJaitsi() {
+
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
 			ResponseList<UserList> zerrendak = twitter.getUserLists(erabiltzailea.getId());
+
 			for (UserList zerrenda : zerrendak) {
-				String agindua = "INSERT INTO DITU(erabId, zerrenId)" + "VALUES ('" + erabiltzailea.getId() + "', '"
-						+ zerrenda.getId() + "')";
+				String agindua = "INSERT INTO ZERRENDA(id, izena, deskribapena)" + "VALUES ('"
+						+ String.valueOf(zerrenda.getId()) + "', '" + zerrenda.getName() + "', '"
+						+ zerrenda.getDescription() + "')";
 				DBKS.getDBKS().aginduaExekutatu(agindua);
+				ResponseList<UserList> zerrendaKideak = twitter.getUserLists(zerrenda.getId());
+				for (UserList zerrendaKidea : zerrendaKideak) {
+					agindua = "INSERT INTO DITU(erabId, zerrenId, erabIzena, zerrendaIzena)" + "VALUES ('"
+							+ String.valueOf(erabiltzailea.getId()) + "', '" + String.valueOf(zerrenda.getId()) + "','"
+							+ zerrendaKidea.getName() + "','" + zerrenda.getName() + "')";
+					DBKS.getDBKS().aginduaExekutatu(agindua);
+				}
+
 				agindua = "INSERT INTO ZERRENDA(id, izena)" + "VALUES ('" + zerrenda.getId() + "', '"
 						+ zerrenda.getName() + "')";
 				// zerrenda bakoitzean dauden erabiltzaileak non gorde??
+
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -508,15 +520,15 @@ public final class OperazioakOnline {
 						String id = String.valueOf(sentMessage.getId());
 						String agindua = "INSERT INTO MEZUA(id, data, edukia, hartzaileIzena, bidaltzaileIzena)"
 								+ "VALUES ('" + id + "', '" + benetakoData + "','" + sentMessage.getText() + "', '"
-								+ sentMessage.getSenderScreenName() + "'," + " '" + sentMessage.getRecipientScreenName()
-								+ "')";
+								+ sentMessage.getSenderScreenName() + "'," + " '"
+								+ sentMessage.getRecipientScreenName() + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					paging.setPage(++orria);
 				} while (messages.size() > 0 || sentMessages.size() > 0);
 			}
 			DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='mezuak'");
-			//amaitu denaren mezua atera
+			// amaitu denaren mezua atera
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
 				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + orria + " WHERE mota='mezuak'");
@@ -528,8 +540,8 @@ public final class OperazioakOnline {
 	}
 
 	public long hartuID(String taula, String mota, String ordena) {
-		ResultSet emaitza = DBKS.getDBKS()
-				.queryExekutatu("SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu(
+				"SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
 		try {
 			if (emaitza.next())
 				return emaitza.getLong(1);
@@ -597,10 +609,8 @@ public final class OperazioakOnline {
 	private void rateLimitMezua(int segunduak) {
 		int minutuak = segunduak / 60;
 		segunduak = segunduak % 60;
-		JOptionPane
-				.showMessageDialog(
-						null, "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak + " minutu eta "
-								+ segunduak + " segundu.",
-						"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak
+				+ " minutu eta " + segunduak + " segundu.", "Eskakizun kopuru maximoa gainditua",
+				JOptionPane.WARNING_MESSAGE);
 	}
 }

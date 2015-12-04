@@ -103,10 +103,10 @@ public final class DBKS {
 			st = konexioa.createStatement();
 			st.executeQuery("SELECT id, edukia, data, mota FROM TXIOA");
 			st.executeQuery("SELECT id, izena, mota, nick, idErabiltzailea FROM BESTEERABILTZAILEAK");
-			st.executeQuery("SELECT erabId, zerrenId FROM DITU");
+			st.executeQuery("SELECT erabId, zerrenId, erabIzena, zerrendaIzena FROM DITU");
 			st.executeQuery("SELECT id, nick, izena, email, token, tokenSecret FROM ERABILTZAILEA");
 			st.executeQuery("SELECT txioId, erabId, data, edukia FROM AIPAMENAK");
-			st.executeQuery("SELECT id, izena FROM ZERRENDA");
+			st.executeQuery("SELECT id, izena, deskribapena FROM ZERRENDA");
 			st.executeQuery("SELECT id, data, edukia, bidaltzaileIzena, hartzaileIzena FROM MEZUA");
 			st.executeQuery("SELECT mota, kurtsoreBalioa FROM PAGING");
 			st.close();
