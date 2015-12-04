@@ -480,8 +480,6 @@ public final class OperazioakOnline {
 
 				agindua = "INSERT INTO ZERRENDA(id, izena)" + "VALUES ('" + zerrenda.getId() + "', '"
 						+ zerrenda.getName() + "')";
-				// zerrenda bakoitzean dauden erabiltzaileak non gorde??
-
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
