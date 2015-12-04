@@ -1,9 +1,12 @@
 package isad.winteriscoming.frontend;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import isad.winteriscoming.backend.Nagusia;
 
 public class WinterTwitterPanel extends JPanel {
 	private JPanel barra;
@@ -11,10 +14,11 @@ public class WinterTwitterPanel extends JPanel {
 	private static final long serialVersionUID = 6077749617280710593L;
 
 	public WinterTwitterPanel() {
+		this.setOpaque(true);
 		this.setLayout(new BorderLayout());
 		this.txioakEraiki();
 		this.barraEraiki();
-		this.add(barra, BorderLayout.WEST);
+		this.add(barra, BorderLayout.LINE_START);
 		this.add(txioak, BorderLayout.CENTER);
 	}
 
@@ -24,6 +28,9 @@ public class WinterTwitterPanel extends JPanel {
 
 	private void barraEraiki() {
 		barra = new JPanel();
-		barra.setLayout(new GridLayout(0, 10));
+		barra.setLayout(new BorderLayout());
+		barra.setOpaque(true);
+		barra.add(new JLabel(Nagusia.IZENBURUA), BorderLayout.PAGE_START);
+		barra.setBackground(new Color(94, 169, 221));
 	}
 }
