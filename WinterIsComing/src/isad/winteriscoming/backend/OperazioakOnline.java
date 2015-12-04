@@ -479,9 +479,11 @@ public final class OperazioakOnline {
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 					ResponseList<User> zerrendaKideak = twitter.getUserListMembers(zerrenda.getId(), orria);
 					for (User zerrendaKidea : zerrendaKideak) {
-						agindua = "INSERT INTO DITU(erabId, zerrenId, erabNick, zerrendaIzena)" + "VALUES ('"
+						agindua = "INSERT INTO DITU(erabId, zerrenId, erabNick, zerrendaIzena, erabIzena)" + "VALUES ('"
 								+ String.valueOf(erabiltzailea.getId()) + "', '" + String.valueOf(zerrenda.getId())
-								+ "','" + this.replace(zerrendaKidea.getScreenName()) + "','" + this.replace(zerrenda.getName()) + "')";
+								+ "','" + this.replace(zerrendaKidea.getScreenName()) + "','"
+								+ this.replace(zerrenda.getName()) + "', '" + this.replace(zerrendaKidea.getName())
+								+ "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
