@@ -15,6 +15,7 @@ import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
@@ -85,9 +86,15 @@ public class Konexioa {
 	}
 
 	private void kredentzialakGorde(String token, String tokenSecret) {
-		int id = 0;
-		DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA(id,nick,izena,email,token,tokenSecret) VALUES('" + id
-				+ "','0','0','0','" + token + "','" + tokenSecret + "')");
+		User us = null;
+		try {
+			us = twitter.verifyCredentials();
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA(id,nick,izena,token,tokenSecret) VALUES('" + us.getId()
+				+ "','" + us.getScreenName() +"','" + us.getName() + "','" + token + "','" + tokenSecret + "')");
 	}
 
 	public void tokenarekinKonektatu() {
