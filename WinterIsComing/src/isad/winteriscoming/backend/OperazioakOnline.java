@@ -495,7 +495,7 @@ public final class OperazioakOnline {
 	}
 
 	public void mezuakDeskargatu() {
-		// twitter4j-ren errore batengatik bakarrik bueltatzen dira
+		// twitter4j-ren errore batengatik bakarrik bueltatzen dir
 		// urte bateko denbora tartean bidali eta jasotako mezuak
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
 		int orria = 1;
