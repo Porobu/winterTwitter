@@ -27,18 +27,23 @@ public class OperazioakOffline {
 		}
 		return false;
 	}
-	
-	public String[][] datuakJaso(String mota)
-	{
+
+	public ArrayList<String[]> datuakJaso(String mota) {
 		int kop = 0;
 		String agindua = "";
-		switch (mota.toLowerCase()) {
-		case "txioa":
-			agindua = "SELECT edukia, data FROM TXIOA WHERE mota = txioa";
+		if (mota.toLowerCase().equals("txioa") || mota.toLowerCase().equals("bertxioa")
+				|| mota.toLowerCase().equals("gustokoa")) {
+			agindua = "SELECT edukia, data FROM TXIOA WHERE mota = " + mota;
 			kop = 2;
-			break;
-		default:
-			break;
+		} else if (mota.toLowerCase().equals("jarraitua") || mota.toLowerCase().equals("jarraitzailea")) {
+			agindua = "SELECT izena, nick FROM BESTEERABILTZAILEAK WHERE mota = " + mota;
+			kop = 2;
+		} else if (mota.toLowerCase().equals("zerrendak")) {
+			kop = 5;
+			agindua = "SELECT ZERRENDA.izena, ZERRENDA.deskribapena, DITU.erabIzena, DITU.zerrendaIzena, DITU.erabNick  FROM ZERRENDA, DITU WHERE ZERRENDA.id = DITU.zerrenId";
+		} else {
+			agindua = "SELECT data, edukia, bidaltzaileIzena, hartzaileIzena FROM MEZUA";
+			kop = 4;
 		}
 		ArrayList<String[]> emaitza = new ArrayList<>();
 		ResultSet rs = DBKS.getDBKS().queryExekutatu(agindua);
@@ -52,6 +57,6 @@ public class OperazioakOffline {
 			}
 		} catch (SQLException e) {
 		}
-		return null;
+		return emaitza;
 	}
 }
