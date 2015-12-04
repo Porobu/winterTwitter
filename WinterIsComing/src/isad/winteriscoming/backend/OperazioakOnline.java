@@ -463,7 +463,7 @@ public final class OperazioakOnline {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
 			ResponseList<UserList> zerrendak = twitter.getUserLists(erabiltzailea.getId());
-			int orria = 1;
+			int orria = -1;
 			String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='zerrendak'");
 			ResultSet emaitza = DBKS.getDBKS().queryExekutatu(nextCursor);
 			try {
