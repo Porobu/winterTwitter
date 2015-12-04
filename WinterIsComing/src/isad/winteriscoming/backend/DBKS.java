@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
-
-import isad.winteriscoming.frontend.WinterTwitter;
 import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 
 public final class DBKS {
@@ -42,14 +39,7 @@ public final class DBKS {
 		} catch (SQLException gureSalbuespena) {
 			throw new WinterTwitterSalbuespena("Ezin da datu basera konektatu");
 		}
-		boolean ondo = this.datubaseaKonprobatu();
-		if (!ondo) {
-			// ARREGLAR
-			// this.konektatu();
-			// POR EL MOMENTO
-			// FIXME
-			System.exit(1);
-		}
+		this.datubaseaKonprobatu();
 	}
 
 	public ResultSet queryExekutatu(String agindua) {
@@ -97,7 +87,7 @@ public final class DBKS {
 			}
 	}
 
-	private boolean datubaseaKonprobatu() {
+	private void datubaseaKonprobatu() {
 		Statement st;
 		try {
 			st = konexioa.createStatement();
@@ -111,10 +101,7 @@ public final class DBKS {
 			st.executeQuery("SELECT mota, kurtsoreBalioa FROM PAGING");
 			st.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Datu basea ez da baliozkoa!",
-					Nagusia.IZENBURUA, JOptionPane.ERROR_MESSAGE);
-			return false;
+			throw new WinterTwitterSalbuespena("Datu basea ez da baliozkoa!");
 		}
-		return true;
 	}
 }

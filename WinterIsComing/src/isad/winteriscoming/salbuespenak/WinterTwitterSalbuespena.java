@@ -8,31 +8,30 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
+import isad.winteriscoming.backend.Nagusia;
 import isad.winteriscoming.frontend.WinterTwitter;
 
 public class WinterTwitterSalbuespena extends RuntimeException {
-	private static final long serialVersionUID = -1014723140002334926L;
+	private static final long serialVersionUID = -9212558550853305997L;
 
-	public WinterTwitterSalbuespena(String gureMezua) {
+	public WinterTwitterSalbuespena(String mezua) {
+		String izenburua = Nagusia.IZENBURUA + " ERROREA!!!!!";
+		String fitxategia = System.getProperty("user.home") + "/ERROREA.txt";
+		if (System.getProperty("os.name").toLowerCase().contains("win"))
+			fitxategia = System.getProperty("user.home") + "\\ERROREA.txt";
 		try {
-			PrintWriter gurePW = new PrintWriter(new File(System.getProperty("user.home") + "/Errorea.txt"));
-			gurePW.println(gureMezua);
+			PrintWriter gurePW = new PrintWriter(new File(fitxategia));
+			gurePW.println(izenburua);
+			gurePW.println(mezua);
 			gurePW.println("Stack Trace:");
 			gurePW.write(ExceptionUtils.getStackTrace(this));
 			gurePW.flush();
 			gurePW.close();
 		} catch (FileNotFoundException sentitzenNaiz) {
 		}
-		String gureString = System.getProperty("os.name");
-		if (gureString.contains("win") || gureString.contains("Win"))
-			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
-					gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
-							+ "\nStack trace " + System.getProperty("user.home") + "\\Errorea.txt" + " gorde da.",
-					"ERROREA", JOptionPane.ERROR_MESSAGE);
-		else
-			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
-					gureMezua + "\n" + "Stack Trace Laburra:\n" + ExceptionUtils.getRootCauseStackTrace(this)[1]
-							+ "\nStack trace " + System.getProperty("user.home") + "/Errorea.txt" + " gorde da.",
-					"ERROREA", JOptionPane.ERROR_MESSAGE);
+		String stackLaburra = ExceptionUtils.getRootCauseStackTrace(this)[1];
+		stackLaburra = stackLaburra.substring(4, stackLaburra.length());
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), mezua + "\nStack Trace Laburra:\n" + stackLaburra
+				+ "\nStack trace " + fitxategia + " fitxategian gorde da.", izenburua, JOptionPane.ERROR_MESSAGE);
 	}
 }
