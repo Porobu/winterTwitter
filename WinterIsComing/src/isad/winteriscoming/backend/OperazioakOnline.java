@@ -492,7 +492,6 @@ public final class OperazioakOnline {
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
-				//DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='zerrendak'");
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -538,11 +537,12 @@ public final class OperazioakOnline {
 					paging.setPage(++orria);
 				} while (messages.size() > 0 || sentMessages.size() > 0);
 			}
-			DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE PAGING SET kurtsoreBalioa=0 WHERE mota='mezuak'");
+			DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'mezuak')");
 			// amaitu denaren mezua atera
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE PAGING SET kurtsoreBalioa=" + orria + " WHERE mota='mezuak'");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + orria
+						+ "', 'mezuak')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
