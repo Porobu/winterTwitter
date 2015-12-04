@@ -457,9 +457,7 @@ public final class OperazioakOnline {
 				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-	
-	//hemen zoaz konponketetan
-	
+
 	public void zerrendakJaitsi() {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
@@ -471,7 +469,7 @@ public final class OperazioakOnline {
 				DBKS.getDBKS().aginduaExekutatu(agindua);
 				agindua = "INSERT INTO ZERRENDA(id, izena)" + "VALUES ('" + zerrenda.getId() + "', '"
 						+ zerrenda.getName() + "')";
-				//zerrenda bakoitzean dauden erabiltzaileak non gorde??
+				// zerrenda bakoitzean dauden erabiltzaileak non gorde??
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -479,33 +477,53 @@ public final class OperazioakOnline {
 	}
 
 	public void mezuakDeskargatu() {
+		// twitter4j-ren errore batengatik bakarrik bueltatzen dira
+		// urte bateko denbora tartean bidali eta jasotako mezuak
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
+		int orria = 1;
+		String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='mezuak'");
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu(nextCursor);
 		try {
-			Paging paging = new Paging(1, 20);
-			List<DirectMessage> messages, sentMessages;
-			do {
-				sentMessages = twitter.getSentDirectMessages(paging);
-				messages = twitter.getDirectMessages(paging);
-				for (DirectMessage message : messages) {
-					String benetakoData = itzuliBenetakoData(message.getCreatedAt());
-					String id = String.valueOf(message.getId());
-					String agindua = "INSERT INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
-							+ "VALUES ('" + id + "', '" + benetakoData + "','" + message.getText() + "', '"
-							+ message.getSenderScreenName() + "'," + " '" + message.getRecipientScreenName() + "')";
-					DBKS.getDBKS().aginduaExekutatu(agindua);
-				}
-				for (DirectMessage sentMessage : sentMessages) {
-					String benetakoData = itzuliBenetakoData(sentMessage.getCreatedAt());
-					String id = String.valueOf(sentMessage.getId());
-					String agindua = "INSERT INTO MEZUA(id, data, edukia, hartzaileIzena, bidaltzaileIzena)"
-							+ "VALUES ('" + id + "', '" + benetakoData + "','" + sentMessage.getText() + "', '"
-							+ sentMessage.getSenderScreenName() + "'," + " '" + sentMessage.getRecipientScreenName() + "')";
-					DBKS.getDBKS().aginduaExekutatu(agindua);
-				}
-				paging.setPage(paging.getPage() + 1);
-			} while (messages.size() > 0 || sentMessages.size() > 0);
+			if (emaitza.next())
+				orria = (int) emaitza.getLong(1);
+		} catch (SQLException e) {
+		}
+		try {
+			if (orria != 0) {
+				Paging paging = new Paging(orria, 20);
+				List<DirectMessage> messages, sentMessages;
+				do {
+					sentMessages = twitter.getSentDirectMessages(paging);
+					messages = twitter.getDirectMessages(paging);
+					for (DirectMessage message : messages) {
+						String benetakoData = itzuliBenetakoData(message.getCreatedAt());
+						String id = String.valueOf(message.getId());
+						String agindua = "INSERT INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
+								+ "VALUES ('" + id + "', '" + benetakoData + "','" + message.getText() + "', '"
+								+ message.getSenderScreenName() + "'," + " '" + message.getRecipientScreenName() + "')";
+						DBKS.getDBKS().aginduaExekutatu(agindua);
+					}
+					for (DirectMessage sentMessage : sentMessages) {
+						String benetakoData = itzuliBenetakoData(sentMessage.getCreatedAt());
+						String id = String.valueOf(sentMessage.getId());
+						String agindua = "INSERT INTO MEZUA(id, data, edukia, hartzaileIzena, bidaltzaileIzena)"
+								+ "VALUES ('" + id + "', '" + benetakoData + "','" + sentMessage.getText() + "', '"
+								+ sentMessage.getSenderScreenName() + "'," + " '" + sentMessage.getRecipientScreenName()
+								+ "')";
+						DBKS.getDBKS().aginduaExekutatu(agindua);
+					}
+					paging.setPage(++orria);
+				} while (messages.size() > 0 || sentMessages.size() > 0);
+			}
+			DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='mezuak'");
+			//amaitu denaren mezua atera
 		} catch (TwitterException te) {
-			te.printStackTrace();
+			if (te.exceededRateLimitation()) {
+				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + orria + " WHERE mota='mezuak'");
+				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
+				rateLimitMezua(segunduak);
+			} else
+				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
 
