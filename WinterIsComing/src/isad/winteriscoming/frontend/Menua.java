@@ -11,7 +11,7 @@ import isad.winteriscoming.backend.OperazioakOnline;
 public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
-	private JMenu fitxategia, konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
+	private JMenu konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
 	private static JMenuItem konektatu;
 	private static JMenuItem deskonektatu;
 	private static JMenuItem konektatuTokenekin;
@@ -29,23 +29,16 @@ public class Menua extends JMenuBar {
 	private JMenuItem aipamenakBilatu;
 	private JMenuItem zerrendakBilatu;
 	private JMenuItem mezuakBilatu;
-	private JMenuItem excel;
+	private JMenuItem excel2007;
+	private JMenuItem excel2003;
 	private JMenuItem kopiaEgin;
-	private JMenuItem kopiaKargatu;
 
 	public Menua() {
-		this.fitxategiaMenua();
 		this.konexioaMenua();
 		this.jaitsiMenua();
 		this.bilatuMenua();
 		this.esportatuMenua();
 		this.segurtasunKopiaMenua();
-	}
-
-	private void fitxategiaMenua() {
-		this.fitxategia = new JMenu("Fitxategia");
-		// TODO MAS COSAS AQUI
-		this.add(fitxategia);
 	}
 
 	private void konexioaMenua() {
@@ -60,7 +53,7 @@ public class Menua extends JMenuBar {
 		konexioa.add(konektatu);
 		konexioa.add(deskonektatu);
 		this.add(konexioa);
-		botoiakHasieranEtaDeskonektatzean();
+		Menua.botoiakHasieranEtaDeskonektatzean();
 	}
 
 	public static void botoiakHasieranEtaDeskonektatzean() {
@@ -77,7 +70,6 @@ public class Menua extends JMenuBar {
 	}
 
 	private void jaitsiMenua() {
-		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.jaitsi = new JMenu("Jaitsi");
 		this.txioak = new JMenuItem("Txioak");
 		this.bertxioak = new JMenuItem("Bertxioak");
@@ -109,8 +101,10 @@ public class Menua extends JMenuBar {
 
 	private void bilatuMenua() {
 		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
+		OperazioakOffline gureOOFF = new OperazioakOffline();
 		this.bilatu = new JMenu("Bilatu");
 		this.txioakBilatu = new JMenuItem("Txioak");
+		this.txioakBilatu.addActionListener(gureAE -> gureOOFF.datuakJaso("txioa"));
 		this.bertxioakBilatu = new JMenuItem("Bertxioak");
 		this.gustukoakBilatu = new JMenuItem("Gustukoak");
 		this.aipamenakBilatu = new JMenuItem("Aipamenak");
@@ -126,12 +120,14 @@ public class Menua extends JMenuBar {
 	}
 
 	private void esportatuMenua() {
-		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.esportatu = new JMenu("Esportatu");
-		this.excel = new JMenuItem("Excel");
-		EsportatuExcelUI nireExcel = new EsportatuExcelUI();
-		this.excel.addActionListener(gureAE -> nireExcel.gorde());
-		this.esportatu.add(this.excel);
+		this.excel2007 = new JMenuItem("Excel 2007");
+		this.excel2003 = new JMenuItem("Excel 2003");
+		EsportatuExcelUI gureExcel = new EsportatuExcelUI();
+		this.excel2007.addActionListener(gureAE -> gureExcel.gorde(2007));
+		this.excel2003.addActionListener(gureAE -> gureExcel.gorde(2003));
+		this.esportatu.add(this.excel2003);
+		this.esportatu.add(this.excel2007);
 		this.add(this.esportatu);
 	}
 
@@ -141,9 +137,7 @@ public class Menua extends JMenuBar {
 		this.kopiaEgin = new JMenuItem("Kopia Egin");
 		FitxategiOperazioakUI gureFOUI = new FitxategiOperazioakUI();
 		this.kopiaEgin.addActionListener(gureAE -> gureFOUI.kopiaEgin());
-		this.kopiaKargatu = new JMenuItem("Kopia Kargatu");
 		this.segurtasunKopia.add(this.kopiaEgin);
-		this.segurtasunKopia.add(this.kopiaKargatu);
 		this.add(this.segurtasunKopia);
 	}
 

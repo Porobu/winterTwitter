@@ -24,8 +24,8 @@ public class FitxategiOperazioakUI {
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		gureFileChooser.setDialogTitle(Nagusia.IZENBURUA);
 		gureFileChooser.setAcceptAllFileFilterUsed(false);
-		gureFileChooser.setFileFilter(new FileNameExtensionFilter("Access Datu Baseak", "accdb"));
-		while (path == Nagusia.getPath()) {
+		gureFileChooser.setFileFilter(new FileNameExtensionFilter("WinterTwitter Datu Baseak", "db"));
+		while (Nagusia.getPath().equals(path)) {
 			int gureZenbakia = gureFileChooser.showSaveDialog(null);
 			if (gureZenbakia == JFileChooser.CANCEL_OPTION)
 				return;
@@ -37,12 +37,15 @@ public class FitxategiOperazioakUI {
 			} catch (Exception salbuespena) {
 				throw new WinterTwitterSalbuespena("Fitxategiak ez du balio!!!!!");
 			}
-			if (path == Nagusia.getPath())
+			if (Nagusia.getPath().equals(path))
 				JOptionPane.showMessageDialog(gureFileChooser,
 						"Hautatu duzun fitxategia kargatu duzunaren berdina da.\nMesedez, aukeratu beste bat",
 						Nagusia.IZENBURUA, JOptionPane.WARNING_MESSAGE);
 		}
 		nireFO.kopiatu(path);
+		JOptionPane.showMessageDialog(null, "Datu basearen kopia " + path + " karpetan gorde da.", Nagusia.IZENBURUA,
+				JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 
 	public String datuBaseaGordetzekoPath() {
