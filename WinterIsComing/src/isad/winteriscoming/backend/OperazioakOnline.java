@@ -477,9 +477,6 @@ public final class OperazioakOnline {
 							+ zerrendaKidea.getName() + "','" + zerrenda.getName() + "')";
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 				}
-
-				agindua = "INSERT INTO ZERRENDA(id, izena)" + "VALUES ('" + zerrenda.getId() + "', '"
-						+ zerrenda.getName() + "')";
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
