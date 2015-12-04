@@ -512,8 +512,8 @@ public final class OperazioakOnline {
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu(
-						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + orria + "', 'zerrendak')");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('"
+						+ orria + "', 'zerrendak')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -591,6 +591,7 @@ public final class OperazioakOnline {
 	}
 
 	private String itzuliBenetakoData(Date data2) {
+
 		String dataTxarra = String.valueOf(data2);
 		char[] data = new char[10];
 		data[0] = dataTxarra.charAt(8);
@@ -604,10 +605,17 @@ public final class OperazioakOnline {
 		data[3] = hilabete.charAt(0);
 		data[4] = hilabete.charAt(1);
 		data[5] = '/';
-		data[6] = dataTxarra.charAt(24);
-		data[7] = dataTxarra.charAt(25);
-		data[8] = dataTxarra.charAt(26);
-		data[9] = dataTxarra.charAt(27);
+		if (dataTxarra.contains("CET")) {
+			data[6] = dataTxarra.charAt(24);
+			data[7] = dataTxarra.charAt(25);
+			data[8] = dataTxarra.charAt(26);
+			data[9] = dataTxarra.charAt(27);
+		} else {
+			data[6] = dataTxarra.charAt(25);
+			data[7] = dataTxarra.charAt(26);
+			data[8] = dataTxarra.charAt(27);
+			data[9] = dataTxarra.charAt(28);
+		}
 		return String.copyValueOf(data);
 	}
 
