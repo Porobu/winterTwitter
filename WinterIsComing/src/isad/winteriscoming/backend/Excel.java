@@ -4,10 +4,10 @@ import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Excel {
 	private Workbook wb;
@@ -35,6 +35,7 @@ public class Excel {
 			this.mezuakOrriaEgin();
 			FileOutputStream fileOut = new FileOutputStream(path);
 			wb.write(fileOut);
+			fileOut.flush();
 			fileOut.close();
 			wb.close();
 		} catch (Exception e) {
@@ -70,9 +71,8 @@ public class Excel {
 		row.createCell(2).setCellValue("Data");
 		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, edukia, data FROM TXIOA WHERE MOTA = 'bertxioa'");
 		int i = 1;
-
 		while (nireRS.next()) {
-			row = txioak.createRow(i);
+			row = bertxioak.createRow(i);
 			for (int j = 0; j < 3; j++) {
 				row.createCell(j).setCellValue(nireRS.getString(j + 1));
 			}
@@ -91,7 +91,7 @@ public class Excel {
 		int i = 1;
 
 		while (nireRS.next()) {
-			row = txioak.createRow(i);
+			row = gustokoak.createRow(i);
 			for (int j = 0; j < 3; j++) {
 				row.createCell(j).setCellValue(nireRS.getString(j + 1));
 			}
@@ -112,7 +112,7 @@ public class Excel {
 		int i = 1;
 
 		while (nireRS.next()) {
-			row = txioak.createRow(i);
+			row = jarraituak.createRow(i);
 			for (int j = 0; j < 4; j++) {
 				row.createCell(j).setCellValue(nireRS.getString(j + 1));
 			}
@@ -132,7 +132,7 @@ public class Excel {
 				"SELECT id, izena, nick, idErabiltzailea FROM BESTEERABILTZAILEAK WHERE MOTA = 'jarraitzailea'");
 		int i = 1;
 		while (nireRS.next()) {
-			row = txioak.createRow(i);
+			row = jarraitzaileak.createRow(i);
 			for (int j = 0; j < 4; j++) {
 				row.createCell(j).setCellValue(nireRS.getString(j + 1));
 			}
@@ -149,7 +149,7 @@ public class Excel {
 		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, izena FROM ZERRENDA");
 		int i = 1;
 		while (nireRS.next()) {
-			row = txioak.createRow(i);
+			row = zerrendak.createRow(i);
 			for (int j = 0; j < 2; j++) {
 				row.createCell(j).setCellValue(nireRS.getString(j + 1));
 			}
@@ -169,7 +169,7 @@ public class Excel {
 		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT * FROM MEZUA");
 		int i = 1;
 		while (nireRS.next()) {
-			row = txioak.createRow(i);
+			row = mezuak.createRow(i);
 			for (int j = 0; j < 5; j++) {
 				row.createCell(j).setCellValue(nireRS.getString(j + 1));
 			}

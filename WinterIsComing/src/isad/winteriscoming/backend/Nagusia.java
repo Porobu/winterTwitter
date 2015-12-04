@@ -7,7 +7,7 @@ import isad.winteriscoming.frontend.AukerakUI;
 import isad.winteriscoming.frontend.WinterTwitter;
 
 public class Nagusia {
-	public static final float BERTSIOA = 0.57F;
+	public static final float BERTSIOA = 0.6F;
 	public static final String IZENBURUA = "WinterTwitter " + Nagusia.BERTSIOA;
 	private static String path;
 	private static WinterTwitter wtFrame;
