@@ -70,8 +70,8 @@ public final class OperazioakOnline {
 						if (!txio.isRetweet()) {
 							String id = String.valueOf(txio.getId());
 							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
+									+ "', '" + replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -90,13 +90,15 @@ public final class OperazioakOnline {
 						String id = String.valueOf(txio.getId());
 						if (!id.equals(String.valueOf(zaharrena)) && !txio.isRetweet()) {
 							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
+									+ "', '" + replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
 				}
 			}
+			JOptionPane.showMessageDialog(null, "Txioak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
@@ -150,8 +152,8 @@ public final class OperazioakOnline {
 						if (bertxio.isRetweet()) {
 							String id = String.valueOf(bertxio.getId());
 							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
+									+ "', '" + replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
@@ -170,13 +172,15 @@ public final class OperazioakOnline {
 						String id = String.valueOf(bertxio.getId());
 						if (!id.equals(String.valueOf(zaharrena)) && bertxio.isRetweet()) {
 							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
+									+ "', '" + replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
 				}
 			}
+			JOptionPane.showMessageDialog(null, "Bertxioak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
@@ -246,13 +250,15 @@ public final class OperazioakOnline {
 						String id = String.valueOf(fav.getId());
 						if (!id.equals(String.valueOf(zaharrena))) {
 							benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
+									+ "', '" + replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
 				}
 			}
+			JOptionPane.showMessageDialog(null, "Gustokoak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
@@ -326,14 +332,16 @@ public final class OperazioakOnline {
 						String id = String.valueOf(aipamen.getId());
 						if (!id.equals(String.valueOf(zaharrena))) {
 							benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
-									+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
+							String agindua = "INSERT OR REPLACE INTO AIPAMENAK(txioId, erabId, data, edukia)"
+									+ "VALUES ('" + aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
 									+ replace(aipamen.getText()) + "')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
 					}
 				}
 			}
+			JOptionPane.showMessageDialog(null, "Aipamenak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			if (te.exceededRateLimitation()) {
@@ -383,20 +391,24 @@ public final class OperazioakOnline {
 						count = count - 20;
 					for (User erab : following) {
 						String id = String.valueOf(erab.getId());
-						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
-								+ "', '" + replace(erab.getName()) + "', 'jarraitua', '" + replace(erab.getScreenName())
-								+ "')";
+						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"
+								+ "VALUES ('" + id + "', '" + replace(erab.getName()) + "', 'jarraitua', '"
+								+ replace(erab.getScreenName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					zenb = following.getNextCursor();
 				} while (zenb > 0);
-				//DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='jarraitua'");
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitua')");
+				// DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET
+				// kurtsoreBalioa=0 WHERE mota='jarraitua'");
+				DBKS.getDBKS().aginduaExekutatu(
+						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitua')");
 			}
+			JOptionPane.showMessageDialog(null, "Jarraituak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + zenb
-						+ "', 'jarraitua')");
+				DBKS.getDBKS().aginduaExekutatu(
+						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + zenb + "', 'jarraitua')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -443,19 +455,22 @@ public final class OperazioakOnline {
 						count = count - 20;
 					for (User erab : follower) {
 						String id = String.valueOf(erab.getId());
-						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
-								+ "', '" + replace(erab.getName()) + "', 'jarraitzailea', '"
+						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"
+								+ "VALUES ('" + id + "', '" + replace(erab.getName()) + "', 'jarraitzailea', '"
 								+ replace(erab.getScreenName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					zenb = follower.getNextCursor();
 				} while (zenb > 0);
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitzailea')");
+				DBKS.getDBKS().aginduaExekutatu(
+						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitzailea')");
 			}
+			JOptionPane.showMessageDialog(null, "Jarraitzaileak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + zenb
-						+ "', 'jarraitzailea')");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('"
+						+ zenb + "', 'jarraitzailea')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -464,11 +479,11 @@ public final class OperazioakOnline {
 	}
 
 	public void zerrendakJaitsi() {
+		int orria = -1;
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			User erabiltzailea = twitter.verifyCredentials();
 			ResponseList<UserList> zerrendak = twitter.getUserLists(erabiltzailea.getId());
-			int orria = -1;
 			String nextCursor = ("SELECT kurtsoreBalioa FROM PAGING WHERE mota='zerrendak'");
 			ResultSet emaitza = DBKS.getDBKS().queryExekutatu(nextCursor);
 			try {
@@ -493,12 +508,20 @@ public final class OperazioakOnline {
 					}
 				}
 			}
+			JOptionPane.showMessageDialog(null, "Zerrendak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
-			te.printStackTrace();
+			if (te.exceededRateLimitation()) {
+				DBKS.getDBKS().aginduaExekutatu(
+						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + orria + "', 'zerrendak')");
+				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
+				rateLimitMezua(segunduak);
+			} else
+				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
 
-	public void mezuakDeskargatu() {
+	public void mezuakJaitsi() {
 		// twitter4j-ren errore batengatik bakarrik bueltatzen dir
 		// urte bateko denbora tartean bidali eta jasotako mezuak
 		Twitter twitter = Konexioa.getKonexioa().getTwitter();
@@ -537,12 +560,14 @@ public final class OperazioakOnline {
 					paging.setPage(++orria);
 				} while (messages.size() > 0 || sentMessages.size() > 0);
 			}
-			DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'mezuak')");
-			// amaitu denaren mezua atera
+			DBKS.getDBKS()
+					.aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'mezuak')");
+			JOptionPane.showMessageDialog(null, "Mezuak jaisten amaitu da.", "Winter Twitter",
+					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + orria
-						+ "', 'mezuak')");
+				DBKS.getDBKS().aginduaExekutatu(
+						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + orria + "', 'mezuak')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else

@@ -28,9 +28,6 @@ public class Konexioa {
 	private RequestToken requestToken;
 	private boolean konektatuta;
 	private static Konexioa gureKonexioa;
-	// private long userID;
-	// fav, txio eta rt kopuru guztiak hemen gorde, erabiltzaileari
-	// pantailaratzeko
 
 	private Konexioa() {
 		konektatuta = false;
