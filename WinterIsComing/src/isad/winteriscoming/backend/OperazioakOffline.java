@@ -27,4 +27,31 @@ public class OperazioakOffline {
 		}
 		return false;
 	}
+	
+	public String[][] datuakJaso(String mota)
+	{
+		int kop = 0;
+		String agindua = "";
+		switch (mota.toLowerCase()) {
+		case "txioa":
+			agindua = "SELECT edukia, data FROM TXIOA WHERE mota = txioa";
+			kop = 2;
+			break;
+		default:
+			break;
+		}
+		ArrayList<String[]> emaitza = new ArrayList<>();
+		ResultSet rs = DBKS.getDBKS().queryExekutatu(agindua);
+		try {
+			while (rs.next()) {
+				String[] oraingoa = new String[kop];
+				for (int i = 1; i <= kop; i++) {
+					oraingoa[i] = rs.getString(i);
+				}
+				emaitza.add(oraingoa);
+			}
+		} catch (SQLException e) {
+		}
+		return null;
+	}
 }
