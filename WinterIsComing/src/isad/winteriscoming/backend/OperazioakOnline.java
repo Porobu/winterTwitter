@@ -70,7 +70,7 @@ public final class OperazioakOnline {
 						if (!txio.isRetweet()) {
 							String id = String.valueOf(txio.getId());
 							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
@@ -90,7 +90,7 @@ public final class OperazioakOnline {
 						String id = String.valueOf(txio.getId());
 						if (!id.equals(String.valueOf(zaharrena)) && !txio.isRetweet()) {
 							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
@@ -150,7 +150,7 @@ public final class OperazioakOnline {
 						if (bertxio.isRetweet()) {
 							String id = String.valueOf(bertxio.getId());
 							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
-							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
@@ -170,7 +170,7 @@ public final class OperazioakOnline {
 						String id = String.valueOf(bertxio.getId());
 						if (!id.equals(String.valueOf(zaharrena)) && bertxio.isRetweet()) {
 							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
-							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
@@ -227,7 +227,7 @@ public final class OperazioakOnline {
 					for (Status fav : favs) {
 						String id = String.valueOf(fav.getId());
 						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+						String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 								+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
@@ -246,7 +246,7 @@ public final class OperazioakOnline {
 						String id = String.valueOf(fav.getId());
 						if (!id.equals(String.valueOf(zaharrena))) {
 							benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 									+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
 						}
@@ -306,7 +306,7 @@ public final class OperazioakOnline {
 						String id = String.valueOf(aipamen.getCurrentUserRetweetId());
 
 						benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
-						String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
+						String agindua = "INSERT OR REPLACE INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
 								+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
 								+ replace(aipamen.getText()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
@@ -326,7 +326,7 @@ public final class OperazioakOnline {
 						String id = String.valueOf(aipamen.getId());
 						if (!id.equals(String.valueOf(zaharrena))) {
 							benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
-							String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
+							String agindua = "INSERT OR REPLACE INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
 									+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
 									+ replace(aipamen.getText()) + "')";
 							DBKS.getDBKS().aginduaExekutatu(agindua);
@@ -344,7 +344,6 @@ public final class OperazioakOnline {
 		}
 	}
 
-	// hemetik segi konponketarekin
 	public void jarraituakJaitsi() {
 		long zenb = 1L;
 		int count = 20;
@@ -368,6 +367,8 @@ public final class OperazioakOnline {
 			try {
 				if (emaitza.next())
 					zenb = emaitza.getLong(1);
+				else
+					zenb = -1L;
 			} catch (SQLException e) {
 			}
 			if (!(jarraituKopDB == jarraituKopTwitter)) {
@@ -382,18 +383,20 @@ public final class OperazioakOnline {
 						count = count - 20;
 					for (User erab : following) {
 						String id = String.valueOf(erab.getId());
-						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
+						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
 								+ "', '" + replace(erab.getName()) + "', 'jarraitua', '" + replace(erab.getScreenName())
 								+ "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					zenb = following.getNextCursor();
 				} while (zenb > 0);
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='jarraitua'");
+				//DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='jarraitua'");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitua')");
 			}
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitua'");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + zenb
+						+ "', 'jarraitua')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -402,7 +405,7 @@ public final class OperazioakOnline {
 	}
 
 	public void jarraitzaileakJaitsi() {
-		long zenb = 1L;
+		long zenb = -1L;
 		int count = 20;
 		boolean hasierakoak = false;
 		try {
@@ -424,6 +427,8 @@ public final class OperazioakOnline {
 			try {
 				if (emaitza.next())
 					zenb = emaitza.getLong(1);
+				else
+					zenb = -1L;
 			} catch (SQLException e) {
 			}
 			if (!(jarraitzaileKopDB == jarraitzaileKopTwitter)) {
@@ -438,19 +443,19 @@ public final class OperazioakOnline {
 						count = count - 20;
 					for (User erab : follower) {
 						String id = String.valueOf(erab.getId());
-						String agindua = "INSERT INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
+						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)" + "VALUES ('" + id
 								+ "', '" + replace(erab.getName()) + "', 'jarraitzailea', '"
 								+ replace(erab.getScreenName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					zenb = follower.getNextCursor();
 				} while (zenb > 0);
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='jarraitzailea'");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitzailea')");
 			}
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS()
-						.aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + zenb + " WHERE mota='jarraitzailea'");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + zenb
+						+ "', 'jarraitzailea')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -473,21 +478,21 @@ public final class OperazioakOnline {
 			}
 			if (orria != 0) {
 				for (UserList zerrenda : zerrendak) {
-					String agindua = "INSERT INTO ZERRENDA(id, izena, deskribapena)" + "VALUES ('"
+					String agindua = "INSERT OR REPLACE INTO ZERRENDA(id, izena, deskribapena)" + "VALUES ('"
 							+ String.valueOf(zerrenda.getId()) + "', '" + zerrenda.getName() + "', '"
 							+ zerrenda.getDescription() + "')";
 					DBKS.getDBKS().aginduaExekutatu(agindua);
 					ResponseList<User> zerrendaKideak = twitter.getUserListMembers(zerrenda.getId(), orria);
 					for (User zerrendaKidea : zerrendaKideak) {
-						agindua = "INSERT INTO DITU(erabId, zerrenId, erabNick, zerrendaIzena, erabIzena)" + "VALUES ('"
-								+ String.valueOf(erabiltzailea.getId()) + "', '" + String.valueOf(zerrenda.getId())
-								+ "','" + this.replace(zerrendaKidea.getScreenName()) + "','"
-								+ this.replace(zerrenda.getName()) + "', '" + this.replace(zerrendaKidea.getName())
-								+ "')";
+						agindua = "INSERT OR REPLACE INTO DITU(erabId, zerrenId, erabNick, zerrendaIzena, erabIzena)"
+								+ "VALUES ('" + String.valueOf(erabiltzailea.getId()) + "', '"
+								+ String.valueOf(zerrenda.getId()) + "','" + this.replace(zerrendaKidea.getScreenName())
+								+ "','" + this.replace(zerrenda.getName()) + "', '"
+								+ this.replace(zerrendaKidea.getName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='zerrendak'");
+				//DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='zerrendak'");
 			}
 		} catch (TwitterException te) {
 			te.printStackTrace();
@@ -516,7 +521,7 @@ public final class OperazioakOnline {
 					for (DirectMessage message : messages) {
 						String benetakoData = itzuliBenetakoData(message.getCreatedAt());
 						String id = String.valueOf(message.getId());
-						String agindua = "INSERT INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
+						String agindua = "INSERT OR REPLACE INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
 								+ "VALUES ('" + id + "', '" + benetakoData + "','" + message.getText() + "', '"
 								+ message.getSenderScreenName() + "'," + " '" + message.getRecipientScreenName() + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
@@ -524,7 +529,7 @@ public final class OperazioakOnline {
 					for (DirectMessage sentMessage : sentMessages) {
 						String benetakoData = itzuliBenetakoData(sentMessage.getCreatedAt());
 						String id = String.valueOf(sentMessage.getId());
-						String agindua = "INSERT INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
+						String agindua = "INSERT OR REPLACE INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
 								+ "VALUES ('" + id + "', '" + benetakoData + "','" + sentMessage.getText() + "', '"
 								+ sentMessage.getSenderScreenName() + "'," + " '" + sentMessage.getRecipientScreenName()
 								+ "')";
@@ -533,11 +538,11 @@ public final class OperazioakOnline {
 					paging.setPage(++orria);
 				} while (messages.size() > 0 || sentMessages.size() > 0);
 			}
-			DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=0 WHERE mota='mezuak'");
+			DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE PAGING SET kurtsoreBalioa=0 WHERE mota='mezuak'");
 			// amaitu denaren mezua atera
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET kurtsoreBalioa=" + orria + " WHERE mota='mezuak'");
+				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE PAGING SET kurtsoreBalioa=" + orria + " WHERE mota='mezuak'");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
