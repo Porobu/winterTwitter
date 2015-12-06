@@ -8,6 +8,10 @@ Programa erabili edo konpilatu aurretik:
 - Programa konpilatzeko JDK 8 edo berriagoa erabili behar da
 - Programaren 0.6 bertsioa Java 8 u66 bertsioarekin probatu da
 
+Exekutagarria WInterTwitter.zip fitxategian dago
+
+WinterTwitter konpilatzeko:
+
 Kode biltegia klonatu.
 
 Proiektua inportatu Eclipsen.
