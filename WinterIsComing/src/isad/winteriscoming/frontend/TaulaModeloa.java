@@ -12,12 +12,12 @@ public class TaulaModeloa extends AbstractTableModel {
 	private static final long serialVersionUID = 5416722887047816684L;
 
 	public TaulaModeloa(String mota) {
-		if (mota.toLowerCase().equals("txioa") || mota.toLowerCase().equals("bertxioa")
-				|| mota.toLowerCase().equals("gustokoa")) {
+		mota = mota.toLowerCase();
+		if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa")) {
 			izenak = new String[] { "Edukia", "Data" };
-		} else if (mota.toLowerCase().equals("jarraitua") || mota.toLowerCase().equals("jarraitzailea")) {
+		} else if (mota.equals("jarraitua") || mota.equals("jarraitzailea")) {
 			izenak = new String[] { "Izena", "Nick" };
-		} else if (mota.toLowerCase().equals("zerrendak")) {
+		} else if (mota.equals("zerrendak")) {
 			izenak = new String[] { "Izena", "Deskribapena", "Erabiltzaile Izena", "Zerrenda Izena", "Nick" };
 		} else {
 			izenak = new String[] { "Data", "Edukia", "Bidaltzaile Izena", "Hartzaile Izena" };
