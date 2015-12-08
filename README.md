@@ -12,7 +12,7 @@ Exekutagarriak WinterIsComing karpetaren barruan daude.
 
 Exekutatzeko:
  - Windows: WinterTwitter0.7.exe erabili daiteke, honek JREa ez baduzu deskargatzeko esango dizu.
- - Besteak: WinterTwitetr0.7.jar deskargatu, eta exekutatu. JRE 8 behar da exekutatzeko.
+ - Besteak: WinterTwitter0.7.jar deskargatu, eta exekutatu. JRE 8 behar da exekutatzeko.
 
 WinterTwitter konpilatzeko:
 
@@ -28,5 +28,12 @@ Honako liburutegiak gehitu (liburutegiak libs.zip fitxategian daude WinterIsComi
 - SQLite JDBC 3.8.11.2
 - Twitter4j Core 4.0.4
 - XMLBeans 2.6.0
+
+Eclipsen liburutegiak inportatzeko
+
+ - Proiektuan eskuineko botoiarekin sakatu 
+ - Properties
+ - Java Build Path
+ - Add JARs
 
 Konpilatu, klase nagusia /src/isad/winteriscoming/backend/Nagusia.java da.
