@@ -29,74 +29,35 @@ public final class OperazioakOnline {
 	}
 
 	public void txioakJaitsi() {
-		int orria = 0;
+		int orriZenb = 0;
 		boolean amaituta = false;
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> txioak;
-			String benetakoData;
-			Long zaharrena = hartuID("Txioa", "txioa", "ASC");
-			Long berriena = hartuID("Txioa", "txioa", "DESC");
-			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
-			// hutsik dagoelako, hori normala da
-			if (zaharrena.equals(Long.MAX_VALUE)) {
-				// kasu honetan erabiltzaileak ez du txiorik datu basean
-				while (!amaituta) {
-					orria++;
-					txioak = twitter.getUserTimeline(new Paging(orria, 20));
-					if (txioak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status txio : txioak) {
-						if (!txio.isRetweet()) {
-							String id = String.valueOf(txio.getId());
-							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
-					}
-				}
-			} else {
-				// kasu honetan erabiltzaileak badu txiorik datu-basean
-				// While honetan datu basean ez dauden txio berrienak sartuko
-				// dira
-				while (!amaituta) {
-					orria++;
-					txioak = twitter.getUserTimeline(new Paging(orria, 20, berriena));
-					if (txioak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status txio : txioak) {
-						if (!txio.isRetweet()) {
-							String id = String.valueOf(txio.getId());
-							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
-									+ "', '" + replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
-					}
-				}
-				// while honetan datu basean ez dauden txio zaharrak sartuko
-				// dira
-				orria = 0;
-				amaituta = false;
-				while (!amaituta) {
-					orria++;
-					txioak = twitter.getUserTimeline(new Paging(orria, 20, 1L, zaharrena));
-					if (txioak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status txio : txioak) {
-						String id = String.valueOf(txio.getId());
-						if (!id.equals(String.valueOf(zaharrena)) && !txio.isRetweet()) {
-							benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
-									+ "', '" + replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
-					}
-				}
+			long zaharrena = hartuID("Txioa", "txioa", "ASC");
+			long berriena = hartuID("Txioa", "txioa", "DESC");
+			// kasu honetan erabiltzaileak badu txiorik datu-basean
+			// While honetan datu basean ez dauden txio berrienak sartuko
+			// dira
+			while (!amaituta) {
+				orriZenb++;
+				txioak = twitter.getUserTimeline(new Paging(orriZenb, 20, zaharrena));
+				if (txioak.isEmpty())
+					amaituta = true;
+				else
+					this.txioakDBsartu(txioak);
+			}
+			// while honetan datu basean ez dauden txio zaharrak sartuko
+			// dira
+			orriZenb = 0;
+			amaituta = false;
+			while (!amaituta) {
+				orriZenb++;
+				txioak = twitter.getUserTimeline(new Paging(orriZenb, 20, 1L, berriena));
+				if (txioak.isEmpty())
+					amaituta = true;
+				else
+					this.txioakDBsartu(txioak);
 			}
 			JOptionPane.showMessageDialog(null, "Txioak jaisten amaitu da.", "Winter Twitter",
 					JOptionPane.PLAIN_MESSAGE);
@@ -107,6 +68,19 @@ public final class OperazioakOnline {
 				rateLimitMezua(segunduak);
 			} else
 				System.out.println("Failed to get timeline: " + te.getMessage());
+		}
+	}
+
+	private void txioakDBsartu(List<Status> txioak) {
+		String benetakoData = "";
+		for (Status txio : txioak) {
+			if (!txio.isRetweet()) {
+				String id = String.valueOf(txio.getId());
+				benetakoData = itzuliBenetakoData(txio.getCreatedAt());
+				String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+						+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
+				DBKS.getDBKS().aginduaExekutatu(agindua);
+			}
 		}
 	}
 
@@ -121,7 +95,7 @@ public final class OperazioakOnline {
 			Long berriena = hartuID("Txioa", "bertxioa", "DESC");
 			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
 			// hutsik dagoelako, hori normala da
-			if (zaharrena.equals(Long.MAX_VALUE)) {
+			if (berriena == Long.MAX_VALUE) {
 				// kasu honetan erabiltzaileak ez du bertxiorik datu basean
 				while (!amaituta) {
 					orria++;
@@ -145,7 +119,7 @@ public final class OperazioakOnline {
 				// dira
 				while (!amaituta) {
 					orria++;
-					bertxioak = twitter.getUserTimeline(new Paging(orria, 20, berriena));
+					bertxioak = twitter.getUserTimeline(new Paging(orria, 20, zaharrena));
 					if (bertxioak.isEmpty()) {
 						amaituta = true;
 					}
@@ -165,7 +139,7 @@ public final class OperazioakOnline {
 				amaituta = false;
 				while (!amaituta) {
 					orria++;
-					bertxioak = twitter.getUserTimeline(new Paging(orria, 20, 1L, zaharrena));
+					bertxioak = twitter.getUserTimeline(new Paging(orria, 20, 1L, berriena));
 					if (bertxioak.isEmpty()) {
 						amaituta = true;
 					}
@@ -203,7 +177,7 @@ public final class OperazioakOnline {
 			Long berriena = hartuID("Txioa", "gustokoa", "DESC");
 			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
 			// hutsik dagoelako, hori normala da
-			if (zaharrena.equals(Long.MAX_VALUE)) {
+			if (berriena == Long.MAX_VALUE) {
 				// kasu honetan erabiltzaileak ez du gustokorik datu basean
 				while (!amaituta) {
 					orria++;
@@ -225,7 +199,7 @@ public final class OperazioakOnline {
 				// dira
 				while (!amaituta) {
 					orria++;
-					favs = twitter.getFavorites(new Paging(orria, 20, berriena));
+					favs = twitter.getFavorites(new Paging(orria, 20, zaharrena));
 					if (favs.isEmpty()) {
 						amaituta = true;
 					}
@@ -243,7 +217,7 @@ public final class OperazioakOnline {
 				amaituta = false;
 				while (!amaituta) {
 					orria++;
-					favs = twitter.getFavorites(new Paging(orria, 20, 1L, zaharrena));
+					favs = twitter.getFavorites(new Paging(orria, 20, 1L, berriena));
 					if (favs.isEmpty()) {
 						amaituta = true;
 					}
@@ -281,7 +255,7 @@ public final class OperazioakOnline {
 			Long berriena = hartuID("Txioa", "bertxioa", "DESC");
 			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
 			// hutsik dagoelako, hori normala da
-			if (zaharrena.equals(Long.MAX_VALUE)) {
+			if (berriena == Long.MAX_VALUE) {
 				// kasu honetan erabiltzaileak ez du aipamenik datu basean
 				while (!amaituta) {
 					orria++;
@@ -305,7 +279,7 @@ public final class OperazioakOnline {
 				// dira
 				while (!amaituta) {
 					orria++;
-					aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, berriena));
+					aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, zaharrena));
 					if (aipamenak.isEmpty()) {
 						amaituta = true;
 					}
@@ -325,7 +299,7 @@ public final class OperazioakOnline {
 				amaituta = false;
 				while (!amaituta) {
 					orria++;
-					aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, 1L, zaharrena));
+					aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, 1L, berriena));
 					if (aipamenak.isEmpty()) {
 						amaituta = true;
 					}
@@ -582,7 +556,7 @@ public final class OperazioakOnline {
 		try {
 			if (emaitza.next())
 				return emaitza.getLong(1);
-			else if (ordena.equals("DESC"))
+			else if (ordena.equals("ASC"))
 				return 1L;
 			else
 				return Long.MAX_VALUE;
@@ -656,10 +630,9 @@ public final class OperazioakOnline {
 	private void rateLimitMezua(int segunduak) {
 		int minutuak = segunduak / 60;
 		segunduak = segunduak % 60;
-		JOptionPane
-				.showMessageDialog(
-						WinterTwitter.getOraingoWT(), "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak + " minutu eta "
-								+ segunduak + " segundu.",
-						"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(
+				WinterTwitter.getOraingoWT(), "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak
+						+ " minutu eta " + segunduak + " segundu.",
+				"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
 	}
 }
