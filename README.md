@@ -8,7 +8,11 @@ Programa erabili edo konpilatu aurretik:
 - Programa konpilatzeko JDK 8 edo berriagoa erabili behar da
 - Programaren 0.7 bertsioa Java 8 u66 bertsioarekin probatu da
 
-Exekutagarria WInterTwitter.zip fitxategian dago WinterIsComing karpetaren barruan, honekin programa exekutatu daiteke konpilatu gabe.
+Exekutagarriak WinterIsComing karpetaren barruan daude.
+
+Exekutatzeko:
+ - Windows: WinterTwitter0.7.exe erabili daiteke, honek JREa ez baduzu deskargatzeko esango dizu.
+ - Besteak: WinterTwitetr0.7.jar deskargatu, eta exekutatu. JRE 8 behar da exekutatzeko.
 
 WinterTwitter konpilatzeko:
 
