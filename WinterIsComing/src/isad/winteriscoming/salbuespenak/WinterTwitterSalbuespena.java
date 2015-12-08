@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 import javax.swing.JOptionPane;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import isad.winteriscoming.backend.Nagusia;
 import isad.winteriscoming.frontend.WinterTwitter;
