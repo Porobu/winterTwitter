@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import isad.winteriscoming.frontend.WinterTwitter;
 import twitter4j.DirectMessage;
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
@@ -620,30 +621,32 @@ public final class OperazioakOnline {
 	}
 
 	private String itzuliHilabetea(String st) {
-		if (st.equalsIgnoreCase("Jan"))
+		switch (st.toLowerCase()) {
+		case "jan":
 			return "01";
-		else if (st.equalsIgnoreCase("Feb"))
+		case "feb":
 			return "02";
-		else if (st.equalsIgnoreCase("Mar"))
+		case "mar":
 			return "03";
-		else if (st.equalsIgnoreCase("Apr"))
+		case "apr":
 			return "04";
-		else if (st.equalsIgnoreCase("May"))
+		case "may":
 			return "05";
-		else if (st.equalsIgnoreCase("Jun"))
+		case "jun":
 			return "06";
-		else if (st.equalsIgnoreCase("Jul"))
+		case "jul":
 			return "07";
-		else if (st.equalsIgnoreCase("Aug"))
+		case "aug":
 			return "08";
-		else if (st.equalsIgnoreCase("Sep"))
+		case "sep":
 			return "09";
-		else if (st.equalsIgnoreCase("Oct"))
+		case "oct":
 			return "10";
-		else if (st.equalsIgnoreCase("Nov"))
+		case "nov":
 			return "11";
-		else
+		default:
 			return "12";
+		}
 	}
 
 	public String replace(String aldatzekoa) {
@@ -655,7 +658,7 @@ public final class OperazioakOnline {
 		segunduak = segunduak % 60;
 		JOptionPane
 				.showMessageDialog(
-						null, "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak + " minutu eta "
+						WinterTwitter.getOraingoWT(), "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak + " minutu eta "
 								+ segunduak + " segundu.",
 						"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
 	}

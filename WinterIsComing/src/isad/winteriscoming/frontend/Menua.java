@@ -132,7 +132,6 @@ public class Menua extends JMenuBar {
 	}
 
 	private void segurtasunKopiaMenua() {
-		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
 		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
 		this.kopiaEgin = new JMenuItem("Kopia Egin");
 		FitxategiOperazioakUI gureFOUI = new FitxategiOperazioakUI();
