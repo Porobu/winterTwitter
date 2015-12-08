@@ -36,19 +36,14 @@ public final class OperazioakOnline {
 			List<Status> txioak;
 			long zaharrena = hartuID("Txioa", "txioa", "ASC");
 			long berriena = hartuID("Txioa", "txioa", "DESC");
-			// kasu honetan erabiltzaileak badu txiorik datu-basean
-			// While honetan datu basean ez dauden txio berrienak sartuko
-			// dira
 			while (!amaituta) {
 				orriZenb++;
 				txioak = twitter.getUserTimeline(new Paging(orriZenb, 20, zaharrena));
 				if (txioak.isEmpty())
 					amaituta = true;
 				else
-					this.txioakDBsartu(txioak);
+					this.txioakDBsartu(txioak, "txioa");
 			}
-			// while honetan datu basean ez dauden txio zaharrak sartuko
-			// dira
 			orriZenb = 0;
 			amaituta = false;
 			while (!amaituta) {
@@ -57,7 +52,7 @@ public final class OperazioakOnline {
 				if (txioak.isEmpty())
 					amaituta = true;
 				else
-					this.txioakDBsartu(txioak);
+					this.txioakDBsartu(txioak, "txioa");
 			}
 			JOptionPane.showMessageDialog(null, "Txioak jaisten amaitu da.", "Winter Twitter",
 					JOptionPane.PLAIN_MESSAGE);
@@ -71,14 +66,14 @@ public final class OperazioakOnline {
 		}
 	}
 
-	private void txioakDBsartu(List<Status> txioak) {
+	private void txioakDBsartu(List<Status> txioak, String mota) {
 		String benetakoData = "";
 		for (Status txio : txioak) {
 			if (!txio.isRetweet()) {
 				String id = String.valueOf(txio.getId());
 				benetakoData = itzuliBenetakoData(txio.getCreatedAt());
 				String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-						+ replace(txio.getText()) + "', '" + benetakoData + "', 'txioa')";
+						+ replace(txio.getText()) + "', '" + benetakoData + "', '" + mota + "')";
 				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
 		}
@@ -90,69 +85,27 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> bertxioak;
-			String benetakoData;
 			Long zaharrena = hartuID("Txioa", "bertxioa", "ASC");
 			Long berriena = hartuID("Txioa", "bertxioa", "DESC");
-			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
-			// hutsik dagoelako, hori normala da
-			if (berriena == Long.MAX_VALUE) {
-				// kasu honetan erabiltzaileak ez du bertxiorik datu basean
-				while (!amaituta) {
-					orria++;
-					bertxioak = twitter.getUserTimeline(new Paging(orria, 20));
-					if (bertxioak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status bertxio : bertxioak) {
-						if (bertxio.isRetweet()) {
-							String id = String.valueOf(bertxio.getId());
-							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
-							String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-									+ replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
-					}
-				}
-			} else {
-				// kasu honetan erabiltzaileak badu bertxiorik datu-basean
-				// While honetan datu basean ez dauden bertxio berrienak sartuko
-				// dira
-				while (!amaituta) {
-					orria++;
-					bertxioak = twitter.getUserTimeline(new Paging(orria, 20, zaharrena));
-					if (bertxioak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status bertxio : bertxioak) {
-						if (bertxio.isRetweet()) {
-							String id = String.valueOf(bertxio.getId());
-							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
-									+ "', '" + replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
-					}
-				}
-				// while honetan datu basean ez dauden bertxio zaharrak sartuko
-				// dira
-				orria = 0;
-				amaituta = false;
-				while (!amaituta) {
-					orria++;
-					bertxioak = twitter.getUserTimeline(new Paging(orria, 20, 1L, berriena));
-					if (bertxioak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status bertxio : bertxioak) {
-						String id = String.valueOf(bertxio.getId());
-						if (!id.equals(String.valueOf(zaharrena)) && bertxio.isRetweet()) {
-							benetakoData = itzuliBenetakoData(bertxio.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
-									+ "', '" + replace(bertxio.getText()) + "', '" + benetakoData + "', 'bertxioa')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
-					}
-				}
+			while (!amaituta) {
+				orria++;
+				bertxioak = twitter.getUserTimeline(new Paging(orria, 20, zaharrena));
+				if (bertxioak.isEmpty()) {
+					amaituta = true;
+				} else
+					this.txioakDBsartu(bertxioak, "bertxioa");
+			}
+			// while honetan datu basean ez dauden bertxio zaharrak sartuko
+			// dira
+			orria = 0;
+			amaituta = false;
+			while (!amaituta) {
+				orria++;
+				bertxioak = twitter.getUserTimeline(new Paging(orria, 20, 1L, berriena));
+				if (bertxioak.isEmpty()) {
+					amaituta = true;
+				} else
+					this.txioakDBsartu(bertxioak, "bertxioa");
 			}
 			JOptionPane.showMessageDialog(null, "Bertxioak jaisten amaitu da.", "Winter Twitter",
 					JOptionPane.PLAIN_MESSAGE);
@@ -172,65 +125,25 @@ public final class OperazioakOnline {
 		try {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> favs;
-			String benetakoData;
 			Long zaharrena = hartuID("Txioa", "gustokoa", "ASC");
 			Long berriena = hartuID("Txioa", "gustokoa", "DESC");
-			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
-			// hutsik dagoelako, hori normala da
-			if (berriena == Long.MAX_VALUE) {
-				// kasu honetan erabiltzaileak ez du gustokorik datu basean
-				while (!amaituta) {
-					orria++;
-					favs = twitter.getFavorites(new Paging(orria, 20));
-					if (favs.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status fav : favs) {
-						String id = String.valueOf(fav.getId());
-						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-						String agindua = "INSERT INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-								+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
-						DBKS.getDBKS().aginduaExekutatu(agindua);
-					}
-				}
-			} else {
-				// kasu honetan erabiltzaileak badu gustokorik datu-basean
-				// While honetan datu basean ez dauden txio berrienak sartuko
-				// dira
-				while (!amaituta) {
-					orria++;
-					favs = twitter.getFavorites(new Paging(orria, 20, zaharrena));
-					if (favs.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status fav : favs) {
-						String id = String.valueOf(fav.getId());
-						benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-						String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-								+ replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
-						DBKS.getDBKS().aginduaExekutatu(agindua);
-					}
-				}
-				// while honetan datu basean ez dauden txio zaharrak sartuko
-				// dira
-				orria = 0;
-				amaituta = false;
-				while (!amaituta) {
-					orria++;
-					favs = twitter.getFavorites(new Paging(orria, 20, 1L, berriena));
-					if (favs.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status fav : favs) {
-						String id = String.valueOf(fav.getId());
-						if (!id.equals(String.valueOf(zaharrena))) {
-							benetakoData = itzuliBenetakoData(fav.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id
-									+ "', '" + replace(fav.getText()) + "', '" + benetakoData + "', 'gustokoa')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
-					}
-				}
+			while (!amaituta) {
+				orria++;
+				favs = twitter.getFavorites(new Paging(orria, 20, zaharrena));
+				if (favs.isEmpty()) {
+					amaituta = true;
+				} else
+					this.txioakDBsartu(favs, "gustokoa");
+			}
+			orria = 0;
+			amaituta = false;
+			while (!amaituta) {
+				orria++;
+				favs = twitter.getFavorites(new Paging(orria, 20, 1L, berriena));
+				if (favs.isEmpty()) {
+					amaituta = true;
+				} else
+					this.txioakDBsartu(favs, "gustokoa");
 			}
 			JOptionPane.showMessageDialog(null, "Gustokoak jaisten amaitu da.", "Winter Twitter",
 					JOptionPane.PLAIN_MESSAGE);
@@ -253,65 +166,38 @@ public final class OperazioakOnline {
 			String benetakoData;
 			Long zaharrena = hartuID("Txioa", "bertxioa", "ASC");
 			Long berriena = hartuID("Txioa", "bertxioa", "DESC");
-			// momentu honetan salbuespen bat pantailaratu daiteke ResultSet-a
-			// hutsik dagoelako, hori normala da
-			if (berriena == Long.MAX_VALUE) {
-				// kasu honetan erabiltzaileak ez du aipamenik datu basean
-				while (!amaituta) {
-					orria++;
-					aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20));
-					if (aipamenak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status aipamen : aipamenak) {
-						String id = String.valueOf(aipamen.getCurrentUserRetweetId());
-
-						benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
-						String agindua = "INSERT INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
-								+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
-								+ replace(aipamen.getText()) + "')";
-						DBKS.getDBKS().aginduaExekutatu(agindua);
-					}
+			while (!amaituta) {
+				orria++;
+				aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, zaharrena));
+				if (aipamenak.isEmpty()) {
+					amaituta = true;
 				}
-			} else {
-				// kasu honetan erabiltzaileak badu aipamenik datu-basean
-				// While honetan datu basean ez dauden aipamen berrienak sartuko
-				// dira
-				while (!amaituta) {
-					orria++;
-					aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, zaharrena));
-					if (aipamenak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status aipamen : aipamenak) {
-						String id = String.valueOf(aipamen.getCurrentUserRetweetId());
+				for (Status aipamen : aipamenak) {
+					String id = String.valueOf(aipamen.getCurrentUserRetweetId());
 
+					benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
+					String agindua = "INSERT OR REPLACE INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
+							+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
+							+ replace(aipamen.getText()) + "')";
+					DBKS.getDBKS().aginduaExekutatu(agindua);
+				}
+			}
+			orria = 0;
+			amaituta = false;
+			while (!amaituta) {
+				orria++;
+				aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, 1L, berriena));
+				if (aipamenak.isEmpty()) {
+					amaituta = true;
+				}
+				for (Status aipamen : aipamenak) {
+					String id = String.valueOf(aipamen.getId());
+					if (!id.equals(String.valueOf(zaharrena))) {
 						benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
 						String agindua = "INSERT OR REPLACE INTO AIPAMENAK(txioId, erabId, data, edukia)" + "VALUES ('"
 								+ aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
 								+ replace(aipamen.getText()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
-					}
-				}
-				// while honetan datu basean ez dauden aipamen zaharrak sartuko
-				// dira
-				orria = 0;
-				amaituta = false;
-				while (!amaituta) {
-					orria++;
-					aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, 1L, berriena));
-					if (aipamenak.isEmpty()) {
-						amaituta = true;
-					}
-					for (Status aipamen : aipamenak) {
-						String id = String.valueOf(aipamen.getId());
-						if (!id.equals(String.valueOf(zaharrena))) {
-							benetakoData = itzuliBenetakoData(aipamen.getCreatedAt());
-							String agindua = "INSERT OR REPLACE INTO AIPAMENAK(txioId, erabId, data, edukia)"
-									+ "VALUES ('" + aipamen.getId() + "', '" + id + "', '" + benetakoData + "' , '"
-									+ replace(aipamen.getText()) + "')";
-							DBKS.getDBKS().aginduaExekutatu(agindua);
-						}
 					}
 				}
 			}
