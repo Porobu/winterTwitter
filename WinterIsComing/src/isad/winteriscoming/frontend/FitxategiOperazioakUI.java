@@ -18,7 +18,7 @@ public class FitxategiOperazioakUI {
 	}
 
 	public void kopiaEgin() {
-		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Hautatu non egin nahi duzun datu basearen kopia",
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Hautatu non egin nahi duzun datu basearen kopia.\nTwitter-etik deskargatu duzun informazio guztia kopiatuko da.",
 				Nagusia.IZENBURUA, JOptionPane.INFORMATION_MESSAGE);
 		String path = Nagusia.getPath();
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
