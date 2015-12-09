@@ -14,9 +14,8 @@ public class TaulaModeloa extends AbstractTableModel {
 	public TaulaModeloa(String mota) {
 		mota = mota.toLowerCase();
 		OperazioakOffline gureOO = new OperazioakOffline();
-		if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa")) {
+		if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa") || mota.equals("aipamena")) {
 			izenak = new String[] { "Edukia", "Data" };
-			
 		} else if (mota.equals("jarraitua") || mota.equals("jarraitzailea")) {
 			izenak = new String[] { "Izena", "Nick" };
 		} else if (mota.equals("zerrenda")) {

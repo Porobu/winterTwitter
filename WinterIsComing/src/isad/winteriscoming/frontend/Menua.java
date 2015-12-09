@@ -126,7 +126,7 @@ public class Menua extends JMenuBar {
 		this.gustukoakBilatu.addActionListener(gureAE -> this.bistaratu("gustokoa"));
 		this.aipamenakBilatu.addActionListener(gureAE -> this.bistaratu("aipamena"));
 		this.jarraituakBistaratu.addActionListener(gureAE -> this.bistaratu("jarraitua"));
-		this.jarraitzaileakBistaratu.addActionListener(gureAE -> this.bistaratu("jarraitzaileak"));
+		this.jarraitzaileakBistaratu.addActionListener(gureAE -> this.bistaratu("jarraitzailea"));
 		this.zerrendakBilatu.addActionListener(gureAE -> this.bistaratu("zerrenda"));
 		this.mezuakBilatu.addActionListener(gureAE -> this.bistaratu("mezua"));
 		this.bistaratu.add(this.txioakBilatu);

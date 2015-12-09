@@ -41,6 +41,9 @@ public class OperazioakOffline {
 		} else if (mota.equals("zerrenda")) {
 			kop = 5;
 			agindua = "SELECT ZERRENDA.izena, ZERRENDA.deskribapena, DITU.erabIzena, DITU.zerrendaIzena, DITU.erabNick  FROM ZERRENDA, DITU WHERE ZERRENDA.id = DITU.zerrenId";
+		} else if (mota.equals("aipamena")) {
+			agindua = "SELECT data, edukia FROM AIPAMENAK";
+			kop = 2;
 		} else {
 			agindua = "SELECT data, edukia, bidaltzaileIzena, hartzaileIzena FROM MEZUA";
 			kop = 4;
