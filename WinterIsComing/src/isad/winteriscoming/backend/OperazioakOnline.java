@@ -68,54 +68,19 @@ public final class OperazioakOnline {
 
 	private void txioakDBsartu(List<Status> txioak, String mota) {
 		String benetakoData = "";
+		String bertxio = "bertxioa";
+		String agindua = "";
 		for (Status txio : txioak) {
-			if (!txio.isRetweet()) {
-				String id = String.valueOf(txio.getId());
-				benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-				String agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+			String id = String.valueOf(txio.getId());
+			benetakoData = itzuliBenetakoData(txio.getCreatedAt());
+			if (mota.equals("txioa") && txio.isRetweet()) {
+				agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+						+ replace(txio.getText()) + "', '" + benetakoData + "', '" + bertxio + "')";
+			} else {
+				agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
 						+ replace(txio.getText()) + "', '" + benetakoData + "', '" + mota + "')";
-				DBKS.getDBKS().aginduaExekutatu(agindua);
 			}
-		}
-	}
-
-	public void bertxioakJaitsi() {
-		int orria = 0;
-		boolean amaituta = false;
-		try {
-			Twitter twitter = Konexioa.getKonexioa().getTwitter();
-			List<Status> bertxioak;
-			Long zaharrena = hartuID("Txioa", "bertxioa", "ASC");
-			Long berriena = hartuID("Txioa", "bertxioa", "DESC");
-			while (!amaituta) {
-				orria++;
-				bertxioak = twitter.getUserTimeline(new Paging(orria, 20, zaharrena));
-				if (bertxioak.isEmpty()) {
-					amaituta = true;
-				} else
-					this.txioakDBsartu(bertxioak, "bertxioa");
-			}
-			// while honetan datu basean ez dauden bertxio zaharrak sartuko
-			// dira
-			orria = 0;
-			amaituta = false;
-			while (!amaituta) {
-				orria++;
-				bertxioak = twitter.getUserTimeline(new Paging(orria, 20, 1L, berriena));
-				if (bertxioak.isEmpty()) {
-					amaituta = true;
-				} else
-					this.txioakDBsartu(bertxioak, "bertxioa");
-			}
-			JOptionPane.showMessageDialog(null, "Bertxioak jaisten amaitu da.", "Winter Twitter",
-					JOptionPane.PLAIN_MESSAGE);
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			if (te.exceededRateLimitation()) {
-				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
-				rateLimitMezua(segunduak);
-			} else
-				System.out.println("Failed to get timeline: " + te.getMessage());
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 

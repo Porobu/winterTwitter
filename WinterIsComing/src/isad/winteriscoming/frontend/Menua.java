@@ -16,7 +16,6 @@ public class Menua extends JMenuBar {
 	private static JMenuItem deskonektatu;
 	private static JMenuItem konektatuTokenekin;
 	private JMenuItem txioak;
-	private JMenuItem bertxioak;
 	private JMenuItem gustokoak;
 	private JMenuItem aipamenak;
 	private JMenuItem jarraituak;
@@ -72,7 +71,6 @@ public class Menua extends JMenuBar {
 	private void jaitsiMenua() {
 		this.jaitsi = new JMenu("Jaitsi");
 		this.txioak = new JMenuItem("Txioak");
-		this.bertxioak = new JMenuItem("Bertxioak");
 		this.gustokoak = new JMenuItem("Gustokoak");
 		this.aipamenak = new JMenuItem("Aipamenak");
 		this.jarraituak = new JMenuItem("Jarraituak");
@@ -82,8 +80,6 @@ public class Menua extends JMenuBar {
 		this.jaitsi.add(this.jaitsi);
 		this.jaitsi.add(this.txioak);
 		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().txioakJaitsi());
-		this.jaitsi.add(this.bertxioak);
-		this.bertxioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().bertxioakJaitsi());
 		this.jaitsi.add(this.gustokoak);
 		this.gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
 		this.jaitsi.add(this.jarraituak);
