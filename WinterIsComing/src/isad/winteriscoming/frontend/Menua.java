@@ -15,13 +15,13 @@ public class Menua extends JMenuBar {
 	private static JMenuItem konektatu;
 	private static JMenuItem deskonektatu;
 	private static JMenuItem konektatuTokenekin;
-	private JMenuItem txioak;
-	private JMenuItem gustokoak;
-	private JMenuItem aipamenak;
-	private JMenuItem jarraituak;
-	private JMenuItem jarraitzaileak;
-	private JMenuItem zerrendak;
-	private JMenuItem mezuak;
+	private static JMenuItem txioak;
+	private static JMenuItem gustokoak;
+	private static JMenuItem aipamenak;
+	private static JMenuItem jarraituak;
+	private static JMenuItem jarraitzaileak;
+	private static JMenuItem zerrendak;
+	private static JMenuItem mezuak;
 	private JMenuItem txioakBilatu;
 	private JMenuItem bertxioakBilatu;
 	private JMenuItem gustukoakBilatu;
@@ -33,8 +33,9 @@ public class Menua extends JMenuBar {
 	private JMenuItem kopiaEgin;
 
 	public Menua() {
-		this.konexioaMenua();
+
 		this.jaitsiMenua();
+		this.konexioaMenua();
 		this.bilatuMenua();
 		this.esportatuMenua();
 		this.segurtasunKopiaMenua();
@@ -60,12 +61,26 @@ public class Menua extends JMenuBar {
 		OperazioakOffline off = new OperazioakOffline();
 		konektatuTokenekin.setEnabled(off.konprobatuTokenakDauden());
 		deskonektatu.setEnabled(false);
+		txioak.setEnabled(false);
+		gustokoak.setEnabled(false);
+		aipamenak.setEnabled(false);
+		jarraituak.setEnabled(false);
+		jarraitzaileak.setEnabled(false);
+		zerrendak.setEnabled(false);
+		mezuak.setEnabled(false);
 	}
 
 	public static void botoiakKonektatzean() {
 		konektatu.setEnabled(false);
 		konektatuTokenekin.setEnabled(false);
 		deskonektatu.setEnabled(true);
+		txioak.setEnabled(true);
+		gustokoak.setEnabled(true);
+		aipamenak.setEnabled(true);
+		jarraituak.setEnabled(true);
+		jarraitzaileak.setEnabled(true);
+		zerrendak.setEnabled(true);
+		mezuak.setEnabled(true);
 	}
 
 	private void jaitsiMenua() {

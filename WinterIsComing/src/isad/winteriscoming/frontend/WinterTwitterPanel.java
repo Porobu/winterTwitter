@@ -16,13 +16,13 @@ public class WinterTwitterPanel extends JPanel {
 	public WinterTwitterPanel() {
 		this.setOpaque(true);
 		this.setLayout(new BorderLayout());
-		this.txioakEraiki();
+		this.panelNagusiaEraiki();
 		this.barraEraiki();
 		this.add(barra, BorderLayout.LINE_START);
 		this.add(txioak, BorderLayout.CENTER);
 	}
 
-	private void txioakEraiki() {
+	private void panelNagusiaEraiki() {
 		txioak = new JPanel();
 	}
 
