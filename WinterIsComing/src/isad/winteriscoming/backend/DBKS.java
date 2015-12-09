@@ -11,13 +11,40 @@ import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 
 public final class DBKS {
 	private static DBKS gureDBKS;
+	public static DBKS getDBKS() {
+		return gureDBKS != null ? gureDBKS : (gureDBKS = new DBKS());
+	}
+
 	private Connection konexioa;
 
 	private DBKS() {
 	}
 
-	public static DBKS getDBKS() {
-		return gureDBKS != null ? gureDBKS : (gureDBKS = new DBKS());
+	public void aginduaExekutatu(String agindua) {
+		try {
+			Statement st = this.konexioa.createStatement();
+			st.execute(agindua);
+		} catch (Exception salbuespena) {
+			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
+		}
+	}
+
+	private void datubaseaKonprobatu() {
+		Statement st;
+		try {
+			st = konexioa.createStatement();
+			st.executeQuery("SELECT id, edukia, data, mota FROM TXIOA");
+			st.executeQuery("SELECT id, izena, mota, nick, idErabiltzailea FROM BESTEERABILTZAILEAK");
+			st.executeQuery("SELECT erabId, zerrenId, erabNick, zerrendaIzena, erabIzena FROM DITU");
+			st.executeQuery("SELECT id, nick, izena, token, tokenSecret FROM ERABILTZAILEA");
+			st.executeQuery("SELECT txioId, erabId, data, edukia FROM AIPAMENAK");
+			st.executeQuery("SELECT id, izena, deskribapena FROM ZERRENDA");
+			st.executeQuery("SELECT id, data, edukia, bidaltzaileIzena, hartzaileIzena FROM MEZUA");
+			st.executeQuery("SELECT mota, kurtsoreBalioa FROM PAGING");
+			st.close();
+		} catch (SQLException e) {
+			throw new WinterTwitterSalbuespena("Datu basea ez da baliozkoa!");
+		}
 	}
 
 	public String getDefaultPath() {
@@ -42,26 +69,6 @@ public final class DBKS {
 		this.datubaseaKonprobatu();
 	}
 
-	public ResultSet queryExekutatu(String agindua) {
-		ResultSet emaitza = null;
-		try {
-			Statement st = this.konexioa.createStatement();
-			emaitza = st.executeQuery(agindua);
-		} catch (Exception salbuespena) {
-			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
-		}
-		return emaitza;
-	}
-
-	public void aginduaExekutatu(String agindua) {
-		try {
-			Statement st = this.konexioa.createStatement();
-			st.execute(agindua);
-		} catch (Exception salbuespena) {
-			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
-		}
-	}
-
 	public void konexioaItxi() {
 		if (this.konexioa != null)
 			try {
@@ -73,21 +80,14 @@ public final class DBKS {
 			}
 	}
 
-	private void datubaseaKonprobatu() {
-		Statement st;
+	public ResultSet queryExekutatu(String agindua) {
+		ResultSet emaitza = null;
 		try {
-			st = konexioa.createStatement();
-			st.executeQuery("SELECT id, edukia, data, mota FROM TXIOA");
-			st.executeQuery("SELECT id, izena, mota, nick, idErabiltzailea FROM BESTEERABILTZAILEAK");
-			st.executeQuery("SELECT erabId, zerrenId, erabNick, zerrendaIzena, erabIzena FROM DITU");
-			st.executeQuery("SELECT id, nick, izena, token, tokenSecret FROM ERABILTZAILEA");
-			st.executeQuery("SELECT txioId, erabId, data, edukia FROM AIPAMENAK");
-			st.executeQuery("SELECT id, izena, deskribapena FROM ZERRENDA");
-			st.executeQuery("SELECT id, data, edukia, bidaltzaileIzena, hartzaileIzena FROM MEZUA");
-			st.executeQuery("SELECT mota, kurtsoreBalioa FROM PAGING");
-			st.close();
-		} catch (SQLException e) {
-			throw new WinterTwitterSalbuespena("Datu basea ez da baliozkoa!");
+			Statement st = this.konexioa.createStatement();
+			emaitza = st.executeQuery(agindua);
+		} catch (Exception salbuespena) {
+			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
+		return emaitza;
 	}
 }

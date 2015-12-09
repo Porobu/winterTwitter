@@ -24,48 +24,6 @@ public class Excel {
 
 	}
 
-	public boolean idatzi(String path, int urtea) {
-		if (urtea == 2003)
-			wb = new HSSFWorkbook();
-		else
-			wb = new XSSFWorkbook();
-		try {
-			this.txioakOrriaEgin();
-			this.bertxioakOrriaEgin();
-			this.gustokoakOrriaEgin();
-			this.jarraituakOrriaEgin();
-			this.jarraitzaileakOrriaEgin();
-			this.zerrendakOrriaEgin();
-			this.mezuakOrriaEgin();
-			FileOutputStream fileOut = new FileOutputStream(path);
-			wb.write(fileOut);
-			fileOut.flush();
-			fileOut.close();
-			wb.close();
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
-	}
-
-	private void txioakOrriaEgin() throws SQLException {
-		txioak = wb.createSheet("Txioak");
-		txioak.setSelected(true);
-		Row row = txioak.createRow(0);
-		row.createCell(0).setCellValue("ID");
-		row.createCell(1).setCellValue("Edukia");
-		row.createCell(2).setCellValue("Data");
-		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, edukia, data FROM TXIOA WHERE MOTA = 'txioa'");
-		int i = 1;
-		while (nireRS.next()) {
-			row = txioak.createRow(i);
-			for (int j = 0; j < 3; j++) {
-				row.createCell(j).setCellValue(nireRS.getString(j + 1));
-			}
-			i++;
-		}
-	}
-
 	private void bertxioakOrriaEgin() throws SQLException {
 		bertxioak = wb.createSheet("Bertxioak");
 		bertxioak.setSelected(true);
@@ -101,6 +59,30 @@ public class Excel {
 			}
 			i++;
 		}
+	}
+
+	public boolean idatzi(String path, int urtea) {
+		if (urtea == 2003)
+			wb = new HSSFWorkbook();
+		else
+			wb = new XSSFWorkbook();
+		try {
+			this.txioakOrriaEgin();
+			this.bertxioakOrriaEgin();
+			this.gustokoakOrriaEgin();
+			this.jarraituakOrriaEgin();
+			this.jarraitzaileakOrriaEgin();
+			this.zerrendakOrriaEgin();
+			this.mezuakOrriaEgin();
+			FileOutputStream fileOut = new FileOutputStream(path);
+			wb.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+			wb.close();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	private void jarraituakOrriaEgin() throws SQLException {
@@ -144,23 +126,6 @@ public class Excel {
 		}
 	}
 
-	private void zerrendakOrriaEgin() throws SQLException {
-		zerrendak = wb.createSheet("Zerrendak");
-		zerrendak.setSelected(true);
-		Row row = zerrendak.createRow(0);
-		row.createCell(0).setCellValue("ID");
-		row.createCell(1).setCellValue("Izena");
-		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, izena FROM ZERRENDA");
-		int i = 1;
-		while (nireRS.next()) {
-			row = zerrendak.createRow(i);
-			for (int j = 0; j < 2; j++) {
-				row.createCell(j).setCellValue(nireRS.getString(j + 1));
-			}
-			i++;
-		}
-	}
-
 	private void mezuakOrriaEgin() throws SQLException {
 		mezuak = wb.createSheet("Mezuak");
 		mezuak.setSelected(true);
@@ -175,6 +140,41 @@ public class Excel {
 		while (nireRS.next()) {
 			row = mezuak.createRow(i);
 			for (int j = 0; j < 5; j++) {
+				row.createCell(j).setCellValue(nireRS.getString(j + 1));
+			}
+			i++;
+		}
+	}
+
+	private void txioakOrriaEgin() throws SQLException {
+		txioak = wb.createSheet("Txioak");
+		txioak.setSelected(true);
+		Row row = txioak.createRow(0);
+		row.createCell(0).setCellValue("ID");
+		row.createCell(1).setCellValue("Edukia");
+		row.createCell(2).setCellValue("Data");
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, edukia, data FROM TXIOA WHERE MOTA = 'txioa'");
+		int i = 1;
+		while (nireRS.next()) {
+			row = txioak.createRow(i);
+			for (int j = 0; j < 3; j++) {
+				row.createCell(j).setCellValue(nireRS.getString(j + 1));
+			}
+			i++;
+		}
+	}
+
+	private void zerrendakOrriaEgin() throws SQLException {
+		zerrendak = wb.createSheet("Zerrendak");
+		zerrendak.setSelected(true);
+		Row row = zerrendak.createRow(0);
+		row.createCell(0).setCellValue("ID");
+		row.createCell(1).setCellValue("Izena");
+		ResultSet nireRS = DBKS.getDBKS().queryExekutatu("SELECT id, izena FROM ZERRENDA");
+		int i = 1;
+		while (nireRS.next()) {
+			row = zerrendak.createRow(i);
+			for (int j = 0; j < 2; j++) {
 				row.createCell(j).setCellValue(nireRS.getString(j + 1));
 			}
 			i++;

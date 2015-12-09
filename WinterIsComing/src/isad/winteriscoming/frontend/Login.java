@@ -19,13 +19,17 @@ import isad.winteriscoming.externals.SpringUtilities;
 public class Login extends JPanel implements KeyListener {
 
 	private static final long serialVersionUID = -5514346274613273871L;
+	private static Login gureLogin;
+	public static Login getLogin() {
+		return Login.gureLogin;
+	}
 	private JLabel pin;
 	private JTextField pinField;
 	private JPanel gurePanela;
 	private JButton ok;
 	private JCheckBox gorde;
-	private static Login gureLogin;
 	private boolean tokenakGorde;
+
 	private String pinString;
 
 	public Login() {
@@ -55,12 +59,8 @@ public class Login extends JPanel implements KeyListener {
 		Login.gureLogin = this;
 	}
 
-	public static Login getLogin() {
-		return Login.gureLogin;
-	}
-
-	public String getPIN() {
-		return this.pinString;
+	private void aldatu() {
+		tokenakGorde = this.gorde.isSelected();
 	}
 
 	private void datuakGorde() {
@@ -69,8 +69,12 @@ public class Login extends JPanel implements KeyListener {
 		Konexioa.getKonexioa().tokenaLortu();
 	}
 
-	private void aldatu() {
-		tokenakGorde = this.gorde.isSelected();
+	public boolean getGordetzeko() {
+		return tokenakGorde;
+	}
+
+	public String getPIN() {
+		return this.pinString;
 	}
 
 	@Override
@@ -87,9 +91,5 @@ public class Login extends JPanel implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 
-	}
-
-	public boolean getGordetzeko() {
-		return tokenakGorde;
 	}
 }

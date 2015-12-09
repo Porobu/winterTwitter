@@ -16,31 +16,6 @@ public class AukerakUI {
 		nireFOUI = new FitxategiOperazioakUI();
 	}
 
-	public String hasi() {
-		path = DBKS.getDBKS().getDefaultPath();
-		if (path == null)
-			hasiEzDefektuzkoDB();
-		else
-			hasiDefektuzkoDB();
-		return path;
-	}
-
-	private void hasiEzDefektuzkoDB() {
-		String[] aukerak = { "Ireki", "Berria Sortu" };
-		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
-				"Datu Basea beste leku batetik ireki edo berria sortu nahi duzu?\nAplikazioa erabili duzun lehenengo aldia bada, berria sortu sakatu.",
-				Nagusia.IZENBURUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[1]);
-		this.aukeratu();
-	}
-
-	private void hasiDefektuzkoDB() {
-		String[] aukerak = { "Beste Bat Erabili", "Berri bat sortu", "Defektuzkoa Kargatu" };
-		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
-				"Defektuzko datu basea " + path + " karpetan aurkitu da.", Nagusia.IZENBURUA,
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[2]);
-		this.aukeratu();
-	}
-
 	private void aukeratu() {
 		String luzea = "Gogoratu datu basea zure karpeta pertsonalean badago eta\nWinterTwitter izena badu, automatikoki kargatuko da.";
 		switch (aukera) {
@@ -59,5 +34,30 @@ public class AukerakUI {
 			System.exit(0);
 			break;
 		}
+	}
+
+	public String hasi() {
+		path = DBKS.getDBKS().getDefaultPath();
+		if (path == null)
+			hasiEzDefektuzkoDB();
+		else
+			hasiDefektuzkoDB();
+		return path;
+	}
+
+	private void hasiDefektuzkoDB() {
+		String[] aukerak = { "Beste Bat Erabili", "Berri bat sortu", "Defektuzkoa Kargatu" };
+		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
+				"Defektuzko datu basea " + path + " karpetan aurkitu da.", Nagusia.IZENBURUA,
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[2]);
+		this.aukeratu();
+	}
+
+	private void hasiEzDefektuzkoDB() {
+		String[] aukerak = { "Ireki", "Berria Sortu" };
+		aukera = JOptionPane.showOptionDialog(WinterTwitter.getOraingoWT(),
+				"Datu Basea beste leku batetik ireki edo berria sortu nahi duzu?\nAplikazioa erabili duzun lehenengo aldia bada, berria sortu sakatu.",
+				Nagusia.IZENBURUA, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerak, aukerak[1]);
+		this.aukeratu();
 	}
 }

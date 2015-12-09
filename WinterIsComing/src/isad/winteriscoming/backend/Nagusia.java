@@ -27,6 +27,10 @@ public class Nagusia {
 	private static String path;
 	private static WinterTwitter wtFrame;
 
+	public static String getPath() {
+		return path;
+	}
+
 	public static void main(String[] args) {
 		if (!System.getProperty("os.name").toLowerCase().contains("mac os x")) {
 			try {
@@ -46,9 +50,5 @@ public class Nagusia {
 		path = nireAUI.hasi();
 		DBKS.getDBKS().konektatu(path);
 		wtFrame.dekoratu();
-	}
-
-	public static String getPath() {
-		return path;
 	}
 }
