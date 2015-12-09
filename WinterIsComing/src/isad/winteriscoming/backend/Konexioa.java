@@ -23,16 +23,12 @@ import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class Konexioa {
-	private static Konexioa gureKonexioa;
-	public static Konexioa getKonexioa() {
-		return gureKonexioa != null ? gureKonexioa : (gureKonexioa = new Konexioa());
-	}
 	private Login gureLogin;
 	private AccessToken accessToken;
 	private Twitter twitter;
 	private RequestToken requestToken;
-
 	private boolean konektatuta;
+	private static Konexioa gureKonexioa;
 
 	private Konexioa() {
 		konektatuta = false;
@@ -47,58 +43,12 @@ public class Konexioa {
 		requestToken = null;
 	}
 
-	public void deskonektatu() {
-		gureKonexioa = new Konexioa();
-		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Twitteretik deskonektatu zara.", Nagusia.IZENBURUA,
-				JOptionPane.INFORMATION_MESSAGE);
-		Menua.botoiakHasieranEtaDeskonektatzean();
-	}
-
-	public Twitter getTwitter() {
-		return twitter;
-	}
-
 	public boolean isKonektatuta() {
 		return konektatuta;
 	}
 
-	private void konexioaMezua() {
-		User user = null;
-		try {
-			user = twitter.verifyCredentials();
-		} catch (TwitterException e) {
-		}
-		String izena = user.getName();
-		String nick = user.getScreenName();
-		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
-				"Twitterera konektatu zara " + izena + " (" + nick + ") kontuarekin", Nagusia.IZENBURUA,
-				JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	private void kredentzialakGorde(String token, String tokenSecret) {
-		User us = null;
-		try {
-			us = twitter.verifyCredentials();
-		} catch (TwitterException e) {
-		}
-		DBKS.getDBKS()
-				.aginduaExekutatu("INSERT OR REPLACE INTO ERABILTZAILEA(id,nick,izena,token,tokenSecret) VALUES('"
-						+ us.getId() + "','" + us.getScreenName() + "','" + us.getName() + "','" + token + "','"
-						+ tokenSecret + "')");
-	}
-
-	private AccessToken kredentzialakKargatu() {
-		String token = null;
-		String tokenSecret = null;
-		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT token, tokenSecret FROM ERABILTZAILEA");
-		try {
-			rs.next();
-			token = rs.getString(1);
-			tokenSecret = rs.getString(2);
-		} catch (SQLException e) {
-			return null;
-		}
-		return new AccessToken(token, tokenSecret);
+	public static Konexioa getKonexioa() {
+		return gureKonexioa != null ? gureKonexioa : (gureKonexioa = new Konexioa());
 	}
 
 	public void logeatu() {
@@ -118,6 +68,38 @@ public class Konexioa {
 		}
 		gureLogin = new Login();
 		WinterTwitter.getOraingoWT().getPanela().panelaAldatu(gureLogin);
+	}
+
+	private AccessToken kredentzialakKargatu() {
+		String token = null;
+		String tokenSecret = null;
+		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT token, tokenSecret FROM ERABILTZAILEA");
+		try {
+			rs.next();
+			token = rs.getString(1);
+			tokenSecret = rs.getString(2);
+		} catch (SQLException e) {
+			return null;
+		}
+		return new AccessToken(token, tokenSecret);
+	}
+
+	private void kredentzialakGorde(String token, String tokenSecret) {
+		User us = null;
+		try {
+			us = twitter.verifyCredentials();
+		} catch (TwitterException e) {
+		}
+		DBKS.getDBKS()
+				.aginduaExekutatu("INSERT OR REPLACE INTO ERABILTZAILEA(id,nick,izena,token,tokenSecret) VALUES('"
+						+ us.getId() + "','" + us.getScreenName() + "','" + us.getName() + "','" + token + "','"
+						+ tokenSecret + "')");
+	}
+
+	public void tokenarekinKonektatu() {
+		twitter.setOAuthAccessToken(this.kredentzialakKargatu());
+		this.konexioaMezua();
+		Menua.botoiakKonektatzean();
 	}
 
 	public void tokenaLortu() {
@@ -144,9 +126,27 @@ public class Konexioa {
 		Menua.botoiakKonektatzean();
 	}
 
-	public void tokenarekinKonektatu() {
-		twitter.setOAuthAccessToken(this.kredentzialakKargatu());
-		this.konexioaMezua();
-		Menua.botoiakKonektatzean();
+	public void deskonektatu() {
+		gureKonexioa = new Konexioa();
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Twitteretik deskonektatu zara.", Nagusia.IZENBURUA,
+				JOptionPane.INFORMATION_MESSAGE);
+		Menua.botoiakHasieranEtaDeskonektatzean();
+	}
+
+	public Twitter getTwitter() {
+		return twitter;
+	}
+
+	private void konexioaMezua() {
+		User user = null;
+		try {
+			user = twitter.verifyCredentials();
+		} catch (TwitterException e) {
+		}
+		String izena = user.getName();
+		String nick = user.getScreenName();
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
+				"Twitterera konektatu zara " + izena + " (" + nick + ") kontuarekin", Nagusia.IZENBURUA,
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 }

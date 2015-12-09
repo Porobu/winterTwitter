@@ -7,9 +7,9 @@ import javax.swing.table.AbstractTableModel;
 import isad.winteriscoming.backend.OperazioakOffline;
 
 public class TaulaModeloa extends AbstractTableModel {
-	private static final long serialVersionUID = 5416722887047816684L;
 	private String[] izenak;
 	private ArrayList<String[]> datuak;
+	private static final long serialVersionUID = 5416722887047816684L;
 
 	public TaulaModeloa(String mota) {
 		mota = mota.toLowerCase();
@@ -27,18 +27,13 @@ public class TaulaModeloa extends AbstractTableModel {
 	}
 
 	@Override
-	public Class<? extends Object> getColumnClass(int c) {
-		return String.class;
+	public String getColumnName(int i) {
+		return izenak[i];
 	}
 
 	@Override
 	public int getColumnCount() {
 		return izenak.length;
-	}
-
-	@Override
-	public String getColumnName(int i) {
-		return izenak[i];
 	}
 
 	@Override
@@ -49,6 +44,11 @@ public class TaulaModeloa extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		return datuak.get(row)[col];
+	}
+
+	@Override
+	public Class<? extends Object> getColumnClass(int c) {
+		return String.class;
 	}
 
 	@Override

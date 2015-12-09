@@ -14,14 +14,20 @@ import isad.winteriscoming.backend.Nagusia;
 public class WinterTwitter extends JFrame {
 	private static final long serialVersionUID = -2685559474031286026L;
 	private static WinterTwitter nireWT;
-	public static WinterTwitter getOraingoWT() {
-		return nireWT == null ? (nireWT = new WinterTwitter()) : nireWT;
-	}
 	private WinterTwitterPanel nagusia;
-
 	private JMenuBar menua;
 
 	public WinterTwitter() {
+		nireWT = this;
+	}
+
+	public void dekoratuGabeHasieratu() {
+		this.ikonoaJarri();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle(Nagusia.IZENBURUA);
+		this.setLocationRelativeTo(null);
+		this.setUndecorated(true);
+		this.setVisible(true);
 		nireWT = this;
 	}
 
@@ -39,20 +45,6 @@ public class WinterTwitter extends JFrame {
 		nireWT = this;
 	}
 
-	public void dekoratuGabeHasieratu() {
-		this.ikonoaJarri();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle(Nagusia.IZENBURUA);
-		this.setLocationRelativeTo(null);
-		this.setUndecorated(true);
-		this.setVisible(true);
-		nireWT = this;
-	}
-
-	public WinterTwitterPanel getPanela() {
-		return nagusia;
-	}
-
 	private void ikonoaJarri() {
 		InputStream stream = WinterTwitter.class.getResourceAsStream("/isad/winteriscoming/logoa.png");
 		BufferedImage logoa;
@@ -61,5 +53,13 @@ public class WinterTwitter extends JFrame {
 			this.setIconImage(logoa);
 		} catch (IOException e) {
 		}
+	}
+
+	public static WinterTwitter getOraingoWT() {
+		return nireWT == null ? (nireWT = new WinterTwitter()) : nireWT;
+	}
+
+	public WinterTwitterPanel getPanela() {
+		return nagusia;
 	}
 }

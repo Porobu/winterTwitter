@@ -16,6 +16,7 @@ import isad.winteriscoming.backend.OperazioakOnline;
 public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
+	private JMenu konexioa, jaitsi, bistaratu, esportatu, segurtasunKopia, laguntza;
 	private static JMenuItem konektatu;
 	private static JMenuItem deskonektatu;
 	private static JMenuItem konektatuTokenekin;
@@ -26,32 +27,6 @@ public class Menua extends JMenuBar {
 	private static JMenuItem jarraitzaileak;
 	private static JMenuItem zerrendak;
 	private static JMenuItem mezuak;
-	public static void botoiakHasieranEtaDeskonektatzean() {
-		konektatu.setEnabled(true);
-		OperazioakOffline off = new OperazioakOffline();
-		konektatuTokenekin.setEnabled(off.konprobatuTokenakDauden());
-		deskonektatu.setEnabled(false);
-		txioak.setEnabled(false);
-		gustokoak.setEnabled(false);
-		aipamenak.setEnabled(false);
-		jarraituak.setEnabled(false);
-		jarraitzaileak.setEnabled(false);
-		zerrendak.setEnabled(false);
-		mezuak.setEnabled(false);
-	}
-	public static void botoiakKonektatzean() {
-		konektatu.setEnabled(false);
-		konektatuTokenekin.setEnabled(false);
-		deskonektatu.setEnabled(true);
-		txioak.setEnabled(true);
-		gustokoak.setEnabled(true);
-		aipamenak.setEnabled(true);
-		jarraituak.setEnabled(true);
-		jarraitzaileak.setEnabled(true);
-		zerrendak.setEnabled(true);
-		mezuak.setEnabled(true);
-	}
-	private JMenu konexioa, jaitsi, bistaratu, esportatu, segurtasunKopia, laguntza;
 	private JMenuItem txioakBilatu;
 	private JMenuItem bertxioakBilatu;
 	private JMenuItem gustukoakBilatu;
@@ -64,9 +39,7 @@ public class Menua extends JMenuBar {
 	private JMenuItem excel2003;
 	private JMenuItem kopiaEgin;
 	private JMenuItem laguntzaAukera;
-
 	private JMenuItem webOrria;
-
 	private JMenuItem wtBuruz;
 
 	public Menua() {
@@ -81,9 +54,73 @@ public class Menua extends JMenuBar {
 		}
 	}
 
-	private void bistaratu(String mota) {
-		TaulaPanela panela = new TaulaPanela(mota);
-		WinterTwitter.getOraingoWT().getPanela().panelaAldatu(panela);
+	private void konexioaMenua() {
+		konexioa = new JMenu("Konexioa");
+		konektatu = new JMenuItem("Konektatu");
+		deskonektatu = new JMenuItem("Deskonektatu");
+		konektatuTokenekin = new JMenuItem("Konektatu Tokenekin");
+		konektatuTokenekin.addActionListener(gureAE -> Konexioa.getKonexioa().tokenarekinKonektatu());
+		konexioa.add(konektatuTokenekin);
+		konektatu.addActionListener(gureAE -> Konexioa.getKonexioa().logeatu());
+		deskonektatu.addActionListener(gureAE -> Konexioa.getKonexioa().deskonektatu());
+		konexioa.add(konektatu);
+		konexioa.add(deskonektatu);
+		this.add(konexioa);
+		Menua.botoiakHasieranEtaDeskonektatzean();
+	}
+
+	public static void botoiakHasieranEtaDeskonektatzean() {
+		konektatu.setEnabled(true);
+		OperazioakOffline off = new OperazioakOffline();
+		konektatuTokenekin.setEnabled(off.konprobatuTokenakDauden());
+		deskonektatu.setEnabled(false);
+		txioak.setEnabled(false);
+		gustokoak.setEnabled(false);
+		aipamenak.setEnabled(false);
+		jarraituak.setEnabled(false);
+		jarraitzaileak.setEnabled(false);
+		zerrendak.setEnabled(false);
+		mezuak.setEnabled(false);
+	}
+
+	public static void botoiakKonektatzean() {
+		konektatu.setEnabled(false);
+		konektatuTokenekin.setEnabled(false);
+		deskonektatu.setEnabled(true);
+		txioak.setEnabled(true);
+		gustokoak.setEnabled(true);
+		aipamenak.setEnabled(true);
+		jarraituak.setEnabled(true);
+		jarraitzaileak.setEnabled(true);
+		zerrendak.setEnabled(true);
+		mezuak.setEnabled(true);
+	}
+
+	private void jaitsiMenua() {
+		this.jaitsi = new JMenu("Jaitsi");
+		txioak = new JMenuItem("Txioak");
+		gustokoak = new JMenuItem("Gustokoak");
+		aipamenak = new JMenuItem("Aipamenak");
+		jarraituak = new JMenuItem("Jarraituak");
+		jarraitzaileak = new JMenuItem("Jarraitzaileak");
+		zerrendak = new JMenuItem("Zerrendak");
+		mezuak = new JMenuItem("Mezuak");
+		this.jaitsi.add(this.jaitsi);
+		jaitsi.add(txioak);
+		txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().txioakJaitsi());
+		jaitsi.add(gustokoak);
+		gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
+		jaitsi.add(jarraituak);
+		aipamenak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().aipamenakJaitsi());
+		jaitsi.add(aipamenak);
+		jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakJaitsi());
+		jaitsi.add(jarraitzaileak);
+		jarraitzaileak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraitzaileakJaitsi());
+		jaitsi.add(zerrendak);
+		zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakJaitsi());
+		jaitsi.add(mezuak);
+		mezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().mezuakJaitsi());
+		this.add(this.jaitsi);
 	}
 
 	private void bistaratuMenua() {
@@ -115,6 +152,11 @@ public class Menua extends JMenuBar {
 		this.add(this.bistaratu);
 	}
 
+	private void bistaratu(String mota) {
+		TaulaPanela panela = new TaulaPanela(mota);
+		WinterTwitter.getOraingoWT().getPanela().panelaAldatu(panela);
+	}
+
 	private void esportatuMenua() {
 		this.esportatu = new JMenu("Esportatu");
 		this.excel2007 = new JMenuItem("Excel 2007");
@@ -127,46 +169,13 @@ public class Menua extends JMenuBar {
 		this.add(this.esportatu);
 	}
 
-	private void jaitsiMenua() {
-		this.jaitsi = new JMenu("Jaitsi");
-		txioak = new JMenuItem("Txioak");
-		gustokoak = new JMenuItem("Gustokoak");
-		aipamenak = new JMenuItem("Aipamenak");
-		jarraituak = new JMenuItem("Jarraituak");
-		jarraitzaileak = new JMenuItem("Jarraitzaileak");
-		zerrendak = new JMenuItem("Zerrendak");
-		mezuak = new JMenuItem("Mezuak");
-		this.jaitsi.add(this.jaitsi);
-		jaitsi.add(txioak);
-		txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().txioakJaitsi());
-		jaitsi.add(gustokoak);
-		gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
-		jaitsi.add(jarraituak);
-		aipamenak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().aipamenakJaitsi());
-		jaitsi.add(aipamenak);
-		jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakJaitsi());
-		jaitsi.add(jarraitzaileak);
-		jarraitzaileak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraitzaileakJaitsi());
-		jaitsi.add(zerrendak);
-		zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakJaitsi());
-		jaitsi.add(mezuak);
-		mezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().mezuakJaitsi());
-		this.add(this.jaitsi);
-	}
-
-	private void konexioaMenua() {
-		konexioa = new JMenu("Konexioa");
-		konektatu = new JMenuItem("Konektatu");
-		deskonektatu = new JMenuItem("Deskonektatu");
-		konektatuTokenekin = new JMenuItem("Konektatu Tokenekin");
-		konektatuTokenekin.addActionListener(gureAE -> Konexioa.getKonexioa().tokenarekinKonektatu());
-		konexioa.add(konektatuTokenekin);
-		konektatu.addActionListener(gureAE -> Konexioa.getKonexioa().logeatu());
-		deskonektatu.addActionListener(gureAE -> Konexioa.getKonexioa().deskonektatu());
-		konexioa.add(konektatu);
-		konexioa.add(deskonektatu);
-		this.add(konexioa);
-		Menua.botoiakHasieranEtaDeskonektatzean();
+	private void segurtasunKopiaMenua() {
+		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
+		this.kopiaEgin = new JMenuItem("Kopia Egin");
+		FitxategiOperazioakUI gureFOUI = new FitxategiOperazioakUI();
+		this.kopiaEgin.addActionListener(gureAE -> gureFOUI.kopiaEgin());
+		this.segurtasunKopia.add(this.kopiaEgin);
+		this.add(this.segurtasunKopia);
 	}
 
 	private void laguntzaMenua() throws IOException, URISyntaxException {
@@ -187,14 +196,5 @@ public class Menua extends JMenuBar {
 			Desktop.getDesktop().browse(new URI("https://github.com/UPV-EHU-Bilbao/winterTwitter"));
 		} catch (IOException | URISyntaxException e) {
 		}
-	}
-
-	private void segurtasunKopiaMenua() {
-		this.segurtasunKopia = new JMenu("Segurtasun Kopia");
-		this.kopiaEgin = new JMenuItem("Kopia Egin");
-		FitxategiOperazioakUI gureFOUI = new FitxategiOperazioakUI();
-		this.kopiaEgin.addActionListener(gureAE -> gureFOUI.kopiaEgin());
-		this.segurtasunKopia.add(this.kopiaEgin);
-		this.add(this.segurtasunKopia);
 	}
 }

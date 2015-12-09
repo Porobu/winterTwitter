@@ -19,6 +19,15 @@ public class OperazioakOffline {
 		return emaitza;
 	}
 
+	public boolean konprobatuTokenakDauden() {
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("SELECT token, tokenSecret FROM ERABILTZAILEA");
+		try {
+			return emaitza.next();
+		} catch (SQLException e) {
+		}
+		return false;
+	}
+
 	public ArrayList<String[]> datuakJaso(String mota) {
 		int kop = 0;
 		String agindua = "";
@@ -52,14 +61,5 @@ public class OperazioakOffline {
 		} catch (SQLException e) {
 		}
 		return emaitza;
-	}
-
-	public boolean konprobatuTokenakDauden() {
-		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("SELECT token, tokenSecret FROM ERABILTZAILEA");
-		try {
-			return emaitza.next();
-		} catch (SQLException e) {
-		}
-		return false;
 	}
 }

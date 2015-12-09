@@ -17,6 +17,16 @@ public class FitxategiOperazioak {
 
 	}
 
+	public void kopiatu(String path) {
+		File oraingoa = new File(Nagusia.getPath());
+		File berria = new File(path);
+		try {
+			Files.copy(oraingoa.toPath(), berria.toPath(), COPY_ATTRIBUTES);
+		} catch (IOException e) {
+			throw new WinterTwitterSalbuespena("Ezin da fitxategia kopiatu");
+		}
+	}
+
 	public String dbEsportatu(String resourceName, String path) {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;
@@ -45,15 +55,5 @@ public class FitxategiOperazioak {
 			}
 		}
 		return jarFolder + resourceName;
-	}
-
-	public void kopiatu(String path) {
-		File oraingoa = new File(Nagusia.getPath());
-		File berria = new File(path);
-		try {
-			Files.copy(oraingoa.toPath(), berria.toPath(), COPY_ATTRIBUTES);
-		} catch (IOException e) {
-			throw new WinterTwitterSalbuespena("Ezin da fitxategia kopiatu");
-		}
 	}
 }
