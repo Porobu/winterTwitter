@@ -27,11 +27,11 @@ public final class OperazioakOnline {
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
 	}
-	
-	//aipamenakSartu metodoa egiteke
-	//erabiltzaileakSartu metodoa egiteke (jarraitzaile & jarraituak)
-	//mezuakSartu metodoa egiteke
-	//zerrendaSartu metodoa egiteke
+
+	// aipamenakSartu metodoa egiteke
+	// erabiltzaileakSartu metodoa egiteke (jarraitzaile & jarraituak)
+	// mezuakSartu metodoa egiteke
+	// zerrendaSartu metodoa egiteke
 
 	public void txioakJaitsi() {
 		int orriZenb = 0;
@@ -108,7 +108,7 @@ public final class OperazioakOnline {
 				System.out.println("Failed to get timeline: " + te.getMessage());
 		}
 	}
-	
+
 	private void txioakDBsartu(List<Status> txioak, String mota) {
 		String benetakoData = "";
 		String bertxio = "bertxioa";
@@ -192,8 +192,8 @@ public final class OperazioakOnline {
 			User erabiltzailea = twitter.verifyCredentials();
 			long jarraituKopTwitter = erabiltzailea.getFriendsCount();
 			long jarraituKopDB = jarraituKopTwitter;
-			ResultSet jKDB = DBKS.getDBKS()
-					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitua'");
+			ResultSet jKDB = DBKS.getDBKS().queryExekutatu(
+					"SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitua'");
 			try {
 				if (jKDB.next()) {
 					jarraituKopDB = jKDB.getLong(1);
@@ -245,6 +245,28 @@ public final class OperazioakOnline {
 		}
 	}
 
+	/**
+	 * Erabiltzaileak adierazitako jarraitu edo jarraitzaileak datu basera sartuko dira.
+	 * 
+	 * @param mota
+	 */
+	public void jarraituJarraitzaileakDBSartu(PagableResponseList<User> jarraituJarraitzaileak, String mota) {
+		String agindua;
+		for (User jarraituJarraitzaile : jarraituJarraitzaileak) {
+			String id = String.valueOf(jarraituJarraitzaile.getId());
+			if (mota.equals("jarraitzailea")) {
+				agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"
+						+ "VALUES ('" + id + "', '" + replace(jarraituJarraitzaile.getName()) + "', '"+mota+"', '"
+						+ replace(jarraituJarraitzaile.getScreenName()) + "')";
+			} else {
+				agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"
+						+ "VALUES ('" + id + "', '" + replace(jarraituJarraitzaile.getName()) + "', '"+mota+"', '"
+						+ replace(jarraituJarraitzaile.getScreenName()) + "')";
+			}
+			DBKS.getDBKS().aginduaExekutatu(agindua);
+		}
+	}
+
 	public void jarraitzaileakJaitsi() {
 		long zenb = -1L;
 		int count = 20;
@@ -254,8 +276,8 @@ public final class OperazioakOnline {
 			User erabiltzailea = twitter.verifyCredentials();
 			long jarraitzaileKopTwitter = erabiltzailea.getFollowersCount();
 			long jarraitzaileKopDB = jarraitzaileKopTwitter;
-			ResultSet jKDB = DBKS.getDBKS()
-					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
+			ResultSet jKDB = DBKS.getDBKS().queryExekutatu(
+					"SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
 			try {
 				if (jKDB.next()) {
 					jarraitzaileKopDB = jKDB.getLong(1);
@@ -279,27 +301,32 @@ public final class OperazioakOnline {
 					hasierakoak = true;
 				}
 				do {
-					PagableResponseList<User> follower = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
+					PagableResponseList<User> followers = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
+					PagableResponseList<User> jarraitzaileak=followers;
 					if (hasierakoak)
 						count = count - 20;
-					for (User erab : follower) {
+					for (User erab : followers) {
+						jarraitzaileak.add(erab);
 						String id = String.valueOf(erab.getId());
 						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"
 								+ "VALUES ('" + id + "', '" + replace(erab.getName()) + "', 'jarraitzailea', '"
 								+ replace(erab.getScreenName()) + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
-					zenb = follower.getNextCursor();
+					zenb = followers.getNextCursor();
+					jarraituJarraitzaileakDBSartu(jarraitzaileak, "jarraitzailea");
 				} while (zenb > 0);
 				DBKS.getDBKS().aginduaExekutatu(
 						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitzailea')");
 			}
+			
 			JOptionPane.showMessageDialog(null, "Jarraitzaileak jaisten amaitu da.", "Winter Twitter",
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('"
-						+ zenb + "', 'jarraitzailea')");
+				DBKS.getDBKS().aginduaExekutatu(
+						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + zenb
+								+ "', 'jarraitzailea')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -330,9 +357,10 @@ public final class OperazioakOnline {
 					for (User zerrendaKidea : zerrendaKideak) {
 						agindua = "INSERT OR REPLACE INTO DITU(erabId, zerrenId, erabNick, zerrendaIzena, erabIzena)"
 								+ "VALUES ('" + String.valueOf(erabiltzailea.getId()) + "', '"
-								+ String.valueOf(zerrenda.getId()) + "','" + this.replace(zerrendaKidea.getScreenName())
-								+ "','" + this.replace(zerrenda.getName()) + "', '"
-								+ this.replace(zerrendaKidea.getName()) + "')";
+								+ String.valueOf(zerrenda.getId()) + "','"
+								+ this.replace(zerrendaKidea.getScreenName()) + "','"
+								+ this.replace(zerrenda.getName()) + "', '" + this.replace(zerrendaKidea.getName())
+								+ "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
@@ -341,8 +369,10 @@ public final class OperazioakOnline {
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('"
-						+ orria + "', 'zerrendak')");
+				DBKS.getDBKS()
+						.aginduaExekutatu(
+								"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + orria
+										+ "', 'zerrendak')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
@@ -373,7 +403,13 @@ public final class OperazioakOnline {
 						String benetakoData = itzuliBenetakoData(message.getCreatedAt());
 						String id = String.valueOf(message.getId());
 						String agindua = "INSERT OR REPLACE INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
-								+ "VALUES ('" + id + "', '" + benetakoData + "','" + message.getText() + "', '"
+								+ "VALUES ('"
+								+ id
+								+ "', '"
+								+ benetakoData
+								+ "','"
+								+ message.getText()
+								+ "', '"
 								+ message.getSenderScreenName() + "'," + " '" + message.getRecipientScreenName() + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
@@ -381,16 +417,24 @@ public final class OperazioakOnline {
 						String benetakoData = itzuliBenetakoData(sentMessage.getCreatedAt());
 						String id = String.valueOf(sentMessage.getId());
 						String agindua = "INSERT OR REPLACE INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
-								+ "VALUES ('" + id + "', '" + benetakoData + "','" + sentMessage.getText() + "', '"
-								+ sentMessage.getSenderScreenName() + "'," + " '" + sentMessage.getRecipientScreenName()
-								+ "')";
+								+ "VALUES ('"
+								+ id
+								+ "', '"
+								+ benetakoData
+								+ "','"
+								+ sentMessage.getText()
+								+ "', '"
+								+ sentMessage.getSenderScreenName()
+								+ "',"
+								+ " '"
+								+ sentMessage.getRecipientScreenName() + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					paging.setPage(++orria);
 				} while (messages.size() > 0 || sentMessages.size() > 0);
 			}
-			DBKS.getDBKS()
-					.aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'mezuak')");
+			DBKS.getDBKS().aginduaExekutatu(
+					"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'mezuak')");
 			JOptionPane.showMessageDialog(null, "Mezuak jaisten amaitu da.", "Winter Twitter",
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (TwitterException te) {
@@ -405,8 +449,8 @@ public final class OperazioakOnline {
 	}
 
 	public long hartuID(String taula, String mota, String ordena) {
-		ResultSet emaitza = DBKS.getDBKS()
-				.queryExekutatu("SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu(
+				"SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
 		try {
 			if (emaitza.next())
 				return emaitza.getLong(1);
@@ -484,9 +528,8 @@ public final class OperazioakOnline {
 	private void rateLimitMezua(int segunduak) {
 		int minutuak = segunduak / 60;
 		segunduak = segunduak % 60;
-		JOptionPane.showMessageDialog(
-				WinterTwitter.getOraingoWT(), "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak
-						+ " minutu eta " + segunduak + " segundu.",
-				"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
+				"Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak + " minutu eta " + segunduak
+						+ " segundu.", "Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
 	}
 }
