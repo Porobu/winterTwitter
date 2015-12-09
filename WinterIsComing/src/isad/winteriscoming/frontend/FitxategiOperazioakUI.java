@@ -18,7 +18,8 @@ public class FitxategiOperazioakUI {
 	}
 
 	public void kopiaEgin() {
-		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Hautatu non egin nahi duzun datu basearen kopia.\nTwitter-etik deskargatu duzun informazio guztia kopiatuko da.",
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
+				"Hautatu non egin nahi duzun datu basearen kopia.\nTwitter-etik deskargatu duzun informazio guztia kopiatuko da.",
 				Nagusia.IZENBURUA, JOptionPane.INFORMATION_MESSAGE);
 		String path = Nagusia.getPath();
 		JFileChooser gureFileChooser = new JFileChooser(new File(System.getProperty("user.home")));
@@ -45,7 +46,7 @@ public class FitxategiOperazioakUI {
 		nireFO.kopiatu(path);
 		JOptionPane.showMessageDialog(null, "Datu basearen kopia " + path + " karpetan gorde da.", Nagusia.IZENBURUA,
 				JOptionPane.INFORMATION_MESSAGE);
-		
+
 	}
 
 	public String datuBaseaGordetzekoPath() {

@@ -26,6 +26,7 @@ public class TaulaModeloa extends AbstractTableModel {
 		datuak = gureOO.datuakJaso(mota);
 	}
 
+	@Override
 	public String getColumnName(int i) {
 		return izenak[i];
 	}
@@ -45,10 +46,12 @@ public class TaulaModeloa extends AbstractTableModel {
 		return datuak.get(row)[col];
 	}
 
+	@Override
 	public Class<? extends Object> getColumnClass(int c) {
 		return String.class;
 	}
 
+	@Override
 	public boolean isCellEditable(int row, int col) {
 		return false;
 	}

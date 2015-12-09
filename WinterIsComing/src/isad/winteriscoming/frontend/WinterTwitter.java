@@ -39,7 +39,7 @@ public class WinterTwitter extends JFrame {
 		this.nagusia = new WinterTwitterPanel();
 		this.setJMenuBar(menua);
 		this.setContentPane(nagusia);
-		this.setMinimumSize(new Dimension(500, 300));
+		this.setMinimumSize(new Dimension(600, 300));
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		nireWT = this;

@@ -1,5 +1,10 @@
 package isad.winteriscoming.frontend;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -11,7 +16,7 @@ import isad.winteriscoming.backend.OperazioakOnline;
 public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
-	private JMenu konexioa, jaitsi, bistaratu, esportatu, segurtasunKopia;
+	private JMenu konexioa, jaitsi, bistaratu, esportatu, segurtasunKopia, laguntza;
 	private static JMenuItem konektatu;
 	private static JMenuItem deskonektatu;
 	private static JMenuItem konektatuTokenekin;
@@ -33,6 +38,9 @@ public class Menua extends JMenuBar {
 	private JMenuItem excel2007;
 	private JMenuItem excel2003;
 	private JMenuItem kopiaEgin;
+	private JMenuItem laguntzaAukera;
+	private JMenuItem webOrria;
+	private JMenuItem wtBuruz;
 
 	public Menua() {
 		this.jaitsiMenua();
@@ -40,6 +48,10 @@ public class Menua extends JMenuBar {
 		this.bistaratuMenua();
 		this.esportatuMenua();
 		this.segurtasunKopiaMenua();
+		try {
+			this.laguntzaMenua();
+		} catch (IOException | URISyntaxException e) {
+		}
 	}
 
 	private void konexioaMenua() {
@@ -166,4 +178,23 @@ public class Menua extends JMenuBar {
 		this.add(this.segurtasunKopia);
 	}
 
+	private void laguntzaMenua() throws IOException, URISyntaxException {
+		this.laguntza = new JMenu("Laguntza");
+		this.laguntzaAukera = new JMenuItem("Laguntza");
+		this.webOrria = new JMenuItem("WinterTwitter-en webgunea");
+		this.webOrria.addActionListener(gureAE -> this.nabigatzaileaIreki());
+		this.wtBuruz = new JMenuItem("WinterTwitter-eri buruz");
+		this.wtBuruz.addActionListener(gureAE -> WinterTwitter.getOraingoWT().getPanela().panelaAldatu(new WTBuruz()));
+		this.laguntza.add(laguntzaAukera);
+		this.laguntza.add(webOrria);
+		this.laguntza.add(wtBuruz);
+		this.add(laguntza);
+	}
+
+	private void nabigatzaileaIreki() {
+		try {
+			Desktop.getDesktop().browse(new URI("https://github.com/UPV-EHU-Bilbao/winterTwitter"));
+		} catch (IOException | URISyntaxException e) {
+		}
+	}
 }

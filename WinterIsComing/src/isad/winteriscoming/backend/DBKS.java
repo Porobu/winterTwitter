@@ -61,7 +61,7 @@ public final class DBKS {
 			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
 	}
-	
+
 	public void konexioaItxi() {
 		if (this.konexioa != null)
 			try {

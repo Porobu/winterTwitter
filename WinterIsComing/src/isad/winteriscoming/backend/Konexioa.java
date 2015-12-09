@@ -98,6 +98,7 @@ public class Konexioa {
 
 	public void tokenarekinKonektatu() {
 		twitter.setOAuthAccessToken(this.kredentzialakKargatu());
+		this.konexioaMezua();
 		Menua.botoiakKonektatzean();
 	}
 
@@ -121,17 +122,31 @@ public class Konexioa {
 		konektatuta = true;
 		if (Login.getLogin().getGordetzeko())
 			this.kredentzialakGorde(accessToken.getToken(), accessToken.getTokenSecret());
+		this.konexioaMezua();
 		Menua.botoiakKonektatzean();
 	}
 
 	public void deskonektatu() {
 		gureKonexioa = new Konexioa();
-		JOptionPane.showMessageDialog(null, "Twitteretik deskonektatu zara.", Nagusia.IZENBURUA,
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Twitteretik deskonektatu zara.", Nagusia.IZENBURUA,
 				JOptionPane.INFORMATION_MESSAGE);
 		Menua.botoiakHasieranEtaDeskonektatzean();
 	}
 
 	public Twitter getTwitter() {
 		return twitter;
+	}
+
+	private void konexioaMezua() {
+		User user = null;
+		try {
+			user = twitter.verifyCredentials();
+		} catch (TwitterException e) {
+		}
+		String izena = user.getName();
+		String nick = user.getScreenName();
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
+				"Twitterera konektatu zara " + izena + " (" + nick + ") kontuarekin", Nagusia.IZENBURUA,
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 }

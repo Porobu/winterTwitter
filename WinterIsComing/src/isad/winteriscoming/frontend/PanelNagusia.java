@@ -20,7 +20,7 @@ public class PanelNagusia extends JPanel {
 		String textua1 = "Ongi etorri WinterTwitter mundura.";
 		String textua2 = "Berria zara hemen beraz,";
 		String textua3 = "jarraitu gurekin bide honetan eta zure eskakizunak burutuko ditugu.";
-		Font f = new Font("Arial", Font.PLAIN, 20);
+		Font f = new Font("Arial", Font.PLAIN, 16);
 		JLabel ongiEtorri = new JLabel(textua1);
 		JLabel ongiEtorri2 = new JLabel(textua2);
 		JLabel ongiEtorri3 = new JLabel(textua3);
@@ -30,6 +30,7 @@ public class PanelNagusia extends JPanel {
 		this.add(ongiEtorri);
 		this.add(ongiEtorri2);
 		this.add(ongiEtorri3);
+		
 	}
 
 }

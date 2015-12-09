@@ -40,7 +40,7 @@ public class WinterTwitterPanel extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
-	
+
 	public void nagusiaIpini() {
 		this.remove(dagoena);
 		this.add(nagusia, BorderLayout.CENTER);
