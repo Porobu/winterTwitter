@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableRowSorter;
 
 public class TaulaPanela extends JPanel {
 
@@ -15,6 +16,7 @@ public class TaulaPanela extends JPanel {
 		this.setOpaque(true);
 		TaulaModeloa gureModeloa = new TaulaModeloa(mota);
 		JTable gureTaula = new JTable(gureModeloa);
+		gureTaula.setRowSorter(new TableRowSorter<>(gureModeloa));
 		JScrollPane gureJScrollPane = new JScrollPane(gureTaula);
 		this.add(gureJScrollPane);
 	}
