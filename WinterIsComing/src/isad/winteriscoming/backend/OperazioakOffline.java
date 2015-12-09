@@ -10,13 +10,26 @@ public class OperazioakOffline {
 	public List<String> bilatuTxioetan(String st) {
 		List<String> emaitza = new ArrayList<>();
 		ResultSet rs = DBKS.getDBKS()
-				.queryExekutatu("SELECT EDUKIA, DATA FROM TXIOA WHERE EDUKIA LIKE " + st + " AND MOTA = TXIOA");
+				.queryExekutatu("SELECT edukia, data FROM TXIOA WHERE edukia LIKE " + st + " AND MOTA = TXIOA");
 		try {
 			rs.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return emaitza;
+	}
+
+	public List<String> txioakBistaratu() {
+		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT edukia, data FROM TXIOA WHERE mota = 'txioa'");
+		List<String> lista = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				lista.add(rs.getString(1));
+				lista.add(rs.getString(2));
+			}
+		} catch (SQLException e) {
+		}
+		return lista;
 	}
 
 	public boolean konprobatuTokenakDauden() {

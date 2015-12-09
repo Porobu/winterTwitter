@@ -9,22 +9,17 @@ import javax.swing.JPanel;
 import isad.winteriscoming.backend.Nagusia;
 
 public class WinterTwitterPanel extends JPanel {
+	private static final long serialVersionUID = -3288838876090363252L;
 	private JPanel barra;
-	private JPanel txioak;
-	private static final long serialVersionUID = 6077749617280710593L;
+	private PanelNagusia nagusia;
 
 	public WinterTwitterPanel() {
+		nagusia = new PanelNagusia();
 		this.setOpaque(true);
 		this.setLayout(new BorderLayout());
-		this.panelNagusiaEraiki();
 		this.barraEraiki();
 		this.add(barra, BorderLayout.LINE_START);
-		this.add(txioak, BorderLayout.CENTER);
-	}
-
-	private void panelNagusiaEraiki() {
-		txioak = new JPanel();
-		
+		this.add(nagusia, BorderLayout.CENTER);
 	}
 
 	private void barraEraiki() {
@@ -33,5 +28,12 @@ public class WinterTwitterPanel extends JPanel {
 		barra.setOpaque(true);
 		barra.add(new JLabel(Nagusia.IZENBURUA), BorderLayout.PAGE_START);
 		barra.setBackground(new Color(94, 169, 221));
+	}
+
+	public void nagusiaAldatu(JPanel berria) {
+		this.remove(nagusia);
+		this.add(berria, BorderLayout.CENTER);
+		this.revalidate();
+		this.repaint();
 	}
 }
