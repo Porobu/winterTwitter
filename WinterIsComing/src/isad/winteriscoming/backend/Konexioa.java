@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import isad.winteriscoming.frontend.Login;
 import isad.winteriscoming.frontend.Menua;
+import isad.winteriscoming.frontend.WinterTwitter;
 import isad.winteriscoming.salbuespenak.WinterTwitterSalbuespena;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -66,6 +67,7 @@ public class Konexioa {
 			throw new WinterTwitterSalbuespena("Ezin da web gunea ireki");
 		}
 		gureLogin = new Login();
+		WinterTwitter.getOraingoWT().getPanela().nagusiaAldatu(gureLogin);
 	}
 
 	private AccessToken kredentzialakKargatu() {
@@ -101,6 +103,7 @@ public class Konexioa {
 
 	public void tokenaLortu() {
 		String pin = gureLogin.getPIN();
+		WinterTwitter.getOraingoWT().getPanela().nagusiaIpini();
 		try {
 			if (pin.length() > 0) {
 				accessToken = twitter.getOAuthAccessToken(requestToken, pin);

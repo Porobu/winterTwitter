@@ -7,18 +7,16 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 
 import isad.winteriscoming.backend.Konexioa;
 import isad.winteriscoming.externals.SpringUtilities;
 
-public class Login extends JFrame implements KeyListener {
+public class Login extends JPanel implements KeyListener {
 
 	private static final long serialVersionUID = -5514346274613273871L;
 	private JLabel pin;
@@ -32,10 +30,8 @@ public class Login extends JFrame implements KeyListener {
 
 	public Login() {
 		tokenakGorde = true;
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.gurePanela = new JPanel(new SpringLayout());
-		this.setTitle("Login");
 		pinString = "PIN: ";
 		this.pin = new JLabel(pinString, SwingConstants.TRAILING);
 		this.gurePanela.add(pin);
@@ -54,9 +50,8 @@ public class Login extends JFrame implements KeyListener {
 		this.pinField.addKeyListener(this);
 		this.add(this.ok, BorderLayout.SOUTH);
 		this.setMinimumSize(new Dimension(210, 110));
-		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		this.setResizable(false);
+		this.setOpaque(true);
 		Login.gureLogin = this;
 	}
 
@@ -76,13 +71,6 @@ public class Login extends JFrame implements KeyListener {
 
 	private void aldatu() {
 		tokenakGorde = this.gorde.isSelected();
-	}
-
-	public void denboraBistaratu(int min, int seg) {
-		JLabel denbora = new JLabel();
-		denbora.setText("Twitter-eko web orrialdera egin daitekeen dei kopurua gainditu da, saiatu zaitzez berriro "
-				+ min + " minutu eta " + seg + " segundutan.");
-		denbora.setVisible(true);
 	}
 
 	@Override

@@ -12,6 +12,7 @@ public class WinterTwitterPanel extends JPanel {
 	private static final long serialVersionUID = -3288838876090363252L;
 	private JPanel barra;
 	private PanelNagusia nagusia;
+	private JPanel dagoena;
 
 	public WinterTwitterPanel() {
 		nagusia = new PanelNagusia();
@@ -31,8 +32,16 @@ public class WinterTwitterPanel extends JPanel {
 	}
 
 	public void nagusiaAldatu(JPanel berria) {
+		dagoena = berria;
 		this.remove(nagusia);
 		this.add(berria, BorderLayout.CENTER);
+		this.revalidate();
+		this.repaint();
+	}
+
+	public void nagusiaIpini() {
+		this.remove(dagoena);
+		this.add(nagusia, BorderLayout.CENTER);
 		this.revalidate();
 		this.repaint();
 	}

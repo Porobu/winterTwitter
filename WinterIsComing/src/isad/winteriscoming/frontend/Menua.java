@@ -33,7 +33,6 @@ public class Menua extends JMenuBar {
 	private JMenuItem kopiaEgin;
 
 	public Menua() {
-
 		this.jaitsiMenua();
 		this.konexioaMenua();
 		this.bilatuMenua();

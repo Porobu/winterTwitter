@@ -24,7 +24,6 @@ public class TaulaModeloa extends AbstractTableModel {
 		} else {
 			izenak = new String[] { "Data", "Edukia", "Bidaltzaile Izena", "Hartzaile Izena" };
 		}
-
 	}
 
 	public String getColumnName(int i) {

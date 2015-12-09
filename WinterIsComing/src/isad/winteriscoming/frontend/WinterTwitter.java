@@ -8,7 +8,6 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
 
 import isad.winteriscoming.backend.Nagusia;
 
