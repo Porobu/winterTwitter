@@ -15,7 +15,7 @@ import isad.winteriscoming.backend.Nagusia;
 public class WinterTwitter extends JFrame {
 	private static final long serialVersionUID = -2685559474031286026L;
 	private static WinterTwitter nireWT;
-	private JPanel nagusia;
+	private WinterTwitterPanel nagusia;
 	private JMenuBar menua;
 
 	public WinterTwitter() {
@@ -58,5 +58,9 @@ public class WinterTwitter extends JFrame {
 
 	public static WinterTwitter getOraingoWT() {
 		return nireWT == null ? (nireWT = new WinterTwitter()) : nireWT;
+	}
+
+	public WinterTwitterPanel getPanela() {
+		return nagusia;
 	}
 }

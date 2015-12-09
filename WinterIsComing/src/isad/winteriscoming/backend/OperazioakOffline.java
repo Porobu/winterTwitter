@@ -19,13 +19,12 @@ public class OperazioakOffline {
 		return emaitza;
 	}
 
-	public List<String> txioakBistaratu() {
+	public ArrayList<String[]> txioakBistaratu() {
 		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT edukia, data FROM TXIOA WHERE mota = 'txioa'");
-		List<String> lista = new ArrayList<>();
+		ArrayList<String[]> lista = new ArrayList<>();
 		try {
 			while (rs.next()) {
-				lista.add(rs.getString(1));
-				lista.add(rs.getString(2));
+				lista.add(new String[] { rs.getString(1), rs.getString(2) });
 			}
 		} catch (SQLException e) {
 		}

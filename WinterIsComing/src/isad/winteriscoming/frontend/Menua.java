@@ -112,10 +112,9 @@ public class Menua extends JMenuBar {
 
 	private void bilatuMenua() {
 		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
-		OperazioakOffline gureOOFF = new OperazioakOffline();
 		this.bilatu = new JMenu("Bilatu");
 		this.txioakBilatu = new JMenuItem("Txioak");
-		this.txioakBilatu.addActionListener(gureAE -> gureOOFF.datuakJaso("txioa"));
+		this.txioakBilatu.addActionListener(gureAE -> this.txioakIpini());
 		this.bertxioakBilatu = new JMenuItem("Bertxioak");
 		this.gustukoakBilatu = new JMenuItem("Gustukoak");
 		this.aipamenakBilatu = new JMenuItem("Aipamenak");
@@ -128,6 +127,11 @@ public class Menua extends JMenuBar {
 		this.bilatu.add(this.zerrendakBilatu);
 		this.bilatu.add(this.mezuakBilatu);
 		this.add(this.bilatu);
+	}
+
+	private void txioakIpini() {
+		TaulaPanela txioakPanela = new TaulaPanela("txioa");
+		WinterTwitter.getOraingoWT().getPanela().nagusiaAldatu(txioakPanela);
 	}
 
 	private void esportatuMenua() {

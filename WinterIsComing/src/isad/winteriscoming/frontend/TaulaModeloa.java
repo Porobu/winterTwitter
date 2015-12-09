@@ -13,8 +13,10 @@ public class TaulaModeloa extends AbstractTableModel {
 
 	public TaulaModeloa(String mota) {
 		mota = mota.toLowerCase();
+		OperazioakOffline gureOO = new OperazioakOffline();
 		if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa")) {
 			izenak = new String[] { "Edukia", "Data" };
+			datuak = gureOO.txioakBistaratu();
 		} else if (mota.equals("jarraitua") || mota.equals("jarraitzailea")) {
 			izenak = new String[] { "Izena", "Nick" };
 		} else if (mota.equals("zerrendak")) {
@@ -22,8 +24,11 @@ public class TaulaModeloa extends AbstractTableModel {
 		} else {
 			izenak = new String[] { "Data", "Edukia", "Bidaltzaile Izena", "Hartzaile Izena" };
 		}
-		OperazioakOffline gureOO = new OperazioakOffline();
-		datuak = gureOO.datuakJaso(mota);
+
+	}
+
+	public String getColumnName(int i) {
+		return izenak[i];
 	}
 
 	@Override
