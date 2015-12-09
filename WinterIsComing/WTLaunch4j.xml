@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Sergio\WinterTwitter0.7.jar</jar>
+  <jar>C:\Users\Sergio\WinterTwitter.jar</jar>
   <outfile>C:\Users\Sergio\WinterTwitter.exe</outfile>
   <errTitle>Ez duzu Java 8 instalatuta!</errTitle>
   <cmdLine></cmdLine>
@@ -30,16 +30,16 @@
     <timeoutErr>true</timeoutErr>
   </splash>
   <versionInfo>
-    <fileVersion>0.7.0.0</fileVersion>
+    <fileVersion>0.7.5.0</fileVersion>
     <txtFileVersion>2015-12-09</txtFileVersion>
     <fileDescription>Twittereko segurtasun kopia egiteko programa</fileDescription>
     <copyright>Sergio Pascual, Sergio Santana, Unai Arrizabalaga</copyright>
-    <productVersion>0.7.0.0</productVersion>
+    <productVersion>0.7.5.0</productVersion>
     <txtProductVersion>2015-12-09</txtProductVersion>
     <productName>WinterTwitter</productName>
     <companyName>Idea And Change</companyName>
     <internalName>WinterIsComing</internalName>
-    <originalFilename>WinterTwitter0.7.exe</originalFilename>
+    <originalFilename>WinterTwitter.exe</originalFilename>
   </versionInfo>
   <messages>
     <startupErr>Ezin da aplikazioa abiarazi</startupErr>
