@@ -1,9 +1,9 @@
-# winterTwitter
+# WinterTwitter
 Winter is Coming - ISAD 15 - 16
 
-# Programa instalatzeko:
+# WinterTwitter instalatzeko:
 
-(0.8 bertsioan idatzita, bertsio berriagoek beharbada zeozer desberdina izan dezakete):
+0.83 bertsioan idatzita, bertsio berriagoek beharbada zeozer desberdina izan dezakete.
 
 Programa erabili edo konpilatu aurretik:
 - Programa exekutatzeko JRE 8 edo berriagoa behar da.
@@ -11,7 +11,7 @@ Programa erabili edo konpilatu aurretik:
 
 Exekutagarriak WinterIsComing karpetaren barruan daude, WinterIsComing.zip fitxategian.
 
-Exekutatzeko:
+# WinterTwitter exekutatzeko:
  - Windows: WinterTwitter.exe erabili daiteke, honek JREa ez baduzu edo bertsio zaharra baduzu deskargatzeko esango dizu.
  - Besteak: WinterTwitter.jar deskargatu, eta exekutatu. JRE 8 behar da exekutatzeko.
 
