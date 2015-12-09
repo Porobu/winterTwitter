@@ -27,6 +27,11 @@ public final class OperazioakOnline {
 	public static OperazioakOnline getOperazioak() {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
 	}
+	
+	//aipamenakSartu metodoa egiteke
+	//erabiltzaileakSartu metodoa egiteke (jarraitzaile & jarraituak)
+	//mezuakSartu metodoa egiteke
+	//zerrendaSartu metodoa egiteke
 
 	public void txioakJaitsi() {
 		int orriZenb = 0;
@@ -66,24 +71,6 @@ public final class OperazioakOnline {
 		}
 	}
 
-	private void txioakDBsartu(List<Status> txioak, String mota) {
-		String benetakoData = "";
-		String bertxio = "bertxioa";
-		String agindua = "";
-		for (Status txio : txioak) {
-			String id = String.valueOf(txio.getId());
-			benetakoData = itzuliBenetakoData(txio.getCreatedAt());
-			if (mota.equals("txioa") && txio.isRetweet()) {
-				agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-						+ replace(txio.getText()) + "', '" + benetakoData + "', '" + bertxio + "')";
-			} else {
-				agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
-						+ replace(txio.getText()) + "', '" + benetakoData + "', '" + mota + "')";
-			}
-			DBKS.getDBKS().aginduaExekutatu(agindua);
-		}
-	}
-
 	public void gustokoakJaitsi() {
 		int orria = 0;
 		boolean amaituta = false;
@@ -119,6 +106,24 @@ public final class OperazioakOnline {
 				rateLimitMezua(segunduak);
 			} else
 				System.out.println("Failed to get timeline: " + te.getMessage());
+		}
+	}
+	
+	private void txioakDBsartu(List<Status> txioak, String mota) {
+		String benetakoData = "";
+		String bertxio = "bertxioa";
+		String agindua = "";
+		for (Status txio : txioak) {
+			String id = String.valueOf(txio.getId());
+			benetakoData = itzuliBenetakoData(txio.getCreatedAt());
+			if (mota.equals("txioa") && txio.isRetweet()) {
+				agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+						+ replace(txio.getText()) + "', '" + benetakoData + "', '" + bertxio + "')";
+			} else {
+				agindua = "INSERT OR REPLACE INTO TXIOA(id, edukia, data, mota) VALUES ('" + id + "', '"
+						+ replace(txio.getText()) + "', '" + benetakoData + "', '" + mota + "')";
+			}
+			DBKS.getDBKS().aginduaExekutatu(agindua);
 		}
 	}
 
@@ -224,8 +229,6 @@ public final class OperazioakOnline {
 					}
 					zenb = following.getNextCursor();
 				} while (zenb > 0);
-				// DBKS.getDBKS().aginduaExekutatu("UPDATE PAGING SET
-				// kurtsoreBalioa=0 WHERE mota='jarraitua'");
 				DBKS.getDBKS().aginduaExekutatu(
 						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitua')");
 			}
