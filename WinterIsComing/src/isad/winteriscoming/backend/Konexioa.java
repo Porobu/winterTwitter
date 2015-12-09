@@ -92,7 +92,7 @@ public class Konexioa {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		DBKS.getDBKS().aginduaExekutatu("INSERT INTO ERABILTZAILEA(id,nick,izena,token,tokenSecret) VALUES('" + us.getId()
+		DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO ERABILTZAILEA(id,nick,izena,token,tokenSecret) VALUES('" + us.getId()
 				+ "','" + us.getScreenName() +"','" + us.getName() + "','" + token + "','" + tokenSecret + "')");
 	}
 
