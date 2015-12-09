@@ -30,11 +30,11 @@
     <timeoutErr>true</timeoutErr>
   </splash>
   <versionInfo>
-    <fileVersion>0.8.1.0</fileVersion>
+    <fileVersion>0.8.2.0</fileVersion>
     <txtFileVersion>2015-12-09</txtFileVersion>
     <fileDescription>Twittereko segurtasun kopia egiteko programa</fileDescription>
     <copyright>Sergio Pascual, Sergio Santana, Unai Arrizabalaga</copyright>
-    <productVersion>0.8.1.0</productVersion>
+    <productVersion>0.8.2.0</productVersion>
     <txtProductVersion>2015-12-09</txtProductVersion>
     <productName>WinterTwitter</productName>
     <companyName>Idea And Change</companyName>
