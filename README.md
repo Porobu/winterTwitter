@@ -3,12 +3,11 @@ Winter is Coming - ISAD 15 - 16
 
 # Programa instalatzeko:
 
-(0.75 bertsioan idatzita, bertsio berriagoek beharbada zeozer desberdina izan dezakete):
+(0.8 bertsioan idatzita, bertsio berriagoek beharbada zeozer desberdina izan dezakete):
 
 Programa erabili edo konpilatu aurretik:
 - Programa exekutatzeko JRE 8 edo berriagoa behar da.
 - Programa konpilatzeko JDK 8 edo berriagoa erabili behar da
-- Programaren 0.75 bertsioa Java 8 u66 bertsioarekin probatu da
 
 Exekutagarriak WinterIsComing karpetaren barruan daude, WinterIsComing.zip fitxategian.
 
