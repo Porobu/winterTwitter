@@ -24,6 +24,7 @@ public class WinterTwitterPanel extends JPanel {
 
 	private void panelNagusiaEraiki() {
 		txioak = new JPanel();
+		
 	}
 
 	private void barraEraiki() {

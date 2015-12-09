@@ -85,28 +85,28 @@ public class Menua extends JMenuBar {
 
 	private void jaitsiMenua() {
 		this.jaitsi = new JMenu("Jaitsi");
-		this.txioak = new JMenuItem("Txioak");
-		this.gustokoak = new JMenuItem("Gustokoak");
-		this.aipamenak = new JMenuItem("Aipamenak");
-		this.jarraituak = new JMenuItem("Jarraituak");
-		this.jarraitzaileak = new JMenuItem("Jarraitzaileak");
-		this.zerrendak = new JMenuItem("Zerrendak");
-		this.mezuak = new JMenuItem("Mezuak");
+		txioak = new JMenuItem("Txioak");
+		gustokoak = new JMenuItem("Gustokoak");
+		aipamenak = new JMenuItem("Aipamenak");
+		jarraituak = new JMenuItem("Jarraituak");
+		jarraitzaileak = new JMenuItem("Jarraitzaileak");
+		zerrendak = new JMenuItem("Zerrendak");
+		mezuak = new JMenuItem("Mezuak");
 		this.jaitsi.add(this.jaitsi);
-		this.jaitsi.add(this.txioak);
-		this.txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().txioakJaitsi());
-		this.jaitsi.add(this.gustokoak);
-		this.gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
-		this.jaitsi.add(this.jarraituak);
-		this.aipamenak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().aipamenakJaitsi());
-		this.jaitsi.add(this.aipamenak);
-		this.jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakJaitsi());
-		this.jaitsi.add(this.jarraitzaileak);
-		this.jarraitzaileak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraitzaileakJaitsi());
-		this.jaitsi.add(this.zerrendak);
-		this.zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakJaitsi());
-		this.jaitsi.add(this.mezuak);
-		this.mezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().mezuakJaitsi());
+		jaitsi.add(txioak);
+		txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().txioakJaitsi());
+		jaitsi.add(gustokoak);
+		gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
+		jaitsi.add(jarraituak);
+		aipamenak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().aipamenakJaitsi());
+		jaitsi.add(aipamenak);
+		jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakJaitsi());
+		jaitsi.add(jarraitzaileak);
+		jarraitzaileak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraitzaileakJaitsi());
+		jaitsi.add(zerrendak);
+		zerrendak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().zerrendakJaitsi());
+		jaitsi.add(mezuak);
+		mezuak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().mezuakJaitsi());
 		this.add(this.jaitsi);
 	}
 
