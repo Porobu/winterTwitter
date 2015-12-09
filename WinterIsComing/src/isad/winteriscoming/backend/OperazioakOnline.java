@@ -220,13 +220,7 @@ public final class OperazioakOnline {
 					PagableResponseList<User> following = twitter.getFriendsList(erabiltzailea.getId(), zenb, count);
 					if (hasierakoak)
 						count = count - 20;
-					for (User erab : following) {
-						String id = String.valueOf(erab.getId());
-						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"
-								+ "VALUES ('" + id + "', '" + replace(erab.getName()) + "', 'jarraitua', '"
-								+ replace(erab.getScreenName()) + "')";
-						DBKS.getDBKS().aginduaExekutatu(agindua);
-					}
+					jarraituJarraitzaileakDBSartu(following, "jarraitua");
 					zenb = following.getNextCursor();
 				} while (zenb > 0);
 				DBKS.getDBKS().aginduaExekutatu(
@@ -302,19 +296,10 @@ public final class OperazioakOnline {
 				}
 				do {
 					PagableResponseList<User> followers = twitter.getFollowersList(erabiltzailea.getId(), zenb, count);
-					PagableResponseList<User> jarraitzaileak=followers;
 					if (hasierakoak)
 						count = count - 20;
-					for (User erab : followers) {
-						jarraitzaileak.add(erab);
-						String id = String.valueOf(erab.getId());
-						String agindua = "INSERT OR REPLACE INTO BESTEERABILTZAILEAK(id, izena, mota, nick)"
-								+ "VALUES ('" + id + "', '" + replace(erab.getName()) + "', 'jarraitzailea', '"
-								+ replace(erab.getScreenName()) + "')";
-						DBKS.getDBKS().aginduaExekutatu(agindua);
-					}
+					jarraituJarraitzaileakDBSartu(followers, "jarraitzailea");
 					zenb = followers.getNextCursor();
-					jarraituJarraitzaileakDBSartu(jarraitzaileak, "jarraitzailea");
 				} while (zenb > 0);
 				DBKS.getDBKS().aginduaExekutatu(
 						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'jarraitzailea')");
