@@ -29,7 +29,7 @@ public class Nagusia {
 	private static WinterTwitter wtFrame;
 
 	public static void main(String[] args) {
-		if (System.getProperty("os.name").contains("Mac OS X")) {
+		if (!System.getProperty("os.name").toLowerCase().contains("mac os x")) {
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException

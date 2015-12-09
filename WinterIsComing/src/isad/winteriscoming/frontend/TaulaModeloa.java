@@ -16,14 +16,15 @@ public class TaulaModeloa extends AbstractTableModel {
 		OperazioakOffline gureOO = new OperazioakOffline();
 		if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa")) {
 			izenak = new String[] { "Edukia", "Data" };
-			datuak = gureOO.txioakBistaratu();
+			
 		} else if (mota.equals("jarraitua") || mota.equals("jarraitzailea")) {
 			izenak = new String[] { "Izena", "Nick" };
-		} else if (mota.equals("zerrendak")) {
+		} else if (mota.equals("zerrenda")) {
 			izenak = new String[] { "Izena", "Deskribapena", "Erabiltzaile Izena", "Zerrenda Izena", "Nick" };
 		} else {
 			izenak = new String[] { "Data", "Edukia", "Bidaltzaile Izena", "Hartzaile Izena" };
 		}
+		datuak = gureOO.datuakJaso(mota);
 	}
 
 	public String getColumnName(int i) {

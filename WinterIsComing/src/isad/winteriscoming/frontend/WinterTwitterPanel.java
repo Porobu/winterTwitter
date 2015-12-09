@@ -21,6 +21,7 @@ public class WinterTwitterPanel extends JPanel {
 		this.barraEraiki();
 		this.add(barra, BorderLayout.LINE_START);
 		this.add(nagusia, BorderLayout.CENTER);
+		dagoena = nagusia;
 	}
 
 	private void barraEraiki() {
@@ -31,14 +32,15 @@ public class WinterTwitterPanel extends JPanel {
 		barra.setBackground(new Color(94, 169, 221));
 	}
 
-	public void nagusiaAldatu(JPanel berria) {
-		dagoena = berria;
+	public void panelaAldatu(JPanel berria) {
 		this.remove(nagusia);
+		this.remove(dagoena);
+		dagoena = berria;
 		this.add(berria, BorderLayout.CENTER);
 		this.revalidate();
 		this.repaint();
 	}
-
+	
 	public void nagusiaIpini() {
 		this.remove(dagoena);
 		this.add(nagusia, BorderLayout.CENTER);

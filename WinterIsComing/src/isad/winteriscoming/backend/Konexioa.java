@@ -67,7 +67,7 @@ public class Konexioa {
 			throw new WinterTwitterSalbuespena("Ezin da web gunea ireki");
 		}
 		gureLogin = new Login();
-		WinterTwitter.getOraingoWT().getPanela().nagusiaAldatu(gureLogin);
+		WinterTwitter.getOraingoWT().getPanela().panelaAldatu(gureLogin);
 	}
 
 	private AccessToken kredentzialakKargatu() {
@@ -89,11 +89,11 @@ public class Konexioa {
 		try {
 			us = twitter.verifyCredentials();
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO ERABILTZAILEA(id,nick,izena,token,tokenSecret) VALUES('" + us.getId()
-				+ "','" + us.getScreenName() +"','" + us.getName() + "','" + token + "','" + tokenSecret + "')");
+		DBKS.getDBKS()
+				.aginduaExekutatu("INSERT OR REPLACE INTO ERABILTZAILEA(id,nick,izena,token,tokenSecret) VALUES('"
+						+ us.getId() + "','" + us.getScreenName() + "','" + us.getName() + "','" + token + "','"
+						+ tokenSecret + "')");
 	}
 
 	public void tokenarekinKonektatu() {

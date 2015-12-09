@@ -19,18 +19,6 @@ public class OperazioakOffline {
 		return emaitza;
 	}
 
-	public ArrayList<String[]> txioakBistaratu() {
-		ResultSet rs = DBKS.getDBKS().queryExekutatu("SELECT edukia, data FROM TXIOA WHERE mota = 'txioa'");
-		ArrayList<String[]> lista = new ArrayList<>();
-		try {
-			while (rs.next()) {
-				lista.add(new String[] { rs.getString(1), rs.getString(2) });
-			}
-		} catch (SQLException e) {
-		}
-		return lista;
-	}
-
 	public boolean konprobatuTokenakDauden() {
 		ResultSet emaitza = DBKS.getDBKS().queryExekutatu("SELECT token, tokenSecret FROM ERABILTZAILEA");
 		try {
@@ -43,14 +31,14 @@ public class OperazioakOffline {
 	public ArrayList<String[]> datuakJaso(String mota) {
 		int kop = 0;
 		String agindua = "";
-		if (mota.toLowerCase().equals("txioa") || mota.toLowerCase().equals("bertxioa")
-				|| mota.toLowerCase().equals("gustokoa")) {
-			agindua = "SELECT edukia, data FROM TXIOA WHERE mota = " + mota;
+		mota = mota.toLowerCase();
+		if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa")) {
+			agindua = "SELECT edukia, data FROM TXIOA WHERE mota = '" + mota + "'";
 			kop = 2;
-		} else if (mota.toLowerCase().equals("jarraitua") || mota.toLowerCase().equals("jarraitzailea")) {
-			agindua = "SELECT izena, nick FROM BESTEERABILTZAILEAK WHERE mota = " + mota;
+		} else if (mota.equals("jarraitua") || mota.equals("jarraitzailea")) {
+			agindua = "SELECT izena, nick FROM BESTEERABILTZAILEAK WHERE mota = '" + mota + "'";
 			kop = 2;
-		} else if (mota.toLowerCase().equals("zerrendak")) {
+		} else if (mota.equals("zerrenda")) {
 			kop = 5;
 			agindua = "SELECT ZERRENDA.izena, ZERRENDA.deskribapena, DITU.erabIzena, DITU.zerrendaIzena, DITU.erabNick  FROM ZERRENDA, DITU WHERE ZERRENDA.id = DITU.zerrenId";
 		} else {
@@ -62,8 +50,8 @@ public class OperazioakOffline {
 		try {
 			while (rs.next()) {
 				String[] oraingoa = new String[kop];
-				for (int i = 1; i <= kop; i++) {
-					oraingoa[i] = rs.getString(i);
+				for (int i = 0; i < kop; i++) {
+					oraingoa[i] = rs.getString(i + 1);
 				}
 				emaitza.add(oraingoa);
 			}

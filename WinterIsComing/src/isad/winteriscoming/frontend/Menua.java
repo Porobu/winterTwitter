@@ -11,7 +11,7 @@ import isad.winteriscoming.backend.OperazioakOnline;
 public class Menua extends JMenuBar {
 
 	private static final long serialVersionUID = 5223706927915502156L;
-	private JMenu konexioa, jaitsi, bilatu, esportatu, segurtasunKopia;
+	private JMenu konexioa, jaitsi, bistaratu, esportatu, segurtasunKopia;
 	private static JMenuItem konektatu;
 	private static JMenuItem deskonektatu;
 	private static JMenuItem konektatuTokenekin;
@@ -26,6 +26,8 @@ public class Menua extends JMenuBar {
 	private JMenuItem bertxioakBilatu;
 	private JMenuItem gustukoakBilatu;
 	private JMenuItem aipamenakBilatu;
+	private JMenuItem jarraituakBistaratu;
+	private JMenuItem jarraitzaileakBistaratu;
 	private JMenuItem zerrendakBilatu;
 	private JMenuItem mezuakBilatu;
 	private JMenuItem excel2007;
@@ -35,7 +37,7 @@ public class Menua extends JMenuBar {
 	public Menua() {
 		this.jaitsiMenua();
 		this.konexioaMenua();
-		this.bilatuMenua();
+		this.bistaratuMenua();
 		this.esportatuMenua();
 		this.segurtasunKopiaMenua();
 	}
@@ -109,28 +111,38 @@ public class Menua extends JMenuBar {
 		this.add(this.jaitsi);
 	}
 
-	private void bilatuMenua() {
-		// TODO ActionListenerrak inplementatuta daudenean gehituko dira.
-		this.bilatu = new JMenu("Bilatu");
+	private void bistaratuMenua() {
+		this.bistaratu = new JMenu("Bistaratu");
 		this.txioakBilatu = new JMenuItem("Txioak");
-		this.txioakBilatu.addActionListener(gureAE -> this.txioakIpini());
 		this.bertxioakBilatu = new JMenuItem("Bertxioak");
 		this.gustukoakBilatu = new JMenuItem("Gustukoak");
 		this.aipamenakBilatu = new JMenuItem("Aipamenak");
+		this.jarraituakBistaratu = new JMenuItem("Jarraituak");
+		this.jarraitzaileakBistaratu = new JMenuItem("Jarraitzaileak");
 		this.zerrendakBilatu = new JMenuItem("Zerrendak");
 		this.mezuakBilatu = new JMenuItem("Mezuak");
-		this.bilatu.add(this.txioakBilatu);
-		this.bilatu.add(this.bertxioakBilatu);
-		this.bilatu.add(this.gustukoakBilatu);
-		this.bilatu.add(this.aipamenakBilatu);
-		this.bilatu.add(this.zerrendakBilatu);
-		this.bilatu.add(this.mezuakBilatu);
-		this.add(this.bilatu);
+		this.txioakBilatu.addActionListener(gureAE -> this.bistaratu("txioa"));
+		this.bertxioakBilatu.addActionListener(gureAE -> this.bistaratu("bertxioa"));
+		this.gustukoakBilatu.addActionListener(gureAE -> this.bistaratu("gustokoa"));
+		this.aipamenakBilatu.addActionListener(gureAE -> this.bistaratu("aipamena"));
+		this.jarraituakBistaratu.addActionListener(gureAE -> this.bistaratu("jarraitua"));
+		this.jarraitzaileakBistaratu.addActionListener(gureAE -> this.bistaratu("jarraitzaileak"));
+		this.zerrendakBilatu.addActionListener(gureAE -> this.bistaratu("zerrenda"));
+		this.mezuakBilatu.addActionListener(gureAE -> this.bistaratu("mezua"));
+		this.bistaratu.add(this.txioakBilatu);
+		this.bistaratu.add(this.bertxioakBilatu);
+		this.bistaratu.add(this.gustukoakBilatu);
+		this.bistaratu.add(this.aipamenakBilatu);
+		this.bistaratu.add(jarraituakBistaratu);
+		this.bistaratu.add(jarraitzaileakBistaratu);
+		this.bistaratu.add(this.zerrendakBilatu);
+		this.bistaratu.add(this.mezuakBilatu);
+		this.add(this.bistaratu);
 	}
 
-	private void txioakIpini() {
-		TaulaPanela txioakPanela = new TaulaPanela("txioa");
-		WinterTwitter.getOraingoWT().getPanela().nagusiaAldatu(txioakPanela);
+	private void bistaratu(String mota) {
+		TaulaPanela panela = new TaulaPanela(mota);
+		WinterTwitter.getOraingoWT().getPanela().panelaAldatu(panela);
 	}
 
 	private void esportatuMenua() {

@@ -61,21 +61,7 @@ public final class DBKS {
 			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
 		}
 	}
-
-	public boolean agindukoaDago(String agindua) {
-
-		Statement st;
-		Boolean erantzuna = null;
-		try {
-			st = this.konexioa.createStatement();
-			erantzuna = st.execute(agindua);
-		} catch (SQLException e) {
-			throw new WinterTwitterSalbuespena("Ezin da " + agindua + " exekutatu.");
-		}
-		return erantzuna;
-
-	}
-
+	
 	public void konexioaItxi() {
 		if (this.konexioa != null)
 			try {
