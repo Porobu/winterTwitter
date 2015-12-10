@@ -7,10 +7,10 @@ import java.util.List;
 
 public class OperazioakOffline {
 
-	public List<String> bilatuTxioetan(String st) {
-		List<String> emaitza = new ArrayList<>();
+	public ArrayList<String> bilatu(String bilatzeko) {
+		ArrayList<String> emaitza = new ArrayList<>();
 		ResultSet rs = DBKS.getDBKS()
-				.queryExekutatu("SELECT edukia, data FROM TXIOA WHERE edukia LIKE " + st + " AND MOTA = TXIOA");
+				.queryExekutatu("SELECT edukia, data FROM TXIOA WHERE edukia LIKE " + bilatzeko + " AND MOTA = TXIOA");
 		try {
 			rs.next();
 		} catch (SQLException e) {
