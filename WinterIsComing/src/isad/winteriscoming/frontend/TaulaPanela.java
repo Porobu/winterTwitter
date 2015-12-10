@@ -9,6 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableRowSorter;
 
+import isad.winteriscoming.externals.ZebraJTable;
+
 public class TaulaPanela extends JPanel {
 
 	private static final long serialVersionUID = 2602675352838564349L;
@@ -17,7 +19,7 @@ public class TaulaPanela extends JPanel {
 	public TaulaPanela(String mota) {
 		this.setLayout(new BorderLayout());
 		TaulaModeloa gureModeloa = new TaulaModeloa(mota);
-		JTable gureTaula = new JTable(gureModeloa);
+		JTable gureTaula = new ZebraJTable(gureModeloa);
 		gureTaula.setRowSorter(new TableRowSorter<>(gureModeloa));
 		gureTaula.setFont(new Font("Arial", Font.PLAIN, 14));
 		JScrollPane gureJScrollPane = new JScrollPane(gureTaula);
