@@ -14,12 +14,11 @@ public class WinterTwitterPanel extends JPanel {
 		nagusia = new PanelNagusia();
 		this.setOpaque(true);
 		this.setLayout(new BorderLayout());
-		this.add(new EzkerrekoPanela(), BorderLayout.LINE_START);
+		barra = new EzkerrekoPanela();
 		this.add(barra, BorderLayout.LINE_START);
 		this.add(nagusia, BorderLayout.CENTER);
 		dagoena = nagusia;
 	}
-
 
 	public void panelaAldatu(JPanel berria) {
 		this.remove(nagusia);
