@@ -11,7 +11,6 @@ public class PanelNagusia extends JPanel {
 		this.setOpaque(true);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.panelaDBHutsik();
-
 	}
 
 	private void panelaDBHutsik() {
