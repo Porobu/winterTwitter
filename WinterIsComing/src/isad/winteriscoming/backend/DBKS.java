@@ -41,7 +41,13 @@ public final class DBKS {
 		}
 		this.datubaseaKonprobatu();
 	}
-
+	
+	/**
+	 * ResultSet bat bueltatzen duten sql aginduak exekutatzen ditu.
+	 * 
+	 * @param agindua
+	 * @return Datu Baseari eskatutako datuak bueltatzen ditu.
+	 */
 	public ResultSet queryExekutatu(String agindua) {
 		ResultSet emaitza = null;
 		try {
@@ -52,7 +58,11 @@ public final class DBKS {
 		}
 		return emaitza;
 	}
-
+	
+	/**
+	 * Datu Basearen erantzunik behar ez duten sql aginduak exekutatzen ditu.
+	 * @param agindua
+	 */
 	public void aginduaExekutatu(String agindua) {
 		try {
 			Statement st = this.konexioa.createStatement();
@@ -72,7 +82,10 @@ public final class DBKS {
 
 			}
 	}
-
+	
+	/**
+	 * Datu basea ondo sortu den frogatzen du
+	 */
 	private void datubaseaKonprobatu() {
 		Statement st;
 		try {

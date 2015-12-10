@@ -34,6 +34,11 @@ public final class OperazioakOnline {
 	// mezuakSartu metodoa egiteke
 	// zerrendaSartu metodoa egiteke
 
+	/**
+	 * Erabiltzailearen txio guztiak jaitsiko dira inongo parametroren beharrik
+	 * gabe.
+	 * 
+	 */
 	public void txioakJaitsi() {
 		int orriZenb = 0;
 		boolean amaituta = false;
@@ -72,6 +77,11 @@ public final class OperazioakOnline {
 		}
 	}
 
+	/**
+	 * Erabiltzailearen gustuko guztiak jaitsiko dira inongo parametroren
+	 * beharrik gabe.
+	 * 
+	 */
 	public void gustokoakJaitsi() {
 		int orria = 0;
 		boolean amaituta = false;
@@ -110,6 +120,12 @@ public final class OperazioakOnline {
 		}
 	}
 
+	/**
+	 * Erabiltzailearen txio zein bertxioak datu basera sartuko dira.
+	 * 
+	 * @param txioak
+	 * @param mota
+	 */
 	private void txioakDBsartu(List<Status> txioak, String mota) {
 		String benetakoData = "";
 		String bertxio = "bertxioa";
@@ -128,6 +144,10 @@ public final class OperazioakOnline {
 		}
 	}
 
+	/**
+	 * Erabiltzailea aipatua izan den txioak jaitsi eta datu basera sartuko
+	 * ditu.
+	 */
 	public void aipamenakJaitsi() {
 		int orria = 0;
 		boolean amaituta = false;
@@ -184,6 +204,9 @@ public final class OperazioakOnline {
 		}
 	}
 
+	/**
+	 * Erabiltzaileak jarraitzen dituen erabiltzaileak jaitsiko ditu.
+	 */
 	public void jarraituakJaitsi() {
 		long zenb = 1L;
 		int count = 20;
@@ -193,8 +216,8 @@ public final class OperazioakOnline {
 			User erabiltzailea = twitter.verifyCredentials();
 			long jarraituKopTwitter = erabiltzailea.getFriendsCount();
 			long jarraituKopDB = jarraituKopTwitter;
-			ResultSet jKDB = DBKS.getDBKS()
-					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitua'");
+			ResultSet jKDB = DBKS.getDBKS().queryExekutatu(
+					"SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitua'");
 			try {
 				if (jKDB.next()) {
 					jarraituKopDB = jKDB.getLong(1);
@@ -241,9 +264,10 @@ public final class OperazioakOnline {
 	}
 
 	/**
-	 * Erabiltzaileak adierazitako jarraitu edo jarraitzaileak datu basera
-	 * sartuko dira.
+	 * Erabiltzailea jarraitzen duten eta erabiltzaileak jarraitzen dituen
+	 * erabiltzaileak jaitsiko ditu.
 	 * 
+	 * @param jarraituJarraitzaileak
 	 * @param mota
 	 */
 	public void jarraituJarraitzaileakDBSartu(PagableResponseList<User> jarraituJarraitzaileak, String mota) {
@@ -263,6 +287,9 @@ public final class OperazioakOnline {
 		}
 	}
 
+	/**
+	 * Erabiltzailea jarraitzen duten erabiltzaileak jaitsiko ditu.
+	 */
 	public void jarraitzaileakJaitsi() {
 		long zenb = -1L;
 		int count = 20;
@@ -272,8 +299,8 @@ public final class OperazioakOnline {
 			User erabiltzailea = twitter.verifyCredentials();
 			long jarraitzaileKopTwitter = erabiltzailea.getFollowersCount();
 			long jarraitzaileKopDB = jarraitzaileKopTwitter;
-			ResultSet jKDB = DBKS.getDBKS()
-					.queryExekutatu("SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
+			ResultSet jKDB = DBKS.getDBKS().queryExekutatu(
+					"SELECT COUNT(*) FROM BESTEERABILTZAILEAK WHERE mota='jarraitzailea'");
 			try {
 				if (jKDB.next()) {
 					jarraitzaileKopDB = jKDB.getLong(1);
@@ -311,15 +338,19 @@ public final class OperazioakOnline {
 					Nagusia.IZENBURUA, JOptionPane.INFORMATION_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('"
-						+ zenb + "', 'jarraitzailea')");
+				DBKS.getDBKS().aginduaExekutatu(
+						"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + zenb
+								+ "', 'jarraitzailea')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
 				throw new WinterTwitterSalbuespena("Ezin dira jarraitzaileak jaitsi");
 		}
 	}
-
+	
+	/**
+	 * Erabiltzaileak dituen zerrenda ezberdinen izena eta deskribapena datu basean gordeko ditu.
+	 */
 	public void zerrendakJaitsi() {
 		int orria = -1;
 		try {
@@ -343,9 +374,10 @@ public final class OperazioakOnline {
 					for (User zerrendaKidea : zerrendaKideak) {
 						agindua = "INSERT OR REPLACE INTO DITU(erabId, zerrenId, erabNick, zerrendaIzena, erabIzena)"
 								+ "VALUES ('" + String.valueOf(erabiltzailea.getId()) + "', '"
-								+ String.valueOf(zerrenda.getId()) + "','" + this.replace(zerrendaKidea.getScreenName())
-								+ "','" + this.replace(zerrenda.getName()) + "', '"
-								+ this.replace(zerrendaKidea.getName()) + "')";
+								+ String.valueOf(zerrenda.getId()) + "','"
+								+ this.replace(zerrendaKidea.getScreenName()) + "','"
+								+ this.replace(zerrenda.getName()) + "', '" + this.replace(zerrendaKidea.getName())
+								+ "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 				}
@@ -354,15 +386,19 @@ public final class OperazioakOnline {
 					Nagusia.IZENBURUA, JOptionPane.INFORMATION_MESSAGE);
 		} catch (TwitterException te) {
 			if (te.exceededRateLimitation()) {
-				DBKS.getDBKS().aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('"
-						+ orria + "', 'zerrendak')");
+				DBKS.getDBKS()
+						.aginduaExekutatu(
+								"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('" + orria
+										+ "', 'zerrendak')");
 				int segunduak = te.getRateLimitStatus().getSecondsUntilReset();
 				rateLimitMezua(segunduak);
 			} else
 				throw new WinterTwitterSalbuespena("Ezin dira zerrendak jaitsi");
 		}
 	}
-
+	/**
+	 * Erabiltzaileak bidalitako eta jasotako mezuak datu basean gordeko ditu.
+	 */
 	public void mezuakJaitsi() {
 		// twitter4j-ren errore batengatik bakarrik bueltatzen dir
 		// urte bateko denbora tartean bidali eta jasotako mezuak
@@ -386,7 +422,13 @@ public final class OperazioakOnline {
 						String benetakoData = itzuliBenetakoData(message.getCreatedAt());
 						String id = String.valueOf(message.getId());
 						String agindua = "INSERT OR REPLACE INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
-								+ "VALUES ('" + id + "', '" + benetakoData + "','" + message.getText() + "', '"
+								+ "VALUES ('"
+								+ id
+								+ "', '"
+								+ benetakoData
+								+ "','"
+								+ message.getText()
+								+ "', '"
 								+ message.getSenderScreenName() + "'," + " '" + message.getRecipientScreenName() + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
@@ -394,16 +436,24 @@ public final class OperazioakOnline {
 						String benetakoData = itzuliBenetakoData(sentMessage.getCreatedAt());
 						String id = String.valueOf(sentMessage.getId());
 						String agindua = "INSERT OR REPLACE INTO MEZUA(id, data, edukia, bidaltzaileIzena, hartzaileIzena)"
-								+ "VALUES ('" + id + "', '" + benetakoData + "','" + sentMessage.getText() + "', '"
-								+ sentMessage.getSenderScreenName() + "'," + " '" + sentMessage.getRecipientScreenName()
-								+ "')";
+								+ "VALUES ('"
+								+ id
+								+ "', '"
+								+ benetakoData
+								+ "','"
+								+ sentMessage.getText()
+								+ "', '"
+								+ sentMessage.getSenderScreenName()
+								+ "',"
+								+ " '"
+								+ sentMessage.getRecipientScreenName() + "')";
 						DBKS.getDBKS().aginduaExekutatu(agindua);
 					}
 					paging.setPage(++orria);
 				} while (messages.size() > 0 || sentMessages.size() > 0);
 			}
-			DBKS.getDBKS()
-					.aginduaExekutatu("INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'mezuak')");
+			DBKS.getDBKS().aginduaExekutatu(
+					"INSERT OR REPLACE INTO PAGING(kurtsoreBalioa, mota)" + "VALUES ('0', 'mezuak')");
 			JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(), "Mezuak jaisten amaitu da.", Nagusia.IZENBURUA,
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (TwitterException te) {
@@ -416,10 +466,17 @@ public final class OperazioakOnline {
 				throw new WinterTwitterSalbuespena("Ezin dira mezuak jaitsi");
 		}
 	}
-
+	
+	/**
+	 * Datu basetik IDak jasotzen ditu eta ikusten du ea ordena gorakorra edo beherakorra den eta horren arabera ID ezberdina bueltatuko du.
+	 * @param taula
+	 * @param mota
+	 * @param ordena
+	 * @return IDa handiena edo txikiena
+	 */
 	public long hartuID(String taula, String mota, String ordena) {
-		ResultSet emaitza = DBKS.getDBKS()
-				.queryExekutatu("SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu(
+				"SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
 		try {
 			if (emaitza.next())
 				return emaitza.getLong(1);
@@ -431,32 +488,37 @@ public final class OperazioakOnline {
 			return 1L;
 		}
 	}
-
+	
+	/**
+	 * Twitterrek itzultzen duen dataren formatoa aldatzen du euskarazko datagatik.
+	 * @param data2
+	 * @return data berria formatoa aldatuta
+	 */
 	private String itzuliBenetakoData(Date data2) {
 
 		String dataTxarra = String.valueOf(data2);
 		char[] data = new char[10];
-		data[0] = dataTxarra.charAt(8);
-		data[1] = dataTxarra.charAt(9);
-		data[2] = '/';
+		data[8] = dataTxarra.charAt(8);
+		data[9] = dataTxarra.charAt(9);
+		data[4] = '/';
 		char[] hil = new char[3];
 		hil[0] = dataTxarra.charAt(4);
 		hil[1] = dataTxarra.charAt(5);
 		hil[2] = dataTxarra.charAt(6);
 		String hilabete = itzuliHilabetea(String.copyValueOf(hil));
-		data[3] = hilabete.charAt(0);
-		data[4] = hilabete.charAt(1);
-		data[5] = '/';
+		data[5] = hilabete.charAt(0);
+		data[6] = hilabete.charAt(1);
+		data[7] = '/';
 		if (dataTxarra.contains("CET")) {
-			data[6] = dataTxarra.charAt(24);
-			data[7] = dataTxarra.charAt(25);
-			data[8] = dataTxarra.charAt(26);
-			data[9] = dataTxarra.charAt(27);
+			data[0] = dataTxarra.charAt(24);
+			data[1] = dataTxarra.charAt(25);
+			data[2] = dataTxarra.charAt(26);
+			data[3] = dataTxarra.charAt(27);
 		} else {
-			data[6] = dataTxarra.charAt(25);
-			data[7] = dataTxarra.charAt(26);
-			data[8] = dataTxarra.charAt(27);
-			data[9] = dataTxarra.charAt(28);
+			data[0] = dataTxarra.charAt(25);
+			data[1] = dataTxarra.charAt(26);
+			data[2] = dataTxarra.charAt(27);
+			data[3] = dataTxarra.charAt(28);
 		}
 		return String.copyValueOf(data);
 	}
@@ -497,9 +559,8 @@ public final class OperazioakOnline {
 	private void rateLimitMezua(int segunduak) {
 		int minutuak = segunduak / 60;
 		segunduak = segunduak % 60;
-		JOptionPane.showMessageDialog(
-				WinterTwitter.getOraingoWT(), "Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak
-						+ " minutu eta " + segunduak + " segundu.",
-				"Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
+				"Ezin izan da zure eskakizuna guztiz bete, itxaron " + minutuak + " minutu eta " + segunduak
+						+ " segundu.", "Eskakizun kopuru maximoa gainditua", JOptionPane.WARNING_MESSAGE);
 	}
 }

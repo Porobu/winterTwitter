@@ -23,7 +23,7 @@ public class Excel {
 	public Excel() {
 
 	}
-
+	
 	public boolean idatzi(String path, int urtea) {
 		if (urtea == 2003)
 			wb = new HSSFWorkbook();

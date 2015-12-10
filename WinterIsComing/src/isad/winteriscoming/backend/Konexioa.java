@@ -83,7 +83,12 @@ public class Konexioa {
 		}
 		return new AccessToken(token, tokenSecret);
 	}
-
+	
+	/**
+	 * Erabiltzaile berri bat sortzean bera kautotzeko erabili diren tokenak datu basean gordeko dira.
+	 * @param token
+	 * @param tokenSecret
+	 */
 	private void kredentzialakGorde(String token, String tokenSecret) {
 		User us = null;
 		try {
