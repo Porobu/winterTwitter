@@ -46,7 +46,7 @@ public class WinterTwitter extends JFrame {
 	}
 
 	private void ikonoaJarri() {
-		InputStream stream = WinterTwitter.class.getResourceAsStream("/isad/winteriscoming/logoa.png");
+		InputStream stream = WinterTwitter.class.getResourceAsStream("/isad/winteriscoming/Captura.PNG");
 		BufferedImage logoa;
 		try {
 			logoa = ImageIO.read(stream);
