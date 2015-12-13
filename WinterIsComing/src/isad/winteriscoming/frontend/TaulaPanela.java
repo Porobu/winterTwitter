@@ -16,9 +16,9 @@ public class TaulaPanela extends JPanel {
 	private static final long serialVersionUID = 2602675352838564349L;
 	private JButton itzuli;
 
-	public TaulaPanela(String mota) {
+	public TaulaPanela(String mota, String bilatzeko, boolean bilaketa) {
 		this.setLayout(new BorderLayout());
-		TaulaModeloa gureModeloa = new TaulaModeloa(mota);
+		TaulaModeloa gureModeloa = new TaulaModeloa(mota, bilatzeko, bilaketa);
 		JTable gureTaula = new ZebraJTable(gureModeloa);
 		gureTaula.setRowSorter(new TableRowSorter<>(gureModeloa));
 		gureTaula.setFont(new Font("Arial", Font.PLAIN, 14));

@@ -153,7 +153,7 @@ public class Menua extends JMenuBar {
 	}
 
 	private void bistaratu(String mota) {
-		TaulaPanela panela = new TaulaPanela(mota);
+		TaulaPanela panela = new TaulaPanela(mota, "", false);
 		WinterTwitter.getOraingoWT().getPanela().panelaAldatu(panela);
 	}
 
