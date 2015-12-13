@@ -3,7 +3,7 @@ Winter is Coming - ISAD 15 - 16
 
 # WinterTwitter instalatzeko:
 
-0.83 bertsioan idatzita, bertsio berriagoek beharbada zeozer desberdina izan dezakete.
+0.9 bertsioan idatzita, bertsio berriagoek beharbada zeozer desberdina izan dezakete.
 
 Programa erabili edo konpilatu aurretik:
 - Programa exekutatzeko JRE 8 edo berriagoa behar da.

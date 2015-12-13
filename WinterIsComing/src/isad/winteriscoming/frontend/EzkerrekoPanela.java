@@ -2,6 +2,7 @@ package isad.winteriscoming.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -16,18 +17,24 @@ public class EzkerrekoPanela extends JPanel implements KeyListener, MouseListene
 	private JTextField bilatu;
 	private JComboBox<String> lista;
 	private String aukeratutakoa;
+	private JPanel barrukoa;
 
 	public EzkerrekoPanela() {
 		this.setLayout(new BorderLayout());
+		barrukoa = new JPanel();
+		barrukoa.setLayout(new BorderLayout());
 		this.bilaketaBarra();
+		this.add(barrukoa, BorderLayout.PAGE_START);
 		this.setBackground(new Color(94, 169, 221));
 		this.setOpaque(true);
 	}
 
 	private void bilaketaBarra() {
 		bilatu = new JTextField("Bilatu...");
+		bilatu.setMinimumSize(new Dimension(120, 20));
+		bilatu.setPreferredSize(new Dimension(120, 20));
 		aukeratutakoa = "txioa";
-		this.add(bilatu, BorderLayout.PAGE_START);
+		barrukoa.add(bilatu, BorderLayout.PAGE_START);
 		String[] aukerak = new String[] { "Txioa", "Bertxioa", "Gustokoa", "Aipamena", "Jarraitua", "Jarraitzailea",
 				"Mezua", "Zerrenda" };
 		lista = new JComboBox<>(aukerak);
@@ -35,7 +42,7 @@ public class EzkerrekoPanela extends JPanel implements KeyListener, MouseListene
 		lista.addActionListener(gureAE -> this.aukeratua());
 		bilatu.addKeyListener(this);
 		bilatu.addMouseListener(this);
-		this.add(lista, BorderLayout.CENTER);
+		barrukoa.add(lista, BorderLayout.CENTER);
 	}
 
 	private void aukeratua() {

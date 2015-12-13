@@ -1,5 +1,7 @@
 package isad.winteriscoming.frontend;
 
+import java.awt.Color;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -10,6 +12,7 @@ public class PanelNagusia extends JPanel {
 	public PanelNagusia() {
 		this.setOpaque(true);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setBackground(new Color(217, 251, 243));
 		this.panelaDBHutsik();
 	}
 
