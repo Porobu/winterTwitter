@@ -27,7 +27,7 @@ public class WinterTwitterSalbuespena extends RuntimeException {
 			gurePW.write(ExceptionUtils.getStackTrace(this));
 			gurePW.flush();
 			gurePW.close();
-		} catch (FileNotFoundException sentitzenNaiz) {
+		} catch (FileNotFoundException errorea) {
 		}
 		String stackLaburra = ExceptionUtils.getRootCauseStackTrace(this)[1];
 		stackLaburra = stackLaburra.substring(4, stackLaburra.length());
