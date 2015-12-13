@@ -3,6 +3,7 @@ package isad.winteriscoming.frontend;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+
 import isad.winteriscoming.backend.OperazioakOffline;
 
 public class TaulaModeloa extends AbstractTableModel {

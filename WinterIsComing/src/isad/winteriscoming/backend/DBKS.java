@@ -41,7 +41,7 @@ public final class DBKS {
 		}
 		this.datubaseaKonprobatu();
 	}
-	
+
 	/**
 	 * ResultSet bat bueltatzen duten sql aginduak exekutatzen ditu.
 	 * 
@@ -58,9 +58,10 @@ public final class DBKS {
 		}
 		return emaitza;
 	}
-	
+
 	/**
 	 * Datu Basearen erantzunik behar ez duten sql aginduak exekutatzen ditu.
+	 * 
 	 * @param agindua
 	 */
 	public void aginduaExekutatu(String agindua) {
@@ -82,7 +83,7 @@ public final class DBKS {
 
 			}
 	}
-	
+
 	/**
 	 * Datu basea ondo sortu den frogatzen du
 	 */

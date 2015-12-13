@@ -3,7 +3,8 @@ package isad.winteriscoming.externals;
 /**
  * A JTable that draws a zebra striped background.
  * 
- * http://nadeausoftware.com/articles/2008/01/java_tip_how_add_zebra_background_stripes_jtable
+ * http://nadeausoftware.com/articles/2008/01/
+ * java_tip_how_add_zebra_background_stripes_jtable
  */
 public class ZebraJTable extends javax.swing.JTable {
 	private static final long serialVersionUID = -2343839590155191048L;
@@ -39,6 +40,7 @@ public class ZebraJTable extends javax.swing.JTable {
 	}
 
 	/** Add stripes between cells and behind non-opaque cells. */
+	@Override
 	public void paintComponent(java.awt.Graphics g) {
 		if (!(drawStripes = isOpaque())) {
 			super.paintComponent(g);
@@ -78,6 +80,7 @@ public class ZebraJTable extends javax.swing.JTable {
 	}
 
 	/** Add background stripes behind rendered cells. */
+	@Override
 	public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int col) {
 		final java.awt.Component c = super.prepareRenderer(renderer, row, col);
 		if (drawStripes && !isCellSelected(row, col))
@@ -86,6 +89,7 @@ public class ZebraJTable extends javax.swing.JTable {
 	}
 
 	/** Add background stripes behind edited cells. */
+	@Override
 	public java.awt.Component prepareEditor(javax.swing.table.TableCellEditor editor, int row, int col) {
 		final java.awt.Component c = super.prepareEditor(editor, row, col);
 		if (drawStripes && !isCellSelected(row, col))
@@ -94,6 +98,7 @@ public class ZebraJTable extends javax.swing.JTable {
 	}
 
 	/** Force the table to fill the viewport's height. */
+	@Override
 	public boolean getScrollableTracksViewportHeight() {
 		final java.awt.Component p = getParent();
 		if (!(p instanceof javax.swing.JViewport))
