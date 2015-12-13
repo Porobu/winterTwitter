@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class EzkerrekoPanela extends JPanel implements KeyListener {
+public class EzkerrekoPanela extends JPanel implements KeyListener, MouseListener {
 	private static final long serialVersionUID = -7717207637408579203L;
 	private JTextField bilatu;
 	private JComboBox<String> lista;
@@ -31,13 +33,18 @@ public class EzkerrekoPanela extends JPanel implements KeyListener {
 		lista = new JComboBox<>(aukerak);
 		lista.setEditable(false);
 		lista.addActionListener(gureAE -> this.aukeratua());
-
 		bilatu.addKeyListener(this);
+		bilatu.addMouseListener(this);
 		this.add(lista, BorderLayout.CENTER);
 	}
 
 	private void aukeratua() {
 		aukeratutakoa = (String) lista.getSelectedItem();
+		if (!bilatu.getText().equals("Bilatu...")) {
+			WinterTwitter.getOraingoWT().getPanela()
+					.panelaAldatu(new TaulaPanela(aukeratutakoa.toLowerCase(), bilatu.getText(), true));
+		}
+
 	}
 
 	@Override
@@ -53,6 +60,32 @@ public class EzkerrekoPanela extends JPanel implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (bilatu.getText().equals("Bilatu..."))
+			bilatu.setText("");
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
 
 	}
 

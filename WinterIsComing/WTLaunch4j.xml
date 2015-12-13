@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\Sergio\Dropbox\EZ FUNTZIONATZEN NAIZ\logoa.ico</icon>
+  <icon>C:\Users\Sergio\Dropbox\EZ FUNTZIONATZEN NAIZ\WT.ico</icon>
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
@@ -24,18 +24,18 @@
     <runtimeBits>64/32</runtimeBits>
   </jre>
   <splash>
-    <file>C:\Users\Sergio\logoa.bmp</file>
+    <file>C:\Users\Sergio\Dropbox\EZ FUNTZIONATZEN NAIZ\WT.bmp</file>
     <waitForWindow>true</waitForWindow>
     <timeout>3</timeout>
     <timeoutErr>true</timeoutErr>
   </splash>
   <versionInfo>
-    <fileVersion>0.8.4.0</fileVersion>
-    <txtFileVersion>2015-12-10</txtFileVersion>
+    <fileVersion>0.9.0.0</fileVersion>
+    <txtFileVersion>2015-12-13</txtFileVersion>
     <fileDescription>Twittereko segurtasun kopia egiteko programa</fileDescription>
-    <copyright>Sergio Pascual, Sergio Santana, Unai Arrizabalaga</copyright>
-    <productVersion>0.8.4.0</productVersion>
-    <txtProductVersion>2015-12-10</txtProductVersion>
+    <copyright>Sergio Pascual, Sergio Santana, Unai Arrizabalaga, Jonathan Nieto</copyright>
+    <productVersion>0.9.0.0</productVersion>
+    <txtProductVersion>2015-12-13</txtProductVersion>
     <productName>WinterTwitter</productName>
     <companyName>Idea And Change</companyName>
     <internalName>WinterIsComing</internalName>
