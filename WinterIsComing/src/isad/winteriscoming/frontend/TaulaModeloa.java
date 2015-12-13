@@ -10,7 +10,7 @@ public class TaulaModeloa extends AbstractTableModel {
 	private ArrayList<String[]> datuak;
 	private static final long serialVersionUID = 5416722887047816684L;
 
-	public TaulaModeloa(String mota) {
+	public TaulaModeloa(String mota, String bilatzeko, boolean bilaketa) {
 		mota = mota.toLowerCase();
 		OperazioakOffline gureOO = new OperazioakOffline();
 		if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa") || mota.equals("aipamena")) {
@@ -22,7 +22,7 @@ public class TaulaModeloa extends AbstractTableModel {
 		} else {
 			izenak = new String[] { "Data", "Edukia", "Bidaltzaile Izena", "Hartzaile Izena" };
 		}
-		datuak = gureOO.datuakJaso(mota, "", false);
+		datuak = gureOO.datuakJaso(mota, bilatzeko, bilaketa);
 	}
 
 	@Override

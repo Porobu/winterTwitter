@@ -5,15 +5,9 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import isad.winteriscoming.backend.Nagusia;
-import isad.winteriscoming.backend.OperazioakOffline;
-import isad.winteriscoming.backend.OperazioakOnline;
 
 public class EzkerrekoPanela extends JPanel implements KeyListener {
 	private static final long serialVersionUID = -7717207637408579203L;
@@ -30,7 +24,7 @@ public class EzkerrekoPanela extends JPanel implements KeyListener {
 
 	private void bilaketaBarra() {
 		bilatu = new JTextField("Bilatu...");
-
+		aukeratutakoa = "txioa";
 		bilatu.addKeyListener(this);
 		this.add(bilatu, BorderLayout.PAGE_START);
 		String[] aukerak = new String[] { "Txioa", "Bertxioa", "Gustokoa", "Aipamena", "Jarraitua", "Jarraitzailea",
@@ -47,9 +41,8 @@ public class EzkerrekoPanela extends JPanel implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		OperazioakOffline gureOFF = new OperazioakOffline();
-		gureOFF.datuakJaso(aukeratutakoa.toLowerCase(), bilatu.getText(), true);
-		WinterTwitter.getOraingoWT().getPanela().panelaAldatu(new TaulaPanela(aukeratutakoa.toLowerCase()));
+		WinterTwitter.getOraingoWT().getPanela()
+				.panelaAldatu(new TaulaPanela(aukeratutakoa.toLowerCase(), bilatu.getText(), true));
 	}
 
 	@Override
