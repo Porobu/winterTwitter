@@ -22,7 +22,7 @@ public class TaulaModeloa extends AbstractTableModel {
 		} else {
 			izenak = new String[] { "Data", "Edukia", "Bidaltzaile Izena", "Hartzaile Izena" };
 		}
-		datuak = gureOO.datuakJaso(mota);
+		datuak = gureOO.datuakJaso(mota, "", false);
 	}
 
 	@Override
