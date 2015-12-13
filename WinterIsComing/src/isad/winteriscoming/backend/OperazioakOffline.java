@@ -38,23 +38,23 @@ public class OperazioakOffline {
 			}
 		} else {
 			if (mota.equals("txioa") || mota.equals("bertxioa") || mota.equals("gustokoa")) {
-				agindua = "SELECT edukia, data FROM TXIOA WHERE mota = '" + mota + "' and edukia like '%" + bilaketa
+				agindua = "SELECT edukia, data FROM TXIOA WHERE mota = '" + mota + "' and edukia like '%" + filtroa
 						+ "%'";
 				kop = 2;
 			} else if (mota.equals("jarraitua") || mota.equals("jarraitzailea")) {
 				agindua = "SELECT izena, nick FROM BESTEERABILTZAILEAK WHERE mota = '" + mota + "' and nick like '%"
-						+ bilaketa + "%'";
+						+ filtroa + "%'";
 				kop = 2;
 			} else if (mota.equals("zerrenda")) {
 				kop = 5;
 				agindua = "SELECT ZERRENDA.izena, ZERRENDA.deskribapena, DITU.erabIzena, DITU.zerrendaIzena, DITU.erabNick  FROM ZERRENDA, DITU WHERE ZERRENDA.id = DITU.zerrenId and DITU.zerrendaIzena like '%"
-						+ bilaketa + "%'";
+						+ filtroa + "%'";
 			} else if (mota.equals("aipamena")) {
 				agindua = "SELECT edukia, data FROM AIPAMENAK WHERE edukia like '%" + bilaketa + "%'";
 				kop = 2;
 			} else {
 				agindua = "SELECT data, edukia, bidaltzaileIzena, hartzaileIzena FROM MEZUA WHERE edukia like '%"
-						+ bilaketa + "%'";
+						+ filtroa + "%'";
 				kop = 4;
 			}
 		}

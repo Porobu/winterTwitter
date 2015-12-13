@@ -25,13 +25,14 @@ public class EzkerrekoPanela extends JPanel implements KeyListener {
 	private void bilaketaBarra() {
 		bilatu = new JTextField("Bilatu...");
 		aukeratutakoa = "txioa";
-		bilatu.addKeyListener(this);
 		this.add(bilatu, BorderLayout.PAGE_START);
 		String[] aukerak = new String[] { "Txioa", "Bertxioa", "Gustokoa", "Aipamena", "Jarraitua", "Jarraitzailea",
 				"Mezua", "Zerrenda" };
 		lista = new JComboBox<>(aukerak);
 		lista.setEditable(false);
 		lista.addActionListener(gureAE -> this.aukeratua());
+
+		bilatu.addKeyListener(this);
 		this.add(lista, BorderLayout.CENTER);
 	}
 
@@ -41,13 +42,13 @@ public class EzkerrekoPanela extends JPanel implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		WinterTwitter.getOraingoWT().getPanela()
-				.panelaAldatu(new TaulaPanela(aukeratutakoa.toLowerCase(), bilatu.getText(), true));
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-
+		WinterTwitter.getOraingoWT().getPanela()
+				.panelaAldatu(new TaulaPanela(aukeratutakoa.toLowerCase(), bilatu.getText(), true));
 	}
 
 	@Override
