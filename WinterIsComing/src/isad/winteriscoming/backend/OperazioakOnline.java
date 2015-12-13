@@ -29,11 +29,6 @@ public final class OperazioakOnline {
 		return gureOperazioak != null ? gureOperazioak : (gureOperazioak = new OperazioakOnline());
 	}
 
-	// aipamenakSartu metodoa egiteke
-	// erabiltzaileakSartu metodoa egiteke (jarraitzaile & jarraituak)
-	// mezuakSartu metodoa egiteke
-	// zerrendaSartu metodoa egiteke
-
 	/**
 	 * Erabiltzailearen txio guztiak jaitsiko dira inongo parametroren beharrik
 	 * gabe.
