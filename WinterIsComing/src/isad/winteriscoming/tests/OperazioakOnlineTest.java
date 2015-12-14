@@ -3,6 +3,7 @@ package isad.winteriscoming.tests;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.sql.SQLException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,8 +30,11 @@ public class OperazioakOnlineTest {
 		String agindua = "";
 		op.txioakJaitsi();
 		agindua = "SELECT * FROM TXIOA";
-		if (DBKS.getDBKS().queryExekutatu(agindua) == null)
-			fail();
+		try {
+			if (!DBKS.getDBKS().queryExekutatu(agindua).next())
+				fail();
+		} catch (SQLException e) {
+		}
 
 	}
 
