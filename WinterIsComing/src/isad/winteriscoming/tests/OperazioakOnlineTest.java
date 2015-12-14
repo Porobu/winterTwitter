@@ -6,6 +6,7 @@ import java.io.File;
 import java.sql.SQLException;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import isad.winteriscoming.backend.DBKS;
@@ -17,7 +18,7 @@ public class OperazioakOnlineTest {
 
 	@Before
 	public void setUp() throws Exception {
-		String path = System.getProperty("user.home") + "/test.accdb";
+		String path = System.getProperty("user.home") + "/test.db";
 		File fitxategia = new File(path);
 		fitxategia.delete();
 		FitxategiOperazioakUI nireFO = new FitxategiOperazioakUI();
@@ -29,6 +30,7 @@ public class OperazioakOnlineTest {
 	public void testTxioakDBsartu() {
 		String agindua = "";
 		op.txioakJaitsi();
+		op.gustokoakJaitsi();
 		agindua = "SELECT * FROM TXIOA";
 		try {
 			if (!DBKS.getDBKS().queryExekutatu(agindua).next())
@@ -37,21 +39,54 @@ public class OperazioakOnlineTest {
 		}
 
 	}
-
+	
+	@Test
 	public void testJarraituJarraitzaileakDBSartu() {
-		// TODO
+		String agindua = "";
+		op.jarraituakJaitsi();
+		op.jarraitzaileakJaitsi();
+		agindua = "SELECT * FROM BESTEERABILTZAILEAK";
+		try {
+			if (!DBKS.getDBKS().queryExekutatu(agindua).next())
+				fail();
+		} catch (SQLException e) {
+		}
 	}
 
+	@Test
 	public void testMezuakJaitsi() {
-		// TODO
+		String agindua = "";
+		op.mezuakJaitsi();
+		agindua = "SELECT * FROM MEZUA";
+		try {
+			if (!DBKS.getDBKS().queryExekutatu(agindua).next())
+				fail();
+		} catch (SQLException e) {
+		}
 	}
 
+	@Test
 	public void testZerrendakJaitsi() {
-		// TODO
+		String agindua = "";
+		op.zerrendakJaitsi();
+		agindua = "SELECT * FROM ZERRENDA";
+		try {
+			if (!DBKS.getDBKS().queryExekutatu(agindua).next())
+				fail();
+		} catch (SQLException e) {
+		}
 	}
 
+	@Test
 	public void testAipamenakJaitisi() {
-		// TODO
+		String agindua = "";
+		op.aipamenakJaitsi();
+		agindua = "SELECT * FROM AIPAMENAK";
+		try {
+			if (!DBKS.getDBKS().queryExekutatu(agindua).next())
+				fail();
+		} catch (SQLException e) {
+		}
 	}
 
 }
