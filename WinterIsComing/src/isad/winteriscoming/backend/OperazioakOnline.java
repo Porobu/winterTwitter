@@ -22,7 +22,7 @@ import twitter4j.UserList;
 public final class OperazioakOnline {
 	private static OperazioakOnline gureOperazioak;
 
-	private OperazioakOnline() {
+	public OperazioakOnline() {
 	}
 
 	public static OperazioakOnline getOperazioak() {
