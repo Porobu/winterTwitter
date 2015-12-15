@@ -14,9 +14,9 @@ public class LaguntzaPanela extends JPanel {
 	private JTextArea textuaArea;
 
 	public LaguntzaPanela() {
-		String jaitsiLaguntza = "Jaitsi menua: Menu honekin zure twittereko datu guztiak jaitsi ditzakezu. Twitterren API limiteak direla eta, datu asko ezin izango dira jaitsi. Hau gertatzen bada programak mezu bat pantailaratuko du, eta zenbat denbora itxaron beharko duzun ezango dizu. Menu hau ezin izango da erabili Twitteren kautotu arte.";
-		String konektatuLaguntza = " Konektatu menua: Menu honekin Twitterera konektatu zaitezke. Konektatu tokenekin aukera gaituta egongo da bezte baten konektatu bazara eta PIN zenbakia sartzeko lehioan PIN gorde aukera desgaitu ez baduzu. Aukera honekin azkar konektatu zaitezke berriro Twitterrrera. Konektatu aukera erabiliz Twitterrera konektatuko zara, eta bertan agertzen den zenbakia aplikazio honetara sartu beharko duzu.";
-		String bistaratuLaguntza = " Bistaratu menua: Bistaratu menuaren aukerekin zure ordenagailuan gordetako txioak, bertxioak... ikusiko dituzu. Hauek aplikazioan bertan bistaratuko dira. Hemen bistaratzen diren datuak zure ordenagailuan jaitsitakoak dira.";
+		String jaitsiLaguntza = "Jaitsi menua: Menu honekin zure twittereko datu guztiak jaitsi ditzakezu. Twitterren API mugak direla medio, datu asko ezin izango dira jarrian jaitsi. Hau gertatzen bada programak mezu bat pantailaratuko du, non itxaron beharko duzun denbora esango duen. Menu hau ezingo da erabili Twitteren kautotu arte.";
+		String konektatuLaguntza = " Konektatu menua: Menu honekin Twitterera konektatu zaitezke. Konektatu tokenekin aukera gaituta egongo da aldez aurretik kautotu bazara eta PIN zenbakia sartzeko lehioan PIN gorde aukera desgaitu ez baduzu. Aukera honekin berehala konektatu zaitezke Twitterrera. Konektatu aukera erabiliz Twitterrera konektatuko zara, eta bertan agertzen den zenbakia aplikazioan sartu beharko duzu.";
+		String bistaratuLaguntza = " Bistaratu menua: Bistaratu menuaren aukerekin zure ordenagailuan gordetako txioak, bertxioak... ikusiko dituzu. Hauek aplikazioan bertan bistaratuko dira.";
 		String esportatuLaguntza = " Esportatu menua: Menu honen aukerekin jaitsitako datu guztiak Excel fitxategi batean kopiatuko dira. Programa honek xls fitxategiak (Excel bertsio zaharrentzako) eta xlsx fitxategiak (Excel bertsio berrientzako) sortzen ditu.";
 		String segurtasunKopiaLaguntza = " Segurtasun Kopia menua: Menu honekin datu basearen, hau da, zuk jaitsitako informazio guztiaren segurtasun kopia bat egingo da.";
 		this.setLayout(new BorderLayout());
