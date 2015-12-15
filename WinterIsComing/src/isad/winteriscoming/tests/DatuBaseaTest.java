@@ -50,6 +50,5 @@ public class DatuBaseaTest {
 		} catch (SQLException e) {
 		}
 		DBKS.getDBKS().konexioaItxi();
-		File fitxategia = new File(System.getProperty("user.home") + "/test.laccdb");
 	}
 }
