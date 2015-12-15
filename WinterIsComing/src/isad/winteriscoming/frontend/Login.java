@@ -43,6 +43,7 @@ public class Login extends JPanel implements KeyListener {
 		this.gorde = new JCheckBox("PINa gorde");
 		this.gorde.setSelected(true);
 		this.gorde.addActionListener(gureAE -> this.aldatu());
+		gorde.setBackground(new Color(217, 251, 243));
 		SpringUtilities.makeCompactGrid(this.pinPanela, 1, 2, 6, 6, 6, 6);
 		JPanel berria = new JPanel();	
 		berria.setLayout(new BorderLayout());
