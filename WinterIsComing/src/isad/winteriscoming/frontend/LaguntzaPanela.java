@@ -23,7 +23,8 @@ public class LaguntzaPanela extends JPanel {
 		this.itzuli = new JButton("Itzuli");
 		this.itzuli.addActionListener(gureAE -> WinterTwitter.getOraingoWT().getPanela().nagusiaIpini());
 		this.add(itzuli, BorderLayout.PAGE_END);
-		this.textuaArea = new JTextArea(jaitsiLaguntza + konektatuLaguntza + bistaratuLaguntza + esportatuLaguntza + segurtasunKopiaLaguntza);
+		this.textuaArea = new JTextArea(
+				jaitsiLaguntza + konektatuLaguntza + bistaratuLaguntza + esportatuLaguntza + segurtasunKopiaLaguntza);
 		textuaArea.setLineWrap(true);
 		textuaArea.setWrapStyleWord(true);
 		this.textuaArea.setEditable(false);

@@ -1,6 +1,6 @@
 package isad.winteriscoming.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import isad.winteriscoming.backend.DBKS;
-import isad.winteriscoming.backend.Konexioa;
 import isad.winteriscoming.backend.OperazioakOnline;
 import isad.winteriscoming.frontend.FitxategiOperazioakUI;
 
@@ -24,7 +23,7 @@ public class OperazioakOnlineTest {
 		FitxategiOperazioakUI nireFO = new FitxategiOperazioakUI();
 		nireFO.datuBaseaEraiki(path);
 		DBKS.getDBKS().konektatu(path);
-		//Konexioa.getKonexioa().tokenarekinKonektatu();
+		// Konexioa.getKonexioa().tokenarekinKonektatu();
 	}
 
 	@Test
@@ -40,7 +39,7 @@ public class OperazioakOnlineTest {
 		}
 
 	}
-	
+
 	@Test
 	public void testJarraituJarraitzaileakDBSartu() {
 		String agindua = "";

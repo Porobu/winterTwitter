@@ -459,8 +459,7 @@ public final class OperazioakOnline {
 		String agindua = "SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena;
 		if (taula.equals("Aipamenak"))
 			agindua = "SELECT txioid FROM " + taula + " ORDER BY txioid " + ordena;
-		ResultSet emaitza = DBKS.getDBKS()
-				.queryExekutatu(agindua);
+		ResultSet emaitza = DBKS.getDBKS().queryExekutatu(agindua);
 		try {
 			if (emaitza.next())
 				return emaitza.getLong(1);
