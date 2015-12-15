@@ -7,7 +7,6 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.sqlite.core.DB;
 
 import isad.winteriscoming.backend.DBKS;
 import isad.winteriscoming.backend.OperazioakOffline;
