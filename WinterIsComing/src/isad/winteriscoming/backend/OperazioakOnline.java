@@ -476,7 +476,7 @@ public final class OperazioakOnline {
 	 * Twitterrek itzultzen duen dataren formatoa aldatzen du euskarazko
 	 * datagatik.
 	 * 
-	 * @param data2
+	 * @param data2 data txarra
 	 * @return data berria formatoa aldatuta
 	 */
 	private String itzuliBenetakoData(Date data2) {
