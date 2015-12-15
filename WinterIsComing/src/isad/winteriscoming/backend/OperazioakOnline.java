@@ -150,8 +150,8 @@ public final class OperazioakOnline {
 			Twitter twitter = Konexioa.getKonexioa().getTwitter();
 			List<Status> aipamenak;
 			String benetakoData;
-			Long zaharrena = hartuID("Txioa", "bertxioa", "ASC");
-			Long berriena = hartuID("Txioa", "bertxioa", "DESC");
+			Long zaharrena = hartuID("Aipamenak", "", "ASC");
+			Long berriena = hartuID("Aipamenak", "", "DESC");
 			while (!amaituta) {
 				orria++;
 				aipamenak = twitter.getMentionsTimeline(new Paging(orria, 20, zaharrena));
