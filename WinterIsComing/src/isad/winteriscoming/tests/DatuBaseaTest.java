@@ -18,7 +18,7 @@ public class DatuBaseaTest {
 
 	@Before
 	public void setUp() throws Exception {
-		path = System.getProperty("user.home") + "/test.accdb";
+		path = System.getProperty("user.home") + "/test.db";
 		File fitxategia = new File(path);
 		fitxategia.delete();
 	}
@@ -49,11 +49,7 @@ public class DatuBaseaTest {
 				fail();
 		} catch (SQLException e) {
 		}
-		// ESTO NECESITA UN ARREGLEISION
-		// NO SE BORRA EL ARCHIVO DE BLOQUEO
 		DBKS.getDBKS().konexioaItxi();
 		File fitxategia = new File(System.getProperty("user.home") + "/test.laccdb");
-		if (fitxategia.exists())
-			fail();
 	}
 }
