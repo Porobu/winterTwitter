@@ -25,5 +25,4 @@ public class PanelNagusia extends JPanel {
 		textuArea.setOpaque(false);
 		this.add(textuArea);
 	}
-
 }

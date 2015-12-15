@@ -181,6 +181,8 @@ public class Menua extends JMenuBar {
 	private void laguntzaMenua() throws IOException, URISyntaxException {
 		this.laguntza = new JMenu("Laguntza");
 		this.laguntzaAukera = new JMenuItem("Laguntza");
+		this.laguntzaAukera.addActionListener(
+				gureAE -> WinterTwitter.getOraingoWT().getPanela().panelaAldatu(new LaguntzaPanela()));
 		this.webOrria = new JMenuItem("WinterTwitter-en webgunea");
 		this.webOrria.addActionListener(gureAE -> this.nabigatzaileaIreki());
 		this.wtBuruz = new JMenuItem("WinterTwitter-eri buruz");

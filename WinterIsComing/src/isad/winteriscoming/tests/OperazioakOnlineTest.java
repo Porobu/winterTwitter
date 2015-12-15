@@ -6,10 +6,10 @@ import java.io.File;
 import java.sql.SQLException;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import isad.winteriscoming.backend.DBKS;
+import isad.winteriscoming.backend.Konexioa;
 import isad.winteriscoming.backend.OperazioakOnline;
 import isad.winteriscoming.frontend.FitxategiOperazioakUI;
 
@@ -24,6 +24,7 @@ public class OperazioakOnlineTest {
 		FitxategiOperazioakUI nireFO = new FitxategiOperazioakUI();
 		nireFO.datuBaseaEraiki(path);
 		DBKS.getDBKS().konektatu(path);
+		//Konexioa.getKonexioa().tokenarekinKonektatu();
 	}
 
 	@Test
