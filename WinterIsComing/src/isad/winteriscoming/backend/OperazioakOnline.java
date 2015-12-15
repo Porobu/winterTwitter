@@ -456,8 +456,11 @@ public final class OperazioakOnline {
 	 * @return IDa handiena edo txikiena
 	 */
 	public long hartuID(String taula, String mota, String ordena) {
+		String agindua = "SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena;
+		if (taula.equals("Aipamenak"))
+			agindua = "SELECT txioid FROM " + taula + " ORDER BY txioid " + ordena;
 		ResultSet emaitza = DBKS.getDBKS()
-				.queryExekutatu("SELECT ID FROM " + taula + " WHERE MOTA = '" + mota + "' ORDER BY ID " + ordena);
+				.queryExekutatu(agindua);
 		try {
 			if (emaitza.next())
 				return emaitza.getLong(1);
