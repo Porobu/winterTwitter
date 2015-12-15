@@ -15,7 +15,6 @@ public class LaguntzaPanela extends JPanel {
 	private JTextArea textuaArea;
 
 	public LaguntzaPanela() {
-	
 		String jaitsiLaguntza = "Jaitsi menua: Menu honekin zure twittereko datu guztiak jaitsi ditzakezu. Twitterren API mugak direla medio, datu asko ezin izango dira jarrian jaitsi. Hau gertatzen bada programak mezu bat pantailaratuko du, non itxaron beharko duzun denbora esango duen. Menu hau ezingo da erabili Twitteren kautotu arte.";
 		String konektatuLaguntza = " Konektatu menua: Menu honekin Twitterera konektatu zaitezke. Konektatu tokenekin aukera gaituta egongo da aldez aurretik kautotu bazara eta PIN zenbakia sartzeko lehioan PIN gorde aukera desgaitu ez baduzu. Aukera honekin berehala konektatu zaitezke Twitterrera. Konektatu aukera erabiliz Twitterrera konektatuko zara, eta bertan agertzen den zenbakia aplikazioan sartu beharko duzu.";
 		String bistaratuLaguntza = " Bistaratu menua: Bistaratu menuaren aukerekin zure ordenagailuan gordetako txioak, bertxioak... ikusiko dituzu. Hauek aplikazioan bertan bistaratuko dira.";
