@@ -58,7 +58,7 @@ public class Menua extends JMenuBar {
 		konexioa = new JMenu("Konexioa");
 		konektatu = new JMenuItem("Konektatu");
 		deskonektatu = new JMenuItem("Deskonektatu");
-		konektatuTokenekin = new JMenuItem("Konektatu Gordetako Erabiltzailearekin");
+		konektatuTokenekin = new JMenuItem("Saioa Berreskuratu");
 		konektatuTokenekin.addActionListener(gureAE -> Konexioa.getKonexioa().tokenarekinKonektatu());
 		konektatu.addActionListener(gureAE -> Konexioa.getKonexioa().logeatu());
 		deskonektatu.addActionListener(gureAE -> Konexioa.getKonexioa().deskonektatu());

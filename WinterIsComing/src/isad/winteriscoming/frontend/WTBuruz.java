@@ -1,6 +1,7 @@
 package isad.winteriscoming.frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -27,10 +28,12 @@ public class WTBuruz extends JPanel {
 		textuaArea.setLineWrap(true);
 		textuaArea.setWrapStyleWord(true);
 		this.textuaArea.setEditable(false);
+		textuaArea.setBackground(new Color(217, 251, 243));
 		JScrollPane sp = new JScrollPane(textuaArea);
 		this.add(sp, BorderLayout.CENTER);
 		bertsioa = new JTextField(Nagusia.IZENBURUA);
 		bertsioa.setEditable(false);
+		bertsioa.setBackground(new Color(217, 251, 243));
 		this.add(bertsioa, BorderLayout.PAGE_START);
 		this.setOpaque(true);
 	}

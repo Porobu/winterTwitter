@@ -1,6 +1,7 @@
 package isad.winteriscoming.frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,6 +33,7 @@ public class Login extends JPanel implements KeyListener {
 		tokenakGorde = true;
 		this.setLayout(new BorderLayout());
 		this.pinPanela = new JPanel(new SpringLayout());
+		pinPanela.setBackground(new Color(217, 251, 243));
 		pinString = "PIN: ";
 		this.pin = new JLabel(pinString, SwingConstants.TRAILING);
 		this.pinPanela.add(pin);
@@ -42,10 +44,11 @@ public class Login extends JPanel implements KeyListener {
 		this.gorde.setSelected(true);
 		this.gorde.addActionListener(gureAE -> this.aldatu());
 		SpringUtilities.makeCompactGrid(this.pinPanela, 1, 2, 6, 6, 6, 6);
-		JPanel berria = new JPanel();
+		JPanel berria = new JPanel();	
 		berria.setLayout(new BorderLayout());
 		berria.add(this.pinPanela, BorderLayout.PAGE_START);
 		berria.add(this.gorde, BorderLayout.CENTER);
+		berria.setBackground(new Color(217, 251, 243));
 		this.add(berria, BorderLayout.PAGE_START);
 		this.ok = new JButton("Sartu");
 		this.ok.addActionListener(gureAE -> this.datuakGorde());
@@ -55,6 +58,7 @@ public class Login extends JPanel implements KeyListener {
 		this.setMinimumSize(new Dimension(210, 110));
 		this.setVisible(true);
 		this.setOpaque(true);
+		this.setBackground(new Color(217, 251, 243));
 		Login.gureLogin = this;
 	}
 

@@ -1,6 +1,7 @@
 package isad.winteriscoming.frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JPanel;
 
@@ -12,6 +13,7 @@ public class WinterTwitterPanel extends JPanel {
 
 	public WinterTwitterPanel() {
 		nagusia = new PanelNagusia();
+		this.setBackground(new Color(217, 251, 243));
 		this.setOpaque(true);
 		this.setLayout(new BorderLayout());
 		barra = new EzkerrekoPanela();
