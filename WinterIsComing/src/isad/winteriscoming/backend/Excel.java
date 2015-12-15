@@ -54,7 +54,7 @@ public class Excel {
 	}
 	/**
 	 * Txioak orria idazten du liburuan
-	 * @throws SQLException
+	 * @throws SQLException Salbuespena botatzen du DBa ezin bada irakurri
 	 */
 
 	private void txioakOrriaEgin() throws SQLException {
@@ -77,7 +77,7 @@ public class Excel {
 	
 	/**
 	 * Bertxioak orria idazten du liburuan
-	 * @throws SQLException
+	 * @throws SQLException SQLException Salbuespena botatzen du DBa ezin bada irakurri
 	 */
 	private void bertxioakOrriaEgin() throws SQLException {
 		bertxioak = wb.createSheet("Bertxioak");
@@ -99,7 +99,7 @@ public class Excel {
 	
 	/**
 	 * Gustokoak orria idazten du liburuan
-	 * @throws SQLException
+	 * @throws SQLException SQLException Salbuespena botatzen du DBa ezin bada irakurri
 	 */
 	private void gustokoakOrriaEgin() throws SQLException {
 		gustokoak = wb.createSheet("Gustokoak");
@@ -122,7 +122,7 @@ public class Excel {
 	
 	/**
 	 * Jarraituak orria idazten du liburuan
-	 * @throws SQLException
+	 * @throws SQLException SQLException Salbuespena botatzen du DBa ezin bada irakurri
 	 */
 	private void jarraituakOrriaEgin() throws SQLException {
 		jarraituak = wb.createSheet("Jarraituak");
@@ -147,7 +147,7 @@ public class Excel {
 	
 	/**
 	 * Jarraitzaileak orria idazten du liburuan
-	 * @throws SQLException
+	 * @throws SQLException SQLException Salbuespena botatzen du DBa ezin bada irakurri
 	 */
 	private void jarraitzaileakOrriaEgin() throws SQLException {
 		jarraitzaileak = wb.createSheet("Jarraitzaileak");
@@ -171,7 +171,7 @@ public class Excel {
 
 	/**
 	 * Zerrendak orria idazten du liburuan
-	 * @throws SQLException
+	 * @throws SQLException SQLException Salbuespena botatzen du DBa ezin bada irakurri
 	 */
 	private void zerrendakOrriaEgin() throws SQLException {
 		zerrendak = wb.createSheet("Zerrendak");
@@ -192,7 +192,7 @@ public class Excel {
 
 	/**
 	 * Mezuak orria idazten du liburuan
-	 * @throws SQLException
+	 * @throws SQLException SQLException Salbuespena botatzen du DBa ezin bada irakurri
 	 */
 	private void mezuakOrriaEgin() throws SQLException {
 		mezuak = wb.createSheet("Mezuak");

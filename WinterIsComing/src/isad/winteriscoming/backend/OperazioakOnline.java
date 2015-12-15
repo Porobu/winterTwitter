@@ -118,8 +118,8 @@ public final class OperazioakOnline {
 	/**
 	 * Erabiltzailearen txio zein bertxioak datu basera sartuko dira.
 	 * 
-	 * @param txioak
-	 * @param mota
+	 * @param txioak txioen lista
+	 * @param mota Zein motakkoa den
 	 */
 	private void txioakDBsartu(List<Status> txioak, String mota) {
 		String benetakoData = "";
@@ -262,8 +262,8 @@ public final class OperazioakOnline {
 	 * Erabiltzailea jarraitzen duten eta erabiltzaileak jarraitzen dituen
 	 * erabiltzaileak jaitsiko ditu.
 	 * 
-	 * @param jarraituJarraitzaileak
-	 * @param mota
+	 * @param jarraituJarraitzaileak Jarraitu / Jarraitzaileen lista
+	 * @param mota Listaren mota
 	 */
 	public void jarraituJarraitzaileakDBSartu(PagableResponseList<User> jarraituJarraitzaileak, String mota) {
 		String agindua;
@@ -450,9 +450,9 @@ public final class OperazioakOnline {
 	 * Datu basetik IDak jasotzen ditu eta ikusten du ea ordena gorakorra edo
 	 * beherakorra den eta horren arabera ID ezberdina bueltatuko du.
 	 * 
-	 * @param taula
-	 * @param mota
-	 * @param ordena
+	 * @param taula DBtik nondik hartu behar diren datuak
+	 * @param mota Zein motakoa den 
+	 * @param ordena Ordena, gorakorra edo beherakorra
 	 * @return IDa handiena edo txikiena
 	 */
 	public long hartuID(String taula, String mota, String ordena) {

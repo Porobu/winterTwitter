@@ -57,7 +57,7 @@ public final class DBKS {
 	/**
 	 * ResultSet bat bueltatzen duten sql aginduak exekutatzen ditu.
 	 * 
-	 * @param agindua
+	 * @param agindua Exekutatzeko agindua
 	 * @return Datu Baseari eskatutako datuak bueltatzen ditu.
 	 */
 	public ResultSet queryExekutatu(String agindua) {
@@ -74,7 +74,7 @@ public final class DBKS {
 	/**
 	 * Datu Basearen erantzunik behar ez duten sql aginduak exekutatzen ditu.
 	 * 
-	 * @param agindua
+	 * @param agindua Exekutatzeko agindua
 	 */
 	public void aginduaExekutatu(String agindua) {
 		try {
