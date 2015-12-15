@@ -20,6 +20,12 @@ public final class DBKS {
 		return gureDBKS != null ? gureDBKS : (gureDBKS = new DBKS());
 	}
 
+	/**
+	 * Metodo honek defektuzko datu basearen path-a itzultzen du,
+	 * erabiltzaileraren karpeta pertsonala + WinterTwitter.db
+	 * 
+	 * @return Datu basea egoteko defektuzko lekua (null ez bada aurkitu)
+	 */
 	public String getDefaultPath() {
 		File f = new File(System.getProperty("user.home") + "/WinterTwitter.db");
 		if (f.exists())
@@ -28,6 +34,12 @@ public final class DBKS {
 			return null;
 	}
 
+	/**
+	 * Datu base batetara konekatzen da, SQLite erabiliz
+	 * 
+	 * @param path
+	 *            Datu basea dagoen lekua (ezin da null izan)
+	 */
 	public void konektatu(String path) {
 		try {
 			Class.forName("org.sqlite.JDBC").newInstance();
@@ -73,6 +85,10 @@ public final class DBKS {
 		}
 	}
 
+	/**
+	 * Datu basean commit() egiten du egiteke dagoena bukatzeko, konexioa ixten
+	 * du datu basearekin eta klasearen instantzia berri bat sortzen du
+	 */
 	public void konexioaItxi() {
 		if (this.konexioa != null)
 			try {
@@ -85,7 +101,7 @@ public final class DBKS {
 	}
 
 	/**
-	 * Datu basea ondo sortu den frogatzen du
+	 * Datu basea baliozkoa den frogatzen du
 	 */
 	private void datubaseaKonprobatu() {
 		Statement st;

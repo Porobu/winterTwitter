@@ -16,7 +16,11 @@ public class FitxategiOperazioak {
 	public FitxategiOperazioak() {
 
 	}
-
+	
+/**
+ * Datu basea kopiatzen du esandako lekura
+ * @param path Nora kopiatu datu basea
+ */
 	public void kopiatu(String path) {
 		File oraingoa = new File(Nagusia.getPath());
 		File berria = new File(path);
@@ -27,6 +31,12 @@ public class FitxategiOperazioak {
 		}
 	}
 
+	/**
+	 * Datu basea ateratzen du Jar fitxategitik, eta esandako lekura idazten du
+	 * @param resourceName Zein fitxategi kopiatu
+	 * @param path Nora kopiatu
+	 * @return Kopiatutako fitxategiaren lekua
+	 */
 	public String dbEsportatu(String resourceName, String path) {
 		InputStream stream = null;
 		OutputStream resStreamOut = null;

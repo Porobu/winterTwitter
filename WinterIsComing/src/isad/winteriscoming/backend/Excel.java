@@ -23,7 +23,12 @@ public class Excel {
 	public Excel() {
 
 	}
-
+/**
+ * Excel liburu berri bat idazten du, datu baseko datuak hartuta
+ * @param path Non idatzi behar den liburua
+ * @param urtea Zein Excel bertsiorako izango den 2007 edo 2003
+ * @return boolear bat itzultzen du, {@code true} ondo egin bada, {@code false} bestela
+ */
 	public boolean idatzi(String path, int urtea) {
 		if (urtea == 2003)
 			wb = new HSSFWorkbook();
@@ -47,6 +52,10 @@ public class Excel {
 		}
 		return true;
 	}
+	/**
+	 * Txioak orria idazten du liburuan
+	 * @throws SQLException
+	 */
 
 	private void txioakOrriaEgin() throws SQLException {
 		txioak = wb.createSheet("Txioak");
@@ -65,7 +74,11 @@ public class Excel {
 			i++;
 		}
 	}
-
+	
+	/**
+	 * Bertxioak orria idazten du liburuan
+	 * @throws SQLException
+	 */
 	private void bertxioakOrriaEgin() throws SQLException {
 		bertxioak = wb.createSheet("Bertxioak");
 		bertxioak.setSelected(true);
@@ -83,7 +96,11 @@ public class Excel {
 			i++;
 		}
 	}
-
+	
+	/**
+	 * Gustokoak orria idazten du liburuan
+	 * @throws SQLException
+	 */
 	private void gustokoakOrriaEgin() throws SQLException {
 		gustokoak = wb.createSheet("Gustokoak");
 		gustokoak.setSelected(true);
@@ -102,7 +119,11 @@ public class Excel {
 			i++;
 		}
 	}
-
+	
+	/**
+	 * Jarraituak orria idazten du liburuan
+	 * @throws SQLException
+	 */
 	private void jarraituakOrriaEgin() throws SQLException {
 		jarraituak = wb.createSheet("Jarraituak");
 		jarraituak.setSelected(true);
@@ -123,7 +144,11 @@ public class Excel {
 			i++;
 		}
 	}
-
+	
+	/**
+	 * Jarraitzaileak orria idazten du liburuan
+	 * @throws SQLException
+	 */
 	private void jarraitzaileakOrriaEgin() throws SQLException {
 		jarraitzaileak = wb.createSheet("Jarraitzaileak");
 		jarraitzaileak.setSelected(true);
@@ -144,6 +169,10 @@ public class Excel {
 		}
 	}
 
+	/**
+	 * Zerrendak orria idazten du liburuan
+	 * @throws SQLException
+	 */
 	private void zerrendakOrriaEgin() throws SQLException {
 		zerrendak = wb.createSheet("Zerrendak");
 		zerrendak.setSelected(true);
@@ -161,6 +190,10 @@ public class Excel {
 		}
 	}
 
+	/**
+	 * Mezuak orria idazten du liburuan
+	 * @throws SQLException
+	 */
 	private void mezuakOrriaEgin() throws SQLException {
 		mezuak = wb.createSheet("Mezuak");
 		mezuak.setSelected(true);
