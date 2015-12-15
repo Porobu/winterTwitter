@@ -58,12 +58,12 @@ public class Menua extends JMenuBar {
 		konexioa = new JMenu("Konexioa");
 		konektatu = new JMenuItem("Konektatu");
 		deskonektatu = new JMenuItem("Deskonektatu");
-		konektatuTokenekin = new JMenuItem("Saioa Berreskuratu");
+		konektatuTokenekin = new JMenuItem("Konektatu Tokenekin");
 		konektatuTokenekin.addActionListener(gureAE -> Konexioa.getKonexioa().tokenarekinKonektatu());
+		konexioa.add(konektatuTokenekin);
 		konektatu.addActionListener(gureAE -> Konexioa.getKonexioa().logeatu());
 		deskonektatu.addActionListener(gureAE -> Konexioa.getKonexioa().deskonektatu());
 		konexioa.add(konektatu);
-		konexioa.add(konektatuTokenekin);
 		konexioa.add(deskonektatu);
 		this.add(konexioa);
 		Menua.botoiakHasieranEtaDeskonektatzean();
@@ -109,10 +109,10 @@ public class Menua extends JMenuBar {
 		jaitsi.add(txioak);
 		txioak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().txioakJaitsi());
 		jaitsi.add(gustokoak);
-		gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
-		jaitsi.add(jarraituak);
 		aipamenak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().aipamenakJaitsi());
 		jaitsi.add(aipamenak);
+		gustokoak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().gustokoakJaitsi());
+		jaitsi.add(jarraituak);
 		jarraituak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraituakJaitsi());
 		jaitsi.add(jarraitzaileak);
 		jarraitzaileak.addActionListener(gureAE -> OperazioakOnline.getOperazioak().jarraitzaileakJaitsi());
@@ -181,8 +181,6 @@ public class Menua extends JMenuBar {
 	private void laguntzaMenua() throws IOException, URISyntaxException {
 		this.laguntza = new JMenu("Laguntza");
 		this.laguntzaAukera = new JMenuItem("Laguntza");
-		this.laguntzaAukera.addActionListener(
-				gureAE -> WinterTwitter.getOraingoWT().getPanela().panelaAldatu(new LaguntzaPanela()));
 		this.webOrria = new JMenuItem("WinterTwitter-en webgunea");
 		this.webOrria.addActionListener(gureAE -> this.nabigatzaileaIreki());
 		this.wtBuruz = new JMenuItem("WinterTwitter-eri buruz");
