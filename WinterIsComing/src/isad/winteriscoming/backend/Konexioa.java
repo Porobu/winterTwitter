@@ -88,8 +88,10 @@ public class Konexioa {
 	 * Erabiltzaile berri bat sortzean bera kautotzeko erabili diren tokenak
 	 * datu basean gordeko dira.
 	 * 
-	 * @param token Twittereko tokena
-	 * @param tokenSecret Twitterreko token sekretua
+	 * @param token
+	 *            Twittereko tokena
+	 * @param tokenSecret
+	 *            Twitterreko token sekretua
 	 */
 	private void kredentzialakGorde(String token, String tokenSecret) {
 		User us = null;
@@ -150,6 +152,8 @@ public class Konexioa {
 			user = twitter.verifyCredentials();
 		} catch (TwitterException e) {
 		}
+		if (user == null)
+			throw new WinterTwitterSalbuespena("Ezin da Twitterrera konektatu gordetako erabiltzailearerkin!");
 		String izena = user.getName();
 		String nick = user.getScreenName();
 		JOptionPane.showMessageDialog(WinterTwitter.getOraingoWT(),
